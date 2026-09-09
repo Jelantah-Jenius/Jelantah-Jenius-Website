@@ -299,6 +299,8 @@ nav.sticky {
   grid-template-columns: repeat(4, 1fr);
   gap: 3rem;
   margin-top: 5rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .team-card {
