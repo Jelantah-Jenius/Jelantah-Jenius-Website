@@ -293,6 +293,11 @@ nav.sticky {
   margin-bottom: 2rem;
 }
 
+.content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto 0 auto;
+}
 /* Cards for Team/Members */
 .team-grid {
   display: grid;
