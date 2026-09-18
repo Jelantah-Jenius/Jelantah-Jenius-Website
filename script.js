@@ -53,3 +53,21 @@ navLinks.forEach((link) => {
     body.style.overflow = "auto";
   });
 });
+
+let currentActiveManager = null;
+
+function toggleSharedMembers(managerName) {
+  const container = document.getElementById('shared-members-container');
+  const title = document.getElementById('active-manager-title');
+
+  // If clicking the same manager that's already open, close it
+  if (currentActiveManager === managerName) {
+    container.style.display = 'none';
+    currentActiveManager = null;
+  } else {
+    // Open panel and update heading title
+    title.textContent = `Team Members under ${managerName}`;
+    container.style.display = 'block';
+    currentActiveManager = managerName;
+  }
+}
