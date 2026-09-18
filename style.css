@@ -515,3 +515,56 @@ nav.sticky {
     display: none;
   }
 }
+
+/* Container spacing */
+.directors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 5rem auto 0 auto;
+}
+
+/* Base Dropdown Box */
+.department-dropdown {
+  background: var(--white);
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Clickable Director Card Header */
+.director-card {
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  list-style: none; /* Hides default HTML dropdown arrow */
+  position: relative;
+}
+
+.director-card::-webkit-details-marker {
+  display: none; /* Hides default WebKit arrow */
+}
+
+/* Chevron Styling & Smooth Rotation */
+.toggle-icon {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+details[open] .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* Expanded Grid Layout for Sub-members */
+.subteam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem 2rem 2rem 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
