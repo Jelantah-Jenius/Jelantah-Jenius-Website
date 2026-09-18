@@ -521,9 +521,12 @@ nav.sticky {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  padding: 0 2rem;
+  width: 100%;
   max-width: 1200px;
   margin: 5rem auto 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  align-items: start;
 }
 
 /* Base Dropdown Box */
