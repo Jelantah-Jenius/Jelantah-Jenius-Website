@@ -609,14 +609,12 @@ details[open] .toggle-icon {
 /* Card summary styling displaying both managers side-by-side */
 .combined-manager-card {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  align-items: flex-start; /* Align profiles at top so avatars line up */
+  justify-content: space-between;
+  padding: 2rem 1.5rem 2.5rem 1.5rem; /* Match top & side padding with single card */
   cursor: pointer;
   list-style: none;
-  position: relative;
-  padding: 1.5rem;
-  text-align: center;
-  cursor: pointer;
+  position: relative; /* Allows absolute positioning for arrow */
 }
 
 .combined-manager-card::-webkit-details-marker {
@@ -626,13 +624,27 @@ details[open] .toggle-icon {
 .manager-profile {
   flex: 1;
   text-align: center;
+  padding: 0 0.5rem; /* Prevents text from touching the ampersand */
+}
+
+.manager-profile h4 {
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.25;
+}
+
+.manager-profile p {
+  font-size: 0.85rem;
+  line-height: 1.3;
+  margin: 0;
 }
 
 .manager-divider {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary, #333);
-  padding: 0 1rem;
+  margin-top: 2rem; /* Aligns ampersand horizontally with center of avatars */
 }
 
 /* Members section inside the dropdown */
@@ -682,4 +694,11 @@ details[open] > summary .toggle-arrow-sm {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.combined-manager-card .dropdown-arrow-wrapper {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
