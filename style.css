@@ -576,3 +576,59 @@ details[open] .toggle-icon {
   padding: 1.5rem 2rem 2rem 2rem;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
+
+/* Layout for the managers grid inside the director dropdown */
+.managers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+  align-items: start;
+}
+
+/* Manager level card styling */
+.manager-dropdown {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.manager-card {
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  list-style: none;
+}
+
+.manager-card::-webkit-details-marker {
+  display: none;
+}
+
+/* Nested Members display grid */
+.members-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+}
+
+.member-card {
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: var(--white);
+  text-align: center;
+}
+
+/* Chevron animations for nested dropdowns */
+.toggle-arrow-sm {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+details[open] > summary .toggle-arrow-sm {
+  transform: rotate(180deg);
+}
