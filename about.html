@@ -113,33 +113,34 @@
           <p>Director of Internal Affairs</p>
           <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
         </summary>
-        <div class="managers-grid">
-          <div class="manager-card" onclick="toggleSharedMembers('Aljawharah Mustafa Ali Al Saihati')">
-            <div class="avatar" style="background-image: url('attached_assets/Alja.png');"></div>
-            <h4>Aljawharah Mustafa Ali Al Saihati</h4>
-            <p>Manager of Internal Affairs</p>
-            <i class="fas fa-chevron-down toggle-arrow-sm"></i>
-          </div>
-          <div class="manager-card" onclick="toggleSharedMembers('Angelique Audrianna Natanielle')">
-            <div class="avatar" style="background-image: url('attached_assets/Angelique.png');"></div>
-            <h4>Angelique Audrianna Natanielle</h4>
-            <p>Manager of Public Affairs & Partnership</p>
-            <i class="fas fa-chevron-down toggle-arrow-sm"></i>
-          </div>
-          <div id="shared-members-container" class="shared-members-panel" style="display: none;">
-            <h4 id="active-manager-title"></h4>
-            <div class="members-grid">
-              <div class="team-card member-card">
-                <h4>Member Name 1</h4>
-                <p>Department Staff</p>
-              </div>
-              <div class="team-card member-card">
-                <h4>Member Name 2</h4>
-                <p>Department Staff</p>
-              </div>
+        <details class="manager-dropdown">
+          <summary class="manager-card combined-manager-card">
+            <div class="manager-profile">
+              <div class="avatar" style="background-image: url('attached_assets/Alja.png');"></div>
+              <h4>Aljawharah Mustafa Ali Al Saihati</h4>
+              <p>Manager of Internal Affairs</p>
+            </div>
+            <div class="manager-divider">&</div>
+            <div class="manager-profile">
+              <div class="avatar" style="background-image: url('attached_assets/Angelique.png');"></div>
+              <h4>Angelique Audrianna Natanielle</h4>
+              <p>Manager of Public Affairs & Partnership</p>
+            </div>
+            <div class="dropdown-arrow-wrapper">
+              <i class="fas fa-chevron-down toggle-arrow-sm"></i>
+            </div>
+          </summary>
+          <div class="members-grid">
+            <div class="team-card member-card">
+              <h4>Member Name 1</h4>
+              <p>Department Staff</p>
+            </div>
+            <div class="team-card member-card">
+              <h4>Member Name 2</h4>
+              <p>Department Staff</p>
             </div>
           </div>
-        </div>
+        </details>
       </details>
     </div>
   </section>
