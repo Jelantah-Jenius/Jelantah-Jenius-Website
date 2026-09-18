@@ -632,3 +632,24 @@ details[open] .toggle-icon {
 details[open] > summary .toggle-arrow-sm {
   transform: rotate(180deg);
 }
+
+.shared-members-panel {
+  grid-column: 1 / -1; /* Spans full width across both manager columns */
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.shared-members-panel h4 {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
