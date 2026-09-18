@@ -601,12 +601,6 @@ details[open] .toggle-icon {
   list-style: none;
 }
 
-.manager-card-wrapper {
-  background: #ffffff;
-  padding: 1.25rem; /* Matches the outer padding in Rachelle's card */
-  border-radius: 36px;
-}
-
 .manager-card::-webkit-details-marker {
   display: none;
 }
@@ -616,7 +610,7 @@ details[open] .toggle-icon {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 3.5rem 1.5rem 3rem 1.5rem;
+  padding: 1.5rem;
   cursor: pointer;
   list-style: none;
   position: relative;
