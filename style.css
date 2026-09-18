@@ -610,7 +610,7 @@ details[open] .toggle-icon {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 1.5rem 1.5rem 2.25rem 1.5rem;
+  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
   cursor: pointer;
   list-style: none;
   position: relative;
