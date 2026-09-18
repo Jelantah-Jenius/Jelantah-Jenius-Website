@@ -611,10 +611,12 @@ details[open] .toggle-icon {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 1.5rem;
   cursor: pointer;
   list-style: none;
   position: relative;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
 }
 
 .combined-manager-card::-webkit-details-marker {
