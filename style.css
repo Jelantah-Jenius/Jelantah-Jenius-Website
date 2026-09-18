@@ -588,11 +588,10 @@ details[open] .toggle-icon {
 
 /* Manager level card styling */
 .manager-dropdown {
-  grid-column: 1 / -1;
   background: rgba(0, 0, 0, 0.02);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .manager-card {
@@ -602,6 +601,13 @@ details[open] .toggle-icon {
   list-style: none;
 }
 
+.manager-card-wrapper {
+  background: #ffffff;
+  padding: 1.25rem; /* Matches the outer padding in Rachelle's card */
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
 .manager-card::-webkit-details-marker {
   display: none;
 }
@@ -609,12 +615,12 @@ details[open] .toggle-icon {
 /* Card summary styling displaying both managers side-by-side */
 .combined-manager-card {
   display: flex;
-  align-items: flex-start; /* Align profiles at top so avatars line up */
+  align-items: center;
   justify-content: space-between;
-  padding: 2rem 1.5rem 2.5rem 1.5rem; /* Match top & side padding with single card */
+  padding: 1.5rem 1rem 2rem 1rem;
   cursor: pointer;
   list-style: none;
-  position: relative; /* Allows absolute positioning for arrow */
+  position: relative;
 }
 
 .combined-manager-card::-webkit-details-marker {
