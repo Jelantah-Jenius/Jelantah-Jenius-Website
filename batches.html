@@ -126,49 +126,5 @@
   </section>
 
   <script src="script.js"></script>
-  <script>
-    function toggleVideoZoom(videoElem, btnId) {
-      const backdrop = document.getElementById('videoBackdrop');
-      const isZoomed = videoElem.classList.toggle('center-overlay');
-      const btn = document.getElementById(btnId);
-      const btnIcon = btn ? btn.querySelector('i') : null;
-      const btnText = btn ? btn.querySelector('span') : null;
-
-      if (backdrop) backdrop.classList.toggle('active', isZoomed);
-
-      if (isZoomed) {
-        videoElem.muted = false;
-        if (btnIcon) btnIcon.className = 'fa-solid fa-volume';
-        if (btnText) btnText.textContent = 'Mute video';
-      } else {
-        videoElem.muted = true;
-        if (btnIcon) btnIcon.className = 'fa-solid fa-volume-xmark';
-        if (btnText) btnText.textContent = 'Unmute video';
-      }
-    }
-
-    function toggleMute(videoId, btnElem) {
-      const video = document.getElementById(videoId);
-      const icon = btnElem.querySelector('i');
-      const text = btnElem.querySelector('span');
-
-      video.muted = !video.muted;
-      if (video.muted) {
-        icon.className = 'fa-solid fa-volume-xmark';
-        text.textContent = 'Unmute video';
-      } else {
-        icon.className = 'fa-solid fa-volume';
-        text.textContent = 'Mute video';
-      }
-    }
-
-    function closeActiveVideo() {
-      const zoomed = document.querySelector('video.center-overlay');
-      if (zoomed) {
-        const btnId = zoomed.id === 'recapVideo1' ? 'muteToggleBtn1' : 'muteToggleBtn2';
-        toggleVideoZoom(zoomed, btnId);
-      }
-    }
-  </script>
 </body>
 </html>
