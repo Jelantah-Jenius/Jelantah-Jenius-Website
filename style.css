@@ -253,6 +253,12 @@ nav.sticky {
   align-items: center;
 }
 
+.images-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .image-container {
   position: relative;
   border-radius: 40px;
