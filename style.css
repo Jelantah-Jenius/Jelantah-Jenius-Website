@@ -253,10 +253,16 @@ nav.sticky {
   align-items: center;
 }
 
-.images-wrapper {
+.images-wrapper-vertical {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.images-wrapper-horizontal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .image-container {
