@@ -57,6 +57,50 @@
     </div>
   </section>
 
+  <div class="section-divider">
+    <i class="fa-solid fa-leaf"></i>
+  </div>
+
+  <section class="programs">
+    <div class="content-box">
+      <div class="text-container">
+        <h3>Jelantah Xpand</h3>
+        <p>Jelantah Xpand is an expansion initiative designed to broaden the organization's reach by participating in educational forums, exhibitions, and interactive events. Through this program, Jelantah Jenius engages with students, experts, and the broader community to exchange knowledge and raise awareness about sustainable waste management.</p>
+      </div>
+      <div style="width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <video
+          id="jelantahxpand"
+          controls
+          autoplay
+          muted
+          loop
+          playsinline
+          width="100%"
+          style="border-radius: 8px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: block; background: #000;">
+          <source src="attached_assets/Jelantah Xpand.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+          <a href="javascript:void(0)" 
+             id="muteToggleBtn2"
+             onclick="toggleMute('jelantahxpand', this)" 
+             style="color: var(--primary); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+            <i class="fa-solid fa-volume-xmark"></i>
+            <span>Unmute video</span>
+          </a>
+
+          <a href="javascript:void(0)"
+             onclick="toggleVideoZoom(document.getElementById('jelantahxpand'), 'muteToggleBtn2')"
+             style="color: #666; text-decoration: none; font-size: 0.875rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+            <span>Zoom video</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
