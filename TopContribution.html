@@ -98,10 +98,6 @@
       border: 2px solid var(--primary);
     }
     .btn-outline:hover { background: var(--primary); color: white; }
-    .btn-small { padding: 0.5rem 1rem; font-size: 0.9rem; margin-right: 0.5rem; }
-    .btn-danger { background: #dc3545; }
-    
-    .admin-controls { display: none; }
   </style>
 </head>
 <body>
@@ -135,22 +131,20 @@
         <div class="header-flex">
           <h2>Top Contribution</h2>
           <div>
-            <button id="loginBtn" class="btn-action btn-outline">Login Admin</button>
-            <button id="logoutBtn" class="btn-action btn-outline" style="display: none;">Logout Admin</button>
+            <button id="loginBtn" class="btn-action btn-outline">Admin Login</button>
+            <button id="logoutBtn" class="btn-action btn-outline" style="display: none;">Admin Logout</button>
           </div>
         </div>
         
-        <p style="color: var(--text-muted); margin-bottom: 2rem;">Pantau kelas atau partisipan dengan pengumpulan Jumat Jelantah terbanyak.</p>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Track the classes or participants with the highest Friday Jelantah collections.</p>
 
         <!-- Admin Panel -->
         <div id="adminPanel" class="admin-panel">
-          <h3><i class="fas fa-plus-circle"></i> Tambah / Edit Kontribusi</h3>
+          <h3><i class="fas fa-plus-circle"></i> Add Contribution</h3>
           <form id="addForm" class="admin-form">
-            <input type="hidden" id="editId">
-            <input type="text" id="namaInput" placeholder="Nama Peserta / Kelas" required>
-            <input type="number" id="skorInput" placeholder="Jumlah Jelantah (Liter)" step="0.1" required>
-            <button type="submit" class="btn-action" id="submitBtn">Simpan Data</button>
-            <button type="button" class="btn-action btn-outline" id="cancelEditBtn" style="display: none;">Batal</button>
+            <input type="text" id="namaInput" placeholder="Participant / Class Name" required>
+            <input type="number" id="skorInput" placeholder="Amount (Liters)" step="0.1" required>
+            <button type="submit" class="btn-action" id="submitBtn">Save Data</button>
           </form>
         </div>
 
@@ -159,15 +153,14 @@
           <table>
             <thead>
               <tr>
-                <th style="width: 10%;">Peringkat</th>
-                <th style="width: 50%;">Nama / Kelas</th>
-                <th style="width: 20%;">Terkumpul (Liter)</th>
-                <th style="width: 20%;" class="admin-controls-header">Aksi</th>
+                <th style="width: 15%;">Rank</th>
+                <th style="width: 55%;">Name / Class</th>
+                <th style="width: 30%;">Collected (Liters)</th>
               </tr>
             </thead>
             <tbody id="leaderboardBody">
               <tr>
-                <td colspan="4" style="text-align: center;">Memuat data...</td>
+                <td colspan="3" style="text-align: center;">Loading data...</td>
               </tr>
             </tbody>
           </table>
@@ -182,7 +175,7 @@
   <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, collection, onSnapshot, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     const firebaseConfig = {
@@ -206,40 +199,29 @@
     const addForm = document.getElementById('addForm');
     const namaInput = document.getElementById('namaInput');
     const skorInput = document.getElementById('skorInput');
-    const editId = document.getElementById('editId');
-    const submitBtn = document.getElementById('submitBtn');
-    const cancelEditBtn = document.getElementById('cancelEditBtn');
-
-    let isAdmin = false;
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        isAdmin = true;
         loginBtn.style.display = 'none';
         logoutBtn.style.display = 'inline-block';
         adminPanel.style.display = 'block';
-        document.querySelectorAll('.admin-controls').forEach(el => el.style.display = 'table-cell');
-        document.querySelectorAll('.admin-controls-header').forEach(el => el.style.display = 'table-cell');
       } else {
-        isAdmin = false;
         loginBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
         adminPanel.style.display = 'none';
-        document.querySelectorAll('.admin-controls').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('.admin-controls-header').forEach(el => el.style.display = 'none');
       }
     });
 
     loginBtn.addEventListener('click', async () => {
-      const email = prompt("Masukkan Email Admin:");
+      const email = prompt("Enter Admin Email:");
       if (!email) return;
-      const password = prompt("Masukkan Password:");
+      const password = prompt("Enter Password:");
       if (!password) return;
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        alert("Login berhasil!");
+        alert("Login successful!");
       } catch (error) {
-        alert("Login gagal: " + error.message);
+        alert("Login failed: " + error.message);
       }
     });
 
@@ -249,7 +231,7 @@
     onSnapshot(q, (snapshot) => {
       leaderboardBody.innerHTML = '';
       if(snapshot.empty) {
-        leaderboardBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada data kontribusi.</td></tr>';
+        leaderboardBody.innerHTML = '<tr><td colspan="3" style="text-align: center;">No contribution data available yet.</td></tr>';
         return;
       }
       
@@ -267,32 +249,9 @@
           <td>${rankStyling}</td>
           <td><strong>${data.nama}</strong></td>
           <td>${data.skor} L</td>
-          <td class="admin-controls" style="${isAdmin ? 'display: table-cell;' : 'display: none;'}">
-            <button class="btn-action btn-small edit-btn" data-id="${docSnap.id}" data-nama="${data.nama}" data-skor="${data.skor}">Edit</button>
-            <button class="btn-action btn-small btn-danger delete-btn" data-id="${docSnap.id}">Hapus</button>
-          </td>
         `;
         leaderboardBody.appendChild(row);
         rank++;
-      });
-
-      document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-          if(confirm('Yakin ingin menghapus data ini?')) {
-            await deleteDoc(doc(db, "peringkat", e.target.dataset.id));
-          }
-        });
-      });
-
-      document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          editId.value = e.target.dataset.id;
-          namaInput.value = e.target.dataset.nama;
-          skorInput.value = e.target.dataset.skor;
-          submitBtn.textContent = "Update Data";
-          cancelEditBtn.style.display = "inline-block";
-          window.scrollTo(0, 0);
-        });
       });
     });
 
@@ -300,28 +259,13 @@
       e.preventDefault();
       const nama = namaInput.value;
       const skor = parseFloat(skorInput.value);
-      const id = editId.value;
 
       try {
-        if (id) {
-          await updateDoc(doc(db, "peringkat", id), { nama, skor });
-          submitBtn.textContent = "Simpan Data";
-          cancelEditBtn.style.display = "none";
-        } else {
-          await addDoc(collection(db, "peringkat"), { nama, skor });
-        }
+        await addDoc(collection(db, "peringkat"), { nama, skor });
         addForm.reset();
-        editId.value = '';
       } catch (error) {
-        alert("Gagal menyimpan: " + error.message);
+        alert("Failed to save: " + error.message);
       }
-    });
-
-    cancelEditBtn.addEventListener('click', () => {
-      addForm.reset();
-      editId.value = '';
-      submitBtn.textContent = "Simpan Data";
-      cancelEditBtn.style.display = "none";
     });
   </script>
 </body>
