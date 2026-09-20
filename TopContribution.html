@@ -152,7 +152,7 @@
             <!-- Hidden input to store ID when editing -->
             <input type="hidden" id="editId">
             <input type="text" id="namaInput" placeholder="Participant / Class Name" required>
-            <input type="number" id="skorInput" placeholder="Amount (Liters)" step="0.1" required>
+            <input type="number" id="skorInput" placeholder="Amount (Milliliters)" step="0.1" required>
             <button type="submit" class="btn-action" id="submitBtn">Save Data</button>
             <button type="button" class="btn-action btn-outline" id="cancelEditBtn" style="display: none;">Cancel</button>
           </form>
@@ -165,7 +165,7 @@
               <tr>
                 <th style="width: 10%;">Rank</th>
                 <th style="width: 50%;">Name / Class</th>
-                <th style="width: 20%;">Collected (Liters)</th>
+                <th style="width: 20%;">Collected (Milliliters)</th>
                 <!-- This column only appears for Admins -->
                 <th style="width: 20%;" class="admin-controls-header">Action</th>
               </tr>
@@ -284,7 +284,7 @@
         row.innerHTML = `
           <td>${rankStyling}</td>
           <td><strong>${data.nama}</strong></td>
-          <td>${data.skor} L</td>
+          <td>${data.skor} mL</td>
           <td class="admin-controls" style="${isAdmin ? 'display: table-cell;' : 'display: none;'}">
             <button class="btn-action btn-small edit-btn" data-id="${docSnap.id}" data-nama="${data.nama}" data-skor="${data.skor}">Edit</button>
             <button class="btn-action btn-small btn-danger delete-btn" data-id="${docSnap.id}">Delete</button>
