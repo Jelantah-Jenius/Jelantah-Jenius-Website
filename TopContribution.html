@@ -1,1 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Top Contribution - Jelantah Jenius</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
+  <link rel="canonical" href="https://jelantahjenius.com/TopContribution" />
+  <style>
+    .peringkat-section {
+      padding-top: 10rem;
+      padding-bottom: 5rem;
+      min-height: 100vh;
+    }
+    .leaderboard-container {
+      background: var(--white);
+      border-radius: 30px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+      width: 100%;
+    }
+    .header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .header-flex h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .table-responsive {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th {
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem;
+      text-align: left;
+      font-weight: 700;
+    }
+    th:first-child { border-top-left-radius: 15px; border-bottom-left-radius: 15px; }
+    th:last-child { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
+    td {
+      padding: 1.2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    tr:hover td { background: rgba(0,0,0,0.01); }
+    .rank-1 { color: #FFD700; font-weight: 800; font-size: 1.2rem; }
+    .rank-2 { color: #C0C0C0; font-weight: 800; font-size: 1.2rem; }
+    .rank-3 { color: #CD7F32; font-weight: 800; font-size: 1.2rem; }
+    
+    /* Admin Area Styles */
+    .admin-panel {
+      background: rgba(74, 84, 27, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      display: none;
+      border: 1px solid rgba(74, 84, 27, 0.1);
+    }
+    .admin-panel h3 { color: var(--primary); margin-bottom: 1.5rem; }
+    .admin-form { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .admin-form input {
+      flex: 1;
+      min-width: 200px;
+      padding: 1rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      font-family: inherit;
+    }
+    .btn-action {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-action:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(249, 163, 26, 0.3); }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .btn-outline:hover { background: var(--primary); color: white; }
+    .btn-small { padding: 0.5rem 1rem; font-size: 0.9rem; margin-right: 0.5rem; }
+    .btn-danger { background: #dc3545; }
+    
+    .admin-controls { display: none; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="navbar">
+      <div class="logo">
+        <a href="/">
+          <img src="attached_assets/JELANTAH%20JENIUS%20png%20logo%20only%20with%20shadow.png" alt="Logo">
+          Jelantah Jenius
+        </a>
+      </div>
+      <ul class="menu">
+        <div class="cancel-btn"><i class="fas fa-times"></i></div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/articles">Articles</a></li>
+        <li><a href="/programs" class="active">Programs</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="menu-btn"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
 
+  <!-- Peringkat Section -->
+  <section class="peringkat-section">
+    <div class="content" style="max-width: 1200px; margin: 0 auto; width: 90%;">
+      
+      <div class="leaderboard-container">
+        <div class="header-flex">
+          <h2>Top Contribution</h2>
+          <div>
+            <button id="loginBtn" class="btn-action btn-outline">Login Admin</button>
+            <button id="logoutBtn" class="btn-action btn-outline" style="display: none;">Logout Admin</button>
+          </div>
+        </div>
+        
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Pantau kelas atau partisipan dengan pengumpulan Jumat Jelantah terbanyak.</p>
+
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="admin-panel">
+          <h3><i class="fas fa-plus-circle"></i> Tambah / Edit Kontribusi</h3>
+          <form id="addForm" class="admin-form">
+            <input type="hidden" id="editId">
+            <input type="text" id="namaInput" placeholder="Nama Peserta / Kelas" required>
+            <input type="number" id="skorInput" placeholder="Jumlah Jelantah (Liter)" step="0.1" required>
+            <button type="submit" class="btn-action" id="submitBtn">Simpan Data</button>
+            <button type="button" class="btn-action btn-outline" id="cancelEditBtn" style="display: none;">Batal</button>
+          </form>
+        </div>
+
+        <!-- Tabel Peringkat -->
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 10%;">Peringkat</th>
+                <th style="width: 50%;">Nama / Kelas</th>
+                <th style="width: 20%;">Terkumpul (Liter)</th>
+                <th style="width: 20%;" class="admin-controls-header">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+              <tr>
+                <td colspan="4" style="text-align: center;">Memuat data...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+
+  <!-- Firebase Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCYRpQj1lIxnWDd7Ugce5St4_ShgBXydjg",
+      authDomain: "jeje-44212.firebaseapp.com",
+      projectId: "jeje-44212",
+      storageBucket: "jeje-44212.firebasestorage.app",
+      messagingSenderId: "35415778304",
+      appId: "1:35415778304:web:f73c17c8e4b9bed56264e5",
+      measurementId: "G-6WV26VL6NX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const leaderboardBody = document.getElementById('leaderboardBody');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const addForm = document.getElementById('addForm');
+    const namaInput = document.getElementById('namaInput');
+    const skorInput = document.getElementById('skorInput');
+    const editId = document.getElementById('editId');
+    const submitBtn = document.getElementById('submitBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+    let isAdmin = false;
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        isAdmin = true;
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+        adminPanel.style.display = 'block';
+        document.querySelectorAll('.admin-controls').forEach(el => el.style.display = 'table-cell');
+        document.querySelectorAll('.admin-controls-header').forEach(el => el.style.display = 'table-cell');
+      } else {
+        isAdmin = false;
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+        adminPanel.style.display = 'none';
+        document.querySelectorAll('.admin-controls').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.admin-controls-header').forEach(el => el.style.display = 'none');
+      }
+    });
+
+    loginBtn.addEventListener('click', async () => {
+      const email = prompt("Masukkan Email Admin:");
+      if (!email) return;
+      const password = prompt("Masukkan Password:");
+      if (!password) return;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Login berhasil!");
+      } catch (error) {
+        alert("Login gagal: " + error.message);
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => signOut(auth));
+
+    const q = query(collection(db, "peringkat"), orderBy("skor", "desc"));
+    onSnapshot(q, (snapshot) => {
+      leaderboardBody.innerHTML = '';
+      if(snapshot.empty) {
+        leaderboardBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada data kontribusi.</td></tr>';
+        return;
+      }
+      
+      let rank = 1;
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const row = document.createElement('tr');
+        
+        let rankStyling = `<span>${rank}</span>`;
+        if(rank === 1) rankStyling = `<span class="rank-1"><i class="fas fa-crown"></i> 1</span>`;
+        if(rank === 2) rankStyling = `<span class="rank-2">2</span>`;
+        if(rank === 3) rankStyling = `<span class="rank-3">3</span>`;
+
+        row.innerHTML = `
+          <td>${rankStyling}</td>
+          <td><strong>${data.nama}</strong></td>
+          <td>${data.skor} L</td>
+          <td class="admin-controls" style="${isAdmin ? 'display: table-cell;' : 'display: none;'}">
+            <button class="btn-action btn-small edit-btn" data-id="${docSnap.id}" data-nama="${data.nama}" data-skor="${data.skor}">Edit</button>
+            <button class="btn-action btn-small btn-danger delete-btn" data-id="${docSnap.id}">Hapus</button>
+          </td>
+        `;
+        leaderboardBody.appendChild(row);
+        rank++;
+      });
+
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          if(confirm('Yakin ingin menghapus data ini?')) {
+            await deleteDoc(doc(db, "peringkat", e.target.dataset.id));
+          }
+        });
+      });
+
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          editId.value = e.target.dataset.id;
+          namaInput.value = e.target.dataset.nama;
+          skorInput.value = e.target.dataset.skor;
+          submitBtn.textContent = "Update Data";
+          cancelEditBtn.style.display = "inline-block";
+          window.scrollTo(0, 0);
+        });
+      });
+    });
+
+    addForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nama = namaInput.value;
+      const skor = parseFloat(skorInput.value);
+      const id = editId.value;
+
+      try {
+        if (id) {
+          await updateDoc(doc(db, "peringkat", id), { nama, skor });
+          submitBtn.textContent = "Simpan Data";
+          cancelEditBtn.style.display = "none";
+        } else {
+          await addDoc(collection(db, "peringkat"), { nama, skor });
+        }
+        addForm.reset();
+        editId.value = '';
+      } catch (error) {
+        alert("Gagal menyimpan: " + error.message);
+      }
+    });
+
+    cancelEditBtn.addEventListener('click', () => {
+      addForm.reset();
+      editId.value = '';
+      submitBtn.textContent = "Simpan Data";
+      cancelEditBtn.style.display = "none";
+    });
+  </script>
+</body>
+</html>
