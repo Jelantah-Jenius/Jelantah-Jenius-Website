@@ -39,9 +39,9 @@
 
     /* Container Utama Carousel 3D */
     .carousel-container {
-      perspective: 1200px; /* Kedalaman 3D */
+      perspective: 1200px;
       width: 100%;
-      height: 450px;
+      height: 400px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -53,17 +53,17 @@
     /* Silinder Pemutar */
     .carousel {
       width: 300px;
-      height: 400px;
+      height: 350px; /* Diperpendek karena teks deskripsi dihapus */
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1); /* Transisi halus saat berputar */
+      transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     /* Kartu/Panel di dalam Carousel */
     .carousel-item {
       position: absolute;
       width: 300px;
-      height: 400px;
+      height: 350px;
       left: 0;
       top: 0;
       background: var(--white);
@@ -72,13 +72,11 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      /* Memposisikan 6 kartu dalam lingkaran (360/6 = 60 derajat per kartu) */
-      /* Jarak dari pusat silinder (TranslateZ) diatur di JS */
     }
 
     .carousel-item img {
       width: 100%;
-      height: 200px;
+      height: 220px; /* Gambar dibuat sedikit lebih tinggi agar proporsional */
       object-fit: cover;
     }
 
@@ -87,36 +85,34 @@
       text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center; /* Memusatkan Judul & Tombol */
+      align-items: center;
+      gap: 10px; /* Jarak antara Judul dan Tombol */
       flex-grow: 1;
     }
 
     .carousel-content h3 {
       color: var(--primary);
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .carousel-content p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      font-size: 1.4rem;
+      margin: 0;
     }
 
     .carousel-btn {
       display: inline-block;
-      margin-top: 1rem;
-      color: var(--secondary);
+      color: white;
+      background: var(--secondary);
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
       font-weight: 700;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
     }
     
     .carousel-btn:hover {
-      text-decoration: underline;
+      background: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(74, 84, 27, 0.2);
     }
 
     /* Tombol Navigasi Kiri & Kanan */
@@ -179,12 +175,8 @@
     @media (max-width: 768px) {
       .prev-btn { left: 5%; width: 40px; height: 40px; font-size: 1.2rem;}
       .next-btn { right: 5%; width: 40px; height: 40px; font-size: 1.2rem;}
-      .carousel {
-        width: 260px; /* Lebih kecil di HP */
-      }
-      .carousel-item {
-        width: 260px;
-      }
+      .carousel { width: 260px; }
+      .carousel-item { width: 260px; }
     }
   </style>
 </head>
@@ -230,63 +222,52 @@
           <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 1">
           <div class="carousel-content">
             <h3>Jumat Jelantah</h3>
-            <p>Our flagship weekly collection drive in collaboration with local schools to gather used cooking oil before it harms the environment.</p>
-            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+            <a href="jumat-jelantah.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <!-- Kartu 2 -->
         <div class="carousel-item">
-          <!-- Ganti src dengan gambar program Anda -->
           <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 2">
           <div class="carousel-content">
             <h3>Biodiesel Conversion</h3>
-            <p>Partnering with certified facilities to transform the collected oil into clean, renewable energy sources like biodiesel.</p>
-            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+            <a href="biodiesel.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <!-- Kartu 3 -->
         <div class="carousel-item">
-          <!-- Ganti src dengan gambar program Anda -->
           <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 3">
           <div class="carousel-content">
             <h3>Eco-Soap Workshops</h3>
-            <p>Empowering communities by teaching them how to upcycle filtered cooking oil into safe, usable household soap.</p>
-            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+            <a href="eco-soap.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <!-- Kartu 4 -->
         <div class="carousel-item">
-          <!-- Ganti src dengan gambar program Anda -->
           <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 4">
           <div class="carousel-content">
             <h3>School Education</h3>
-            <p>Interactive seminars for students about the dangers of improper waste disposal and the importance of the circular economy.</p>
-            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+            <a href="school-education.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <!-- Kartu 5 -->
         <div class="carousel-item">
-          <!-- Ganti src dengan gambar program Anda -->
           <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 5">
           <div class="carousel-content">
             <h3>Charity Drives</h3>
-            <p>Profits from the processed oil are redirected back to the community through donations and educational scholarships.</p>
-            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+            <a href="charity-drives.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <!-- Kartu 6 -->
         <div class="carousel-item">
-          <!-- Ganti src dengan gambar program Anda -->
           <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 6">
           <div class="carousel-content">
             <h3>Green Campaign</h3>
-            <p>A digital awareness campaign reaching over 168,000+ people online, spreading the message of sustainability.</p>
-            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+            <a href="green-campaign.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -315,35 +296,26 @@
       
       const itemCount = items.length; // 6
       const theta = 360 / itemCount; // 60 derajat per kartu
-      
-      // Menghitung radius silinder (TranslateZ) agar kartu tidak bertumpuk
-      // Rumus: Lebar Kartu / (2 * Tangen (sudut / 2))
-      // Di sini kita gunakan nilai tetap yang aman sekitar 300px
       const radius = 300; 
       
       let currAngle = 0;
 
-      // Setup posisi awal masing-masing kartu dalam ruang 3D
       items.forEach((item, index) => {
         const itemAngle = theta * index;
         item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
       });
 
-      // Fungsi untuk memutar komidi putar
       function rotateCarousel() {
         carousel.style.transform = `translateZ(-${radius}px) rotateY(${currAngle}deg)`;
       }
 
-      // Panggil rotasi awal
       rotateCarousel();
 
-      // Klik tombol Selanjutnya
       nextBtn.addEventListener("click", () => {
         currAngle -= theta;
         rotateCarousel();
       });
 
-      // Klik tombol Sebelumnya
       prevBtn.addEventListener("click", () => {
         currAngle += theta;
         rotateCarousel();
