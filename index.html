@@ -71,7 +71,7 @@
       
       <!-- Top 3 Contributors Section -->
       <div style="margin-top: 4rem;">
-        <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 800;">Top 3 Contributors</h3>
+        <h3 id="top3Title" style="font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 800;">Top 3 Contributors</h3>
         <div id="top3Container" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
           <p style="color: var(--text-muted);">Loading top contributors...</p>
         </div>
@@ -80,7 +80,7 @@
     </div>
   </section>
 
-  <!-- People Reached Section (BARU) -->
+  <!-- People Reached Section -->
   <section class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
     <div class="content" style="max-width: 900px; margin: 0 auto;">
       <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">168,701+ <br><span style="color: white; font-size: 2rem; display: block; font-weight: 700; letter-spacing: normal; margin-top: 10px;">PEOPLE REACHED</span></h2>
@@ -95,7 +95,7 @@
       <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">How we manage and transform used cooking oil into valuable resources.</p>
     </div>
     <div style="max-width: 1000px; margin: 0 auto; padding: 0 2rem; text-align: center;">
-      <!-- Gambar The Process menggunakan format .png -->
+      <!-- Gambar The Process -->
       <img src="attached_assets/The process.png" alt="The Process" style="width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
     </div>
   </section>
@@ -130,7 +130,7 @@
   <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, collection, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAWpSh4iWGc8ZmvMBfbPDqbZ-HHkqOce3U",
@@ -145,18 +145,35 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    let activePeriod = null;
+    let allContributors = [];
+
+    // Dengarkan pengaturan Homepage (Bulan apa yang di-set admin)
+    onSnapshot(doc(db, "settings", "homepage"), (docSnap) => {
+      if(docSnap.exists()) {
+        activePeriod = docSnap.data().active_period;
+      }
+      updateUI(); // Panggil render setiap ada perubahan setting
+    });
+
+    // Dengarkan data Peringkat
     const q = collection(db, "peringkat");
     onSnapshot(q, (snapshot) => {
+      allContributors = [];
       let totalMl = 0;
-      let contributors = [];
       
       snapshot.forEach((docSnap) => {
         const data = docSnap.data();
         const skor = data.skor || 0;
         totalMl += skor;
-        contributors.push({ nama: data.nama, skor: skor });
+        allContributors.push({ 
+          nama: data.nama, 
+          skor: skor, 
+          periode: data.periode || 'old-data' 
+        });
       });
       
+      // UPDATE PROGRESS BAR KESELURUHAN (ALL TIME)
       const totalLiters = totalMl / 1000;
       const targetLiters = 200;
       
@@ -173,35 +190,57 @@
         percentageText.textContent = rawPercentage.toFixed(1) + '%';
       }
 
-      const top3Container = document.getElementById('top3Container');
-      if (top3Container) {
-        contributors.sort((a, b) => b.skor - a.skor);
-        const top3 = contributors.slice(0, 3);
-        
-        top3Container.innerHTML = '';
-        
-        if (top3.length === 0) {
-          top3Container.innerHTML = '<p style="color: var(--text-muted);">No contributions available yet.</p>';
-        } else {
-          top3.forEach((contributor, index) => {
-            const liters = (contributor.skor / 1000).toFixed(2);
-            let rankIcon = '';
-            if (index === 0) rankIcon = '<i class="fas fa-crown" style="color: #FFD700; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
-            else if (index === 1) rankIcon = '<i class="fas fa-medal" style="color: #C0C0C0; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
-            else if (index === 2) rankIcon = '<i class="fas fa-medal" style="color: #CD7F32; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
-
-            const cardHtml = `
-              <div style="background: var(--bg-light); padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); flex: 1; min-width: 180px; max-width: 250px; border: 1px solid rgba(0,0,0,0.02);">
-                <div style="margin-bottom: 1rem;">${rankIcon}</div>
-                <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${contributor.nama}">${contributor.nama}</h4>
-                <p style="font-size: 1.2rem; font-weight: 800; color: var(--secondary); margin: 0;">${liters} L</p>
-              </div>
-            `;
-            top3Container.innerHTML += cardHtml;
-          });
-        }
-      }
+      updateUI(); // Panggil render Top 3
     });
+
+    function updateUI() {
+      const top3Container = document.getElementById('top3Container');
+      const top3Title = document.getElementById('top3Title');
+      if (!top3Container) return;
+
+      // Filter kontributor sesuai bulan yang di set admin
+      let filteredContributors = allContributors;
+      if (activePeriod) {
+        filteredContributors = allContributors.filter(c => c.periode === activePeriod);
+        
+        // Update Judul dengan nama Bulan
+        if (activePeriod !== 'old-data') {
+          const [year, month] = activePeriod.split('-');
+          const d = new Date(year, month - 1);
+          top3Title.textContent = `Top 3 Contributors (${d.toLocaleString('en-US', { month: 'long', year: 'numeric' })})`;
+        } else {
+          top3Title.textContent = `Top 3 Contributors (Previous Batches)`;
+        }
+      } else {
+        top3Title.textContent = `Top 3 Contributors`;
+      }
+
+      filteredContributors.sort((a, b) => b.skor - a.skor);
+      const top3 = filteredContributors.slice(0, 3);
+      
+      top3Container.innerHTML = '';
+      
+      if (top3.length === 0) {
+        top3Container.innerHTML = '<p style="color: var(--text-muted);">No contributions in this period yet.</p>';
+      } else {
+        top3.forEach((contributor, index) => {
+          const liters = (contributor.skor / 1000).toFixed(2);
+          let rankIcon = '';
+          if (index === 0) rankIcon = '<i class="fas fa-crown" style="color: #FFD700; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
+          else if (index === 1) rankIcon = '<i class="fas fa-medal" style="color: #C0C0C0; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
+          else if (index === 2) rankIcon = '<i class="fas fa-medal" style="color: #CD7F32; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
+
+          const cardHtml = `
+            <div style="background: var(--bg-light); padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); flex: 1; min-width: 180px; max-width: 250px; border: 1px solid rgba(0,0,0,0.02);">
+              <div style="margin-bottom: 1rem;">${rankIcon}</div>
+              <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${contributor.nama}">${contributor.nama}</h4>
+              <p style="font-size: 1.2rem; font-weight: 800; color: var(--secondary); margin: 0;">${liters} L</p>
+            </div>
+          `;
+          top3Container.innerHTML += cardHtml;
+        });
+      }
+    }
   </script>
 </body>
 </html>
