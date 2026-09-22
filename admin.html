@@ -130,7 +130,7 @@
       try {
         await signInWithEmailAndPassword(auth, email, password);
         // Jika berhasil, arahkan kembali ke halaman TopContribution
-        window.location.href = "TopContribution.html";
+        window.location.href = "top-contribution.html";
       } catch (error) {
         errorMessage.textContent = "Invalid email or password.";
         errorMessage.style.display = 'block';
