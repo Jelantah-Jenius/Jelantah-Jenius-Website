@@ -44,8 +44,13 @@
         <a href="/about" style="color: var(--primary); text-decoration: none; font-weight: 700; align-self: center;">Learn More <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
+    
+    <!-- Video Otomatis di Kanan Atas -->
     <div style="position: absolute; right: 12%; top: 54%; transform: translateY(-50%); width: 400px; height: 500px; border-radius: 40px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.2); z-index: 1;" class="hero-image-desktop">
-      <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Sustainability" style="width: 100%; height: 100%; object-fit: cover;">
+      <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+        <source src="attached_assets/HomeVideo.mov">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </section>
 
@@ -138,7 +143,6 @@
       let totalMl = 0;
       let contributors = [];
       
-      // Ambil seluruh data: hitung total dan masukkan ke array untuk diurutkan
       snapshot.forEach((docSnap) => {
         const data = docSnap.data();
         const skor = data.skor || 0;
@@ -147,7 +151,7 @@
       });
       
       // 1. UPDATE PROGRESS BAR
-      const totalLiters = totalMl / 1000; // Konversi ke liter
+      const totalLiters = totalMl / 1000;
       const targetLiters = 200;
       
       let rawPercentage = (totalLiters / targetLiters) * 100;
@@ -166,26 +170,22 @@
       // 2. UPDATE TOP 3 CONTRIBUTORS
       const top3Container = document.getElementById('top3Container');
       if (top3Container) {
-        // Urutkan berdasarkan skor tertinggi ke terendah
         contributors.sort((a, b) => b.skor - a.skor);
-        // Ambil maksimal 3 teratas
         const top3 = contributors.slice(0, 3);
         
-        top3Container.innerHTML = ''; // Kosongkan kontainer
+        top3Container.innerHTML = '';
         
         if (top3.length === 0) {
           top3Container.innerHTML = '<p style="color: var(--text-muted);">No contributions available yet.</p>';
         } else {
           top3.forEach((contributor, index) => {
-            const liters = (contributor.skor / 1000).toFixed(2); // Konversi ke Liter
+            const liters = (contributor.skor / 1000).toFixed(2);
             
-            // Tentukan Ikon Mahkota/Medali berdasarkan peringkat
             let rankIcon = '';
-            if (index === 0) rankIcon = '<i class="fas fa-crown" style="color: #FFD700; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>'; // Emas
-            else if (index === 1) rankIcon = '<i class="fas fa-medal" style="color: #C0C0C0; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>'; // Perak
-            else if (index === 2) rankIcon = '<i class="fas fa-medal" style="color: #CD7F32; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>'; // Perunggu
+            if (index === 0) rankIcon = '<i class="fas fa-crown" style="color: #FFD700; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
+            else if (index === 1) rankIcon = '<i class="fas fa-medal" style="color: #C0C0C0; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
+            else if (index === 2) rankIcon = '<i class="fas fa-medal" style="color: #CD7F32; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
 
-            // HTML Kartu untuk setiap kontributor
             const cardHtml = `
               <div style="background: var(--bg-light); padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); flex: 1; min-width: 180px; max-width: 250px; border: 1px solid rgba(0,0,0,0.02);">
                 <div style="margin-bottom: 1rem;">${rankIcon}</div>
