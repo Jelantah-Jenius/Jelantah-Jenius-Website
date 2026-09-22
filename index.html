@@ -66,14 +66,13 @@
         <span id="oilProgressText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-weight: 800; font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); white-space: nowrap;">Loading data...</span>
       </div>
       
-      <!-- Percentage Display Below the Bar -->
+      <!-- Percentage Display -->
       <div id="oilPercentageText" style="margin-top: 1rem; font-size: 1.8rem; font-weight: 800; color: var(--primary);">0%</div>
       
       <!-- Top 3 Contributors Section -->
       <div style="margin-top: 4rem;">
         <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 800;">Top 3 Contributors</h3>
         <div id="top3Container" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-          <!-- Top 3 Cards will be injected here by JavaScript -->
           <p style="color: var(--text-muted);">Loading top contributors...</p>
         </div>
         <a href="top-contribution.html" style="display: inline-block; margin-top: 2rem; color: var(--secondary); text-decoration: none; font-weight: 700;">View Full Leaderboard <i class="fas fa-arrow-right"></i></a>
@@ -81,8 +80,16 @@
     </div>
   </section>
 
+  <!-- People Reached Section (BARU) -->
+  <section class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
+    <div class="content" style="max-width: 900px; margin: 0 auto;">
+      <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">168,701+ <br><span style="color: white; font-size: 2rem; display: block; font-weight: 700; letter-spacing: normal; margin-top: 10px;">PEOPLE REACHED</span></h2>
+      <p style="font-size: 1.25rem; line-height: 1.8; color: rgba(255,255,255,0.9); max-width: 800px; margin: 0 auto;">Through our online content and offline outreach, Jelantah Jenius has reached 168,701+ people, raising awareness about responsible used cooking oil management and its potential as a reusable resource.</p>
+    </div>
+  </section>
+
   <!-- The Process Image Section -->
-  <section class="process-section" style="padding: 2rem 0 5rem 0; background: var(--white);">
+  <section class="process-section" style="padding: 5rem 0; background: var(--white);">
     <div class="section-label" style="text-align: center; margin-bottom: 3rem;">
       <h2 style="font-size: 3rem; font-weight: 800; color: var(--primary);">The Process</h2>
       <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">How we manage and transform used cooking oil into valuable resources.</p>
@@ -120,7 +127,7 @@
 
   <script src="script.js"></script>
 
-  <!-- Firebase Integration Khusus untuk Progress Bar & Top 3 -->
+  <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -150,7 +157,6 @@
         contributors.push({ nama: data.nama, skor: skor });
       });
       
-      // 1. UPDATE PROGRESS BAR
       const totalLiters = totalMl / 1000;
       const targetLiters = 200;
       
@@ -167,7 +173,6 @@
         percentageText.textContent = rawPercentage.toFixed(1) + '%';
       }
 
-      // 2. UPDATE TOP 3 CONTRIBUTORS
       const top3Container = document.getElementById('top3Container');
       if (top3Container) {
         contributors.sort((a, b) => b.skor - a.skor);
@@ -180,7 +185,6 @@
         } else {
           top3.forEach((contributor, index) => {
             const liters = (contributor.skor / 1000).toFixed(2);
-            
             let rankIcon = '';
             if (index === 0) rankIcon = '<i class="fas fa-crown" style="color: #FFD700; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
             else if (index === 1) rankIcon = '<i class="fas fa-medal" style="color: #C0C0C0; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
