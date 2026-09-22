@@ -12,7 +12,16 @@
   <link rel="canonical" href="https://jelantahjenius.com/programs" />
   <style>
     body {
-      background: var(--bg-light);
+      /* Gradasi lembut dari bawah (to top): Gelap -> Hijau -> Kuning Lembut -> Putih */
+      background: linear-gradient(
+        to top, 
+        #151e0c 0%,     /* Gelap pekat di paling bawah */
+        #4a541b 35%,    /* Hijau khas Jelantah Jenius */
+        #f7d36a 75%,    /* Kuning lembut */
+        #ffffff 100%    /* Putih bersih di atas */
+      );
+      background-attachment: fixed; /* Membuat gradasi diam dan mulus saat di-scroll */
+      background-size: cover;
       overflow-x: hidden;
     }
 
@@ -65,7 +74,7 @@
       left: 0;
       top: 0;
       border-radius: 25px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
       overflow: hidden;
       background: #000;
     }
@@ -127,13 +136,13 @@
 
     .overlay p {
       color: #ffffff;
-      font-size: 0.95rem; /* Disesuaikan agar teks yang panjang muat */
+      font-size: 0.95rem; 
       line-height: 1.6;
       margin-bottom: 2rem;
       transform: translateY(20px);
       transition: all 0.4s ease;
       display: -webkit-box;
-      -webkit-line-clamp: 7; /* Maksimal 7 baris teks */
+      -webkit-line-clamp: 7; 
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -219,7 +228,7 @@
       font-size: 1.3rem;
       font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 10px 25px rgba(74, 84, 27, 0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       transition: all 0.3s ease;
     }
     .btn-leaderboard:hover {
@@ -260,7 +269,7 @@
 
   <section class="programs-hero">
     <h1>Our Initiatives</h1>
-    <p>Discover how Jelantah Jenius is turning waste into sustainable opportunities through our diverse range of educational, environmental, and social programs.</p>
+    <p style="color: #666; mix-blend-mode: multiply;">Discover how Jelantah Jenius is turning waste into sustainable opportunities through our diverse range of educational, environmental, and social programs.</p>
   </section>
 
   <!-- Seksyen 3D Carousel -->
