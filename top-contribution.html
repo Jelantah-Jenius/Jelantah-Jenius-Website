@@ -40,6 +40,27 @@
     
     .settings-panel { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1); }
     .settings-panel select { padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); font-family: inherit; min-width: 200px; }
+    
+    /* Style untuk Filter Publik */
+    .filter-section {
+      margin-bottom: 2rem;
+      background: var(--bg-light);
+      padding: 1.5rem;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .filter-section label { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+    .filter-section select {
+      padding: 0.8rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      font-family: inherit;
+      min-width: 200px;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -84,7 +105,7 @@
             <input type="hidden" id="editId">
             <input type="month" id="periodeInput" required title="Pilih Bulan dan Tahun">
             <input type="text" id="namaInput" placeholder="Participant / Class Name" required>
-            <input type="number" id="skorInput" placeholder="Amount (Liters / ml)" step="0.1" required>
+            <input type="number" id="skorInput" placeholder="Amount in Mililiters (mL)" step="0.1" required>
             <button type="submit" class="btn-action" id="submitBtn">Save Data</button>
             <button type="button" class="btn-action btn-outline" id="cancelEditBtn" style="display: none;">Cancel</button>
           </form>
@@ -100,6 +121,14 @@
               <span id="settingsStatus" style="color: green; font-weight: 700; display: none;">Saved!</span>
             </div>
           </div>
+        </div>
+
+        <!-- Filter untuk Pengunjung Publik -->
+        <div class="filter-section">
+          <label for="publicPeriodSelect"><i class="fas fa-filter"></i> Filter by Period:</label>
+          <select id="publicPeriodSelect">
+            <option value="all">Show All Periods</option>
+          </select>
         </div>
 
         <div id="tablesContainer">
@@ -148,8 +177,11 @@
     const saveSettingsBtn = document.getElementById('saveSettingsBtn');
     const settingsStatus = document.getElementById('settingsStatus');
 
+    const publicPeriodSelect = document.getElementById('publicPeriodSelect');
+
     let isAdmin = false;
     let currentActiveSettings = null;
+    let currentPublicFilter = 'all'; // Menyimpan filter publik yang sedang aktif
 
     const today = new Date();
     const currentMonth = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
@@ -198,6 +230,14 @@
       }
     });
 
+    // Listener untuk perubahan Filter Publik
+    publicPeriodSelect.addEventListener('change', (e) => {
+      currentPublicFilter = e.target.value;
+      if (window.currentSnapshotData) {
+        renderTables(window.currentSnapshotData);
+      }
+    });
+
     const q = query(collection(db, "peringkat"), orderBy("skor", "desc"));
     onSnapshot(q, (snapshot) => {
       window.currentSnapshotData = snapshot; 
@@ -206,9 +246,11 @@
 
     function renderTables(snapshot) {
       tablesContainer.innerHTML = '';
+      
       if(snapshot.empty) {
         tablesContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No contribution data available yet.</p>';
         activePeriodSelect.innerHTML = '<option value="">No periods available</option>';
+        publicPeriodSelect.innerHTML = '<option value="all">Show All Periods</option>';
         return;
       }
       
@@ -226,8 +268,11 @@
         return b.localeCompare(a); 
       });
 
-      // Update the dropdown for settings
+      // Update the dropdown for Admin Settings
       activePeriodSelect.innerHTML = '';
+      // Update the dropdown for Public Filter
+      publicPeriodSelect.innerHTML = '<option value="all">Show All Periods</option>';
+
       periods.forEach(period => {
         let optionText = "General / Previous Batches";
         if (period !== 'old-data') {
@@ -235,16 +280,38 @@
           const date = new Date(year, month - 1);
           optionText = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
         }
-        const option = document.createElement('option');
-        option.value = period;
-        option.textContent = optionText;
-        activePeriodSelect.appendChild(option);
+
+        // Option untuk Admin
+        const optionAdmin = document.createElement('option');
+        optionAdmin.value = period;
+        optionAdmin.textContent = optionText;
+        activePeriodSelect.appendChild(optionAdmin);
+
+        // Option untuk Publik
+        const optionPublic = document.createElement('option');
+        optionPublic.value = period;
+        optionPublic.textContent = optionText;
+        if (period === currentPublicFilter) {
+          optionPublic.selected = true;
+        }
+        publicPeriodSelect.appendChild(optionPublic);
       });
+
       if(currentActiveSettings && activePeriodSelect.querySelector(`option[value="${currentActiveSettings}"]`)) {
         activePeriodSelect.value = currentActiveSettings;
       }
 
-      periods.forEach(period => {
+      // Filter array periods berdasarkan pilihan publik
+      let periodsToRender = periods;
+      if (currentPublicFilter !== 'all') {
+        if (periods.includes(currentPublicFilter)) {
+          periodsToRender = [currentPublicFilter];
+        } else {
+          currentPublicFilter = 'all'; // Jika bulan yang difilter dihapus, kembalikan ke All
+        }
+      }
+
+      periodsToRender.forEach(period => {
         let periodTitle = "General / Previous Batches";
         if (period !== 'old-data') {
           const [year, month] = period.split('-');
@@ -267,11 +334,15 @@
             </td>
           ` : '';
 
+          // Format angka skor menjadi ada komanya (contoh: 1,500 mL)
+          const formattedScore = item.skor.toLocaleString('en-US');
+
           rowsHtml += `
             <tr>
               <td>${rankStyling}</td>
               <td><strong>${item.nama}</strong></td>
-              <td>${item.skor} L</td>
+              <!-- Diubah menjadi mL -->
+              <td>${formattedScore} mL</td>
               ${adminCols}
             </tr>
           `;
@@ -279,8 +350,7 @@
         });
 
         const adminHeader = isAdmin ? `<th style="width: 20%;">Action</th>` : '';
-
-        const isHomepageActive = (period === currentActiveSettings) ? '<span style="font-size:1rem; color:var(--secondary); margin-left:10px;"><i class="fas fa-star"></i> Homepage Top 3</span>' : '';
+        const isHomepageActive = (period === currentActiveSettings) ? '<span style="font-size:1rem; color:var(--secondary); margin-left:10px;" title="This table is currently displayed on the Home Page"><i class="fas fa-star"></i> Homepage Top 3</span>' : '';
 
         const tableBlock = `
           <div style="margin-bottom: 4rem;">
@@ -291,7 +361,8 @@
                   <tr>
                     <th style="width: 10%;">Rank</th>
                     <th style="width: 50%;">Name / Class</th>
-                    <th style="width: 20%;">Collected (Liters)</th>
+                    <!-- Judul Kolom Diubah menjadi mL -->
+                    <th style="width: 20%;">Collected (mL)</th>
                     ${adminHeader}
                   </tr>
                 </thead>
