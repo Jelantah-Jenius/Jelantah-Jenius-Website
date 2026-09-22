@@ -49,7 +49,7 @@
     </div>
   </section>
 
-  <!-- Total Oil Collected (Progress Bar) Section -->
+  <!-- Total Oil Collected & Top 3 Section -->
   <section class="progress-section" style="padding: 5rem 0; background: var(--white);">
     <div class="content" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 0 2rem;">
       <h2 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; font-weight: 800;">Total Oil Collected</h2>
@@ -63,6 +63,16 @@
       
       <!-- Percentage Display Below the Bar -->
       <div id="oilPercentageText" style="margin-top: 1rem; font-size: 1.8rem; font-weight: 800; color: var(--primary);">0%</div>
+      
+      <!-- Top 3 Contributors Section -->
+      <div style="margin-top: 4rem;">
+        <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 800;">Top 3 Contributors</h3>
+        <div id="top3Container" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+          <!-- Top 3 Cards will be injected here by JavaScript -->
+          <p style="color: var(--text-muted);">Loading top contributors...</p>
+        </div>
+        <a href="top-contribution.html" style="display: inline-block; margin-top: 2rem; color: var(--secondary); text-decoration: none; font-weight: 700;">View Full Leaderboard <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
   </section>
 
@@ -105,7 +115,7 @@
 
   <script src="script.js"></script>
 
-  <!-- Firebase Integration Khusus untuk Progress Bar -->
+  <!-- Firebase Integration Khusus untuk Progress Bar & Top 3 -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -126,16 +136,20 @@
     const q = collection(db, "peringkat");
     onSnapshot(q, (snapshot) => {
       let totalMl = 0;
+      let contributors = [];
       
+      // Ambil seluruh data: hitung total dan masukkan ke array untuk diurutkan
       snapshot.forEach((docSnap) => {
         const data = docSnap.data();
-        totalMl += (data.skor || 0);
+        const skor = data.skor || 0;
+        totalMl += skor;
+        contributors.push({ nama: data.nama, skor: skor });
       });
       
-      const totalLiters = totalMl / 1000;
+      // 1. UPDATE PROGRESS BAR
+      const totalLiters = totalMl / 1000; // Konversi ke liter
       const targetLiters = 200;
       
-      // Hitung persentase murni untuk teks, dan persentase berbatas (max 100%) untuk lebar bar
       let rawPercentage = (totalLiters / targetLiters) * 100;
       let barPercentage = rawPercentage > 100 ? 100 : rawPercentage;
 
@@ -144,14 +158,44 @@
       const percentageText = document.getElementById('oilPercentageText');
       
       if (progressBar && progressText && percentageText) {
-        // Update bar (lebar visual maksimal 100%)
         progressBar.style.width = barPercentage + '%';
-        
-        // Update teks (angka di dalam bar)
         progressText.textContent = totalLiters.toFixed(2) + ' L / ' + targetLiters + ' L';
-        
-        // Update teks persentase (di bawah bar)
         percentageText.textContent = rawPercentage.toFixed(1) + '%';
+      }
+
+      // 2. UPDATE TOP 3 CONTRIBUTORS
+      const top3Container = document.getElementById('top3Container');
+      if (top3Container) {
+        // Urutkan berdasarkan skor tertinggi ke terendah
+        contributors.sort((a, b) => b.skor - a.skor);
+        // Ambil maksimal 3 teratas
+        const top3 = contributors.slice(0, 3);
+        
+        top3Container.innerHTML = ''; // Kosongkan kontainer
+        
+        if (top3.length === 0) {
+          top3Container.innerHTML = '<p style="color: var(--text-muted);">No contributions available yet.</p>';
+        } else {
+          top3.forEach((contributor, index) => {
+            const liters = (contributor.skor / 1000).toFixed(2); // Konversi ke Liter
+            
+            // Tentukan Ikon Mahkota/Medali berdasarkan peringkat
+            let rankIcon = '';
+            if (index === 0) rankIcon = '<i class="fas fa-crown" style="color: #FFD700; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>'; // Emas
+            else if (index === 1) rankIcon = '<i class="fas fa-medal" style="color: #C0C0C0; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>'; // Perak
+            else if (index === 2) rankIcon = '<i class="fas fa-medal" style="color: #CD7F32; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>'; // Perunggu
+
+            // HTML Kartu untuk setiap kontributor
+            const cardHtml = `
+              <div style="background: var(--bg-light); padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); flex: 1; min-width: 180px; max-width: 250px; border: 1px solid rgba(0,0,0,0.02);">
+                <div style="margin-bottom: 1rem;">${rankIcon}</div>
+                <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${contributor.nama}">${contributor.nama}</h4>
+                <p style="font-size: 1.2rem; font-weight: 800; color: var(--secondary); margin: 0;">${liters} L</p>
+              </div>
+            `;
+            top3Container.innerHTML += cardHtml;
+          });
+        }
       }
     });
   </script>
