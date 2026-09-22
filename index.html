@@ -117,8 +117,8 @@
     </div>
   </section>
 
-  <!-- People Reached Section dengan Efek Kasino & Slide Up -->
-  <section class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
+  <!-- People Reached Section dengan Scroll Trigger (Intersection Observer) -->
+  <section id="statsSection" class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
     <div class="content" style="max-width: 900px; margin: 0 auto;">
       <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">
         <span id="counterNumber">0</span>+ <br>
@@ -169,33 +169,42 @@
 
   <script src="script.js"></script>
 
-  <!-- Script untuk Animasi Kasino & Slide-up Deskripsi -->
+  <!-- Script dengan Intersection Observer (Mulai Pas Disentuh/Dilihat Visitor) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      const statsSection = document.getElementById("statsSection");
       const counterElement = document.getElementById("counterNumber");
       const descElement = document.getElementById("statsDesc");
       
-      const targetNumber = 168701;
-      let currentNumber = 0;
-      
-      // Kecepatan animasi (semakin kecil interval, semakin cepat putarannya)
-      const duration = 2000; // total waktu 2 detik
-      const steps = 50; // jumlah lompatan angka
-      const increment = targetNumber / steps;
-      const intervalTime = duration / steps;
+      let hasAnimated = false; // Memastikan animasi hanya berjalan sekali saat pertama kali dilihat
 
-      const timer = setInterval(() => {
-        currentNumber += increment;
-        if (currentNumber >= targetNumber) {
-          currentNumber = targetNumber;
-          clearInterval(timer);
-          
-          // Begitu angka tepat 168,701+, tampilkan deskripsi dari bawah
-          descElement.classList.add("show");
-        }
-        // Format angka dengan pemisah ribuan (contoh: 168,701)
-        counterElement.textContent = Math.floor(currentNumber).toLocaleString('en-US');
-      }, intervalTime);
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+            
+            const targetNumber = 168701;
+            let currentNumber = 0;
+            const duration = 2000; // 2 detik
+            const steps = 50; 
+            const increment = targetNumber / steps;
+            const intervalTime = duration / steps;
+
+            const timer = setInterval(() => {
+              currentNumber += increment;
+              if (currentNumber >= targetNumber) {
+                currentNumber = targetNumber;
+                clearInterval(timer);
+                // Begitu angka selesai, deskripsi meluncur naik dari bawah
+                descElement.classList.add("show");
+              }
+              counterElement.textContent = Math.floor(currentNumber).toLocaleString('en-US');
+            }, intervalTime);
+          }
+        });
+      }, { threshold: 0.3 }); // Animasi mulai ketika 30% bagian banner sudah terlihat di layar
+
+      observer.observe(statsSection);
     });
   </script>
 
