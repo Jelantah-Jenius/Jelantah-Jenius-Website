@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Our Programs - Jelantah Jenius</title>
+  <title>Programs - Jelantah Jenius</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
@@ -38,9 +38,9 @@
 
     /* --- CONTAINER 3D CAROUSEL --- */
     .carousel-container {
-      perspective: 1500px; /* Perspektif ditambah agar tidak terlalu herot (distorted) */
+      perspective: 1500px;
       width: 100%;
-      height: 600px; /* Ketinggian ditambah untuk memuatkan kad yang lebih besar */
+      height: 600px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -50,18 +50,18 @@
     }
 
     .carousel {
-      width: 350px; /* Saiz lebih besar */
-      height: 480px; /* Saiz lebih besar */
+      width: 350px;
+      height: 480px;
       position: relative;
       transform-style: preserve-3d;
       transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* --- REKA BENTUK KAD (GAMBAR SAHAJA KETIKA BERPUTAR) --- */
+    /* --- REKA BENTUK KAD --- */
     .carousel-item {
       position: absolute;
-      width: 350px; /* Saiz lebih besar */
-      height: 480px; /* Saiz lebih besar */
+      width: 350px;
+      height: 480px;
       left: 0;
       top: 0;
       border-radius: 25px;
@@ -70,7 +70,8 @@
       background: #000;
     }
 
-    .carousel-item img {
+    .carousel-item img, 
+    .carousel-item video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -112,7 +113,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -126,11 +127,15 @@
 
     .overlay p {
       color: #ffffff;
-      font-size: 1.1rem;
+      font-size: 0.95rem; /* Disesuaikan agar teks yang panjang muat */
       line-height: 1.6;
       margin-bottom: 2rem;
       transform: translateY(20px);
       transition: all 0.4s ease;
+      display: -webkit-box;
+      -webkit-line-clamp: 7; /* Maksimal 7 baris teks */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .btn-learn {
@@ -156,7 +161,8 @@
       pointer-events: auto;
     }
     
-    .carousel-item.active:hover img {
+    .carousel-item.active:hover img,
+    .carousel-item.active:hover video {
       transform: scale(1.1); 
     }
 
@@ -194,7 +200,6 @@
       color: var(--white);
       transform: translateY(-50%) scale(1.1);
     }
-    /* Posisi butang dijauhkan sedikit kerana saiz carousel membesar */
     .prev-btn { left: 5%; }
     .next-btn { right: 5%; }
 
@@ -222,7 +227,6 @@
       box-shadow: 0 15px 35px rgba(74, 84, 27, 0.4);
     }
 
-    /* Responsif untuk Telefon Bimbit */
     @media (max-width: 768px) {
       .carousel-container { height: 500px; }
       .carousel { width: 280px; height: 400px; }
@@ -266,74 +270,76 @@
       
       <div class="carousel" id="carousel">
         
-        <!-- 1. Jum’at Jelantah -->
+        <!-- 1. Jumat Jelantah -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Jum’at Jelantah">
+          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Jumat Jelantah">
           <div class="title-bar">
-            <h3>Jum’at Jelantah</h3>
+            <h3>Jumat Jelantah</h3>
           </div>
           <div class="overlay">
-            <p>Pengumpulan rutin minyak jelantah setiap hari Jumaat bersama sekolah dan komuniti untuk mengelakkan pencemaran alam sekitar.</p>
+            <p>Jumat Jelantah (JJ) is introduced as a weekly Used Cooking Oil (UCO) collection program at Sekolah Bogor Raya. By providing an accessible collection point every Friday, the program encourages students, teachers, and staff to dispose of used cooking oil responsibly.</p>
             <a href="jumat-jelantah.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
-        <!-- 2. Jelantah Xpand -->
+        <!-- 2. Jelantah Xpand (Menggunakan Video) -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Jelantah Xpand">
+          <video autoplay muted loop playsinline>
+            <source src="attached_assets/Jelantah Xpand.mp4" type="video/mp4" />
+          </video>
           <div class="title-bar">
             <h3>Jelantah Xpand</h3>
           </div>
           <div class="overlay">
-            <p>Inisiatif untuk memperluas rangkaian, jangkauan edukasi, dan menambah titik pengumpulan minyak jelantah di pelbagai lokasi baharu.</p>
+            <p>Jelantah Xpand is an expansion initiative designed to broaden the organization's reach by participating in educational forums, exhibitions, and interactive events. We engage with students, experts, and the broader community to exchange knowledge.</p>
             <a href="jelantah-xpand.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- 3. Jelantah Xchange -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Jelantah Xchange">
+          <img src="attached_assets/Jelantah Xchange.jpeg" alt="Jelantah Xchange">
           <div class="title-bar">
             <h3>Jelantah Xchange</h3>
           </div>
           <div class="overlay">
-            <p>Program interaktif di mana anda boleh menukarkan minyak jelantah yang dikumpul dengan pelbagai ganjaran dan barangan yang bermanfaat.</p>
+            <p>Jelantah Xchange is an outreach program centered on social impact and collaborative engagement. Through monthly partnerships, it brings people together to support underserved communities through joint activities and direct donations.</p>
             <a href="jelantah-xchange.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- 4. Jelantah Berbagi -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Jelantah Berbagi">
+          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Jelantah Berbagi">
           <div class="title-bar">
             <h3>Jelantah Berbagi</h3>
           </div>
           <div class="overlay">
-            <p>Menyalurkan semula nilai tambah dan keuntungan daripada minyak jelantah yang dikitar semula kepada masyarakat dalam bentuk amal dan sumbangan.</p>
+            <p>Jelantah Berbagi is a community-focused initiative designed to distribute social aid and foster meaningful connections with local communities, providing essential support and resources to those in need.</p>
             <a href="jelantah-berbagi.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- 5. Jelantah News -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Jelantah News">
+          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Jelantah News">
           <div class="title-bar">
             <h3>Jelantah News</h3>
           </div>
           <div class="overlay">
-            <p>Ikuti perkembangan, berita terkini, artikel edukasi, serta pelbagai informasi menarik mengenai pergerakan komuniti kami.</p>
+            <p>Jelantah News is an educational media initiative dedicated to raising public awareness about environmental sustainability. Through engaging digital content, it keeps the community informed on local ecological issues.</p>
             <a href="jelantah-news.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- 6. Oil Runs -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Oil Runs">
+          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Oil Runs">
           <div class="title-bar">
             <h3>Oil Runs</h3>
           </div>
           <div class="overlay">
-            <p>Perkhidmatan logistik pantas di mana pasukan kami akan datang menjemput (pick-up) minyak jelantah terus dari lokasi anda.</p>
+            <p>Oil Runs is a hands-on collection and logistics program focused on gathering used cooking oil directly from households and local businesses by establishing scheduled pickup routes and accessible drop-off points.</p>
             <a href="oil-runs.html" class="btn-learn">Learn More</a>
           </div>
         </div>
@@ -344,9 +350,10 @@
     </div>
   </section>
 
+  <!-- Tombol Leaderboard Khusus Jumat Jelantah -->
   <section class="leaderboard-link-wrapper">
-    <a href="top-contribution" class="btn-leaderboard">
-      <i class="fas fa-trophy"></i> View Friday Jelantah Leaderboard
+    <a href="top-contribution" target="_blank" class="btn-leaderboard">
+      <i class="fas fa-trophy" style="color: #FFD700;"></i> View Top Contribution
     </a>
   </section>
 
@@ -365,9 +372,7 @@
       let radius;
       let currAngle = 0;
 
-      // Fungsi untuk menetapkan radius dinamik (bergantung saiz skrin)
       function setRadius() {
-        // Radius ditetapkan 500 untuk desktop (ruang lebih besar), 300 untuk mobile
         if (window.innerWidth < 768) {
           radius = 300;
         } else {
@@ -398,10 +403,7 @@
         });
       }
 
-      // Tetapkan susunan permulaan
       setRadius();
-
-      // Sekiranya skrin diubah saiz (resize window), kemas kini susunan
       window.addEventListener("resize", setRadius);
 
       nextBtn.addEventListener("click", () => {
