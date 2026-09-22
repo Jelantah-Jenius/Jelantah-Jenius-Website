@@ -11,7 +11,6 @@
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/programs" />
   <style>
-    /* --- CSS KHUSUS UNTUK 3D CAROUSEL --- */
     body {
       background: var(--bg-light);
       overflow-x: hidden;
@@ -37,11 +36,11 @@
       line-height: 1.6;
     }
 
-    /* Container Utama Carousel 3D */
+    /* --- CONTAINER 3D CAROUSEL --- */
     .carousel-container {
       perspective: 1200px;
       width: 100%;
-      height: 400px;
+      height: 450px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -50,72 +49,129 @@
       position: relative;
     }
 
-    /* Silinder Pemutar */
     .carousel {
       width: 300px;
-      height: 350px; /* Diperpendek karena teks deskripsi dihapus */
+      height: 400px;
       position: relative;
       transform-style: preserve-3d;
       transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Kartu/Panel di dalam Carousel */
+    /* --- DESAIN KARTU (HANYA GAMBAR) --- */
     .carousel-item {
       position: absolute;
       width: 300px;
-      height: 350px;
+      height: 400px;
       left: 0;
       top: 0;
-      background: var(--white);
       border-radius: 20px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
       overflow: hidden;
+      /* Background hitam untuk efek transisi */
+      background: #000;
     }
 
     .carousel-item img {
       width: 100%;
-      height: 220px; /* Gambar dibuat sedikit lebih tinggi agar proporsional */
+      height: 100%;
       object-fit: cover;
+      transition: all 0.5s ease;
     }
 
-    .carousel-content {
-      padding: 1.5rem;
+    /* --- JUDUL: MUNCUL SAAT DI POSISI DEPAN (ACTIVE) --- */
+    .title-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      padding: 3rem 1.5rem 1.5rem 1.5rem;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center; /* Memusatkan Judul & Tombol */
-      align-items: center;
-      gap: 10px; /* Jarak antara Judul dan Tombol */
-      flex-grow: 1;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      pointer-events: none; /* Agar tidak menghalangi hover */
     }
 
-    .carousel-content h3 {
-      color: var(--primary);
-      font-size: 1.4rem;
+    .title-bar h3 {
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
       margin: 0;
     }
 
-    .carousel-btn {
-      display: inline-block;
-      color: white;
-      background: var(--secondary);
-      padding: 0.6rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-    }
-    
-    .carousel-btn:hover {
-      background: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(74, 84, 27, 0.2);
+    .carousel-item.active .title-bar {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Tombol Navigasi Kiri & Kanan */
+    /* --- OVERLAY HOVER: MENGGELAPKAN GAMBAR & MUNCULKAN DESKRIPSI --- */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75); /* Menggelapkan gambar */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      opacity: 0;
+      transition: all 0.4s ease;
+      /* Hanya bisa diklik jika aktif dan dihover */
+      pointer-events: none; 
+    }
+
+    .overlay p {
+      color: #ffffff;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .btn-learn {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 700;
+      transform: translateY(20px);
+      transition: all 0.4s ease 0.1s; /* Delay sedikit agar efek cascading */
+    }
+    
+    .btn-learn:hover {
+      background: var(--accent);
+      transform: scale(1.05);
+    }
+
+    /* Aksi Hover (Hanya berfungsi pada kartu yang posisinya sedang di depan/active) */
+    .carousel-item.active:hover .overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .carousel-item.active:hover img {
+      transform: scale(1.1); /* Zoom gambar sedikit saat dihover */
+    }
+
+    .carousel-item.active:hover .overlay p,
+    .carousel-item.active:hover .overlay .btn-learn {
+      transform: translateY(0);
+    }
+
+    /* Sembunyikan judul saat overlay muncul agar tidak bertabrakan */
+    .carousel-item.active:hover .title-bar {
+      opacity: 0;
+    }
+
+    /* --- TOMBOL NAVIGASI --- */
     .nav-btn {
       position: absolute;
       top: 50%;
@@ -135,22 +191,19 @@
       justify-content: center;
       align-items: center;
     }
-
     .nav-btn:hover {
       background: var(--primary);
       color: var(--white);
       transform: translateY(-50%) scale(1.1);
     }
-
     .prev-btn { left: 10%; }
     .next-btn { right: 10%; }
 
-    /* Tombol Top Contribution Khusus di Bawah */
+    /* Tombol Leaderboard */
     .leaderboard-link-wrapper {
       text-align: center;
       margin-bottom: 5rem;
     }
-
     .btn-leaderboard {
       display: inline-flex;
       align-items: center;
@@ -165,18 +218,14 @@
       box-shadow: 0 10px 20px rgba(74, 84, 27, 0.3);
       transition: all 0.3s ease;
     }
-
     .btn-leaderboard:hover {
       transform: translateY(-3px);
       box-shadow: 0 15px 30px rgba(74, 84, 27, 0.4);
     }
-    
-    /* Responsif untuk HP */
+
     @media (max-width: 768px) {
       .prev-btn { left: 5%; width: 40px; height: 40px; font-size: 1.2rem;}
       .next-btn { right: 5%; width: 40px; height: 40px; font-size: 1.2rem;}
-      .carousel { width: 260px; }
-      .carousel-item { width: 260px; }
     }
   </style>
 </head>
@@ -202,7 +251,6 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <section class="programs-hero">
     <h1>Our Initiatives</h1>
     <p>Discover how Jelantah Jenius is turning waste into sustainable opportunities through our diverse range of educational, environmental, and social programs.</p>
@@ -213,61 +261,78 @@
     <div class="carousel-container">
       <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
       
-      <!-- Silinder Putar -->
       <div class="carousel" id="carousel">
         
         <!-- Kartu 1 -->
         <div class="carousel-item">
-          <!-- Ganti src dengan gambar program Anda -->
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 1">
-          <div class="carousel-content">
+          <!-- Ganti src dengan foto asli -->
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Jumat Jelantah">
+          <div class="title-bar">
             <h3>Jumat Jelantah</h3>
-            <a href="jumat-jelantah.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="overlay">
+            <p>Our flagship weekly collection drive in collaboration with local schools to gather used cooking oil before it harms the environment.</p>
+            <a href="jumat-jelantah.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- Kartu 2 -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 2">
-          <div class="carousel-content">
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Biodiesel Conversion">
+          <div class="title-bar">
             <h3>Biodiesel Conversion</h3>
-            <a href="biodiesel.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="overlay">
+            <p>Partnering with certified facilities to transform the collected oil into clean, renewable energy sources like biodiesel.</p>
+            <a href="biodiesel.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- Kartu 3 -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 3">
-          <div class="carousel-content">
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Eco-Soap Workshops">
+          <div class="title-bar">
             <h3>Eco-Soap Workshops</h3>
-            <a href="eco-soap.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="overlay">
+            <p>Empowering communities by teaching them how to upcycle filtered cooking oil into safe, usable household soap.</p>
+            <a href="eco-soap.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- Kartu 4 -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 4">
-          <div class="carousel-content">
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="School Education">
+          <div class="title-bar">
             <h3>School Education</h3>
-            <a href="school-education.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="overlay">
+            <p>Interactive seminars for students about the dangers of improper waste disposal and the importance of the circular economy.</p>
+            <a href="education.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- Kartu 5 -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 5">
-          <div class="carousel-content">
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Charity Drives">
+          <div class="title-bar">
             <h3>Charity Drives</h3>
-            <a href="charity-drives.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="overlay">
+            <p>Profits from the processed oil are redirected back to the community through donations and educational scholarships.</p>
+            <a href="charity.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
         <!-- Kartu 6 -->
         <div class="carousel-item">
-          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 6">
-          <div class="carousel-content">
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Green Campaign">
+          <div class="title-bar">
             <h3>Green Campaign</h3>
-            <a href="green-campaign.html" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="overlay">
+            <p>A digital awareness campaign reaching over 168,000+ people online, spreading the message of sustainability.</p>
+            <a href="campaign.html" class="btn-learn">Learn More</a>
           </div>
         </div>
 
@@ -277,7 +342,6 @@
     </div>
   </section>
 
-  <!-- Tombol Khusus ke Leaderboard -->
   <section class="leaderboard-link-wrapper">
     <a href="top-contribution" class="btn-leaderboard">
       <i class="fas fa-trophy"></i> View Friday Jelantah Leaderboard
@@ -286,7 +350,6 @@
 
   <script src="script.js"></script>
   
-  <!-- Script untuk Logika Putaran 3D Carousel -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const carousel = document.getElementById("carousel");
@@ -294,21 +357,39 @@
       const prevBtn = document.getElementById("prevBtn");
       const nextBtn = document.getElementById("nextBtn");
       
-      const itemCount = items.length; // 6
-      const theta = 360 / itemCount; // 60 derajat per kartu
+      const itemCount = items.length;
+      const theta = 360 / itemCount; // 60 derajat per item
       const radius = 300; 
       
       let currAngle = 0;
 
+      // Posisikan kartu di 3D space
       items.forEach((item, index) => {
         const itemAngle = theta * index;
         item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
       });
 
+      // Fungsi untuk mengupdate rotasi dan state "Active"
       function rotateCarousel() {
         carousel.style.transform = `translateZ(-${radius}px) rotateY(${currAngle}deg)`;
+        
+        // Kalkulasi index kartu yang sedang berada di depan (sudut 0)
+        let activeIndex = Math.round(currAngle / -theta) % itemCount;
+        if (activeIndex < 0) {
+          activeIndex += itemCount;
+        }
+
+        // Tambah class 'active' ke kartu yang di depan
+        items.forEach((item, index) => {
+          if (index === activeIndex) {
+            item.classList.add("active");
+          } else {
+            item.classList.remove("active");
+          }
+        });
       }
 
+      // Panggil putaran pertama kali untuk set state awal
       rotateCarousel();
 
       nextBtn.addEventListener("click", () => {
