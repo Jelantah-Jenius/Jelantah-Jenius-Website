@@ -11,7 +11,6 @@
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/" />
   
-  <!-- CSS Khusus untuk Animasi Minyak Mengalir -->
   <style>
     @keyframes flowOil {
       0% { background-position: 200% center; }
@@ -19,7 +18,6 @@
     }
     
     .liquid-oil-bar {
-      /* Gradien warna emas/kuning untuk efek minyak */
       background: linear-gradient(
         90deg, 
         var(--secondary) 0%, 
@@ -29,13 +27,24 @@
         var(--secondary) 100%
       );
       background-size: 200% auto;
-      animation: flowOil 4s linear infinite; /* Animasi bergerak terus menerus */
+      animation: flowOil 4s linear infinite;
       border-radius: 30px;
       height: 100%;
-      width: 0%; /* Lebar awal sebelum data dimuat */
+      width: 0%;
       transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-      /* Efek glossy/mengkilap seperti cairan kental */
       box-shadow: inset 0 -4px 8px rgba(0,0,0,0.15), inset 0 4px 8px rgba(255,255,255,0.4);
+    }
+
+    /* CSS Animasi Deskripsi Muncul dari Bawah */
+    .stats-desc {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .stats-desc.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -90,7 +99,6 @@
       
       <!-- Progress Bar Container -->
       <div style="background: #e9ecef; border-radius: 30px; height: 45px; width: 100%; position: relative; overflow: hidden; box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);">
-        <!-- Class bar diubah menjadi .liquid-oil-bar -->
         <div id="oilProgressBar" class="liquid-oil-bar"></div>
         <span id="oilProgressText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-weight: 800; font-size: 1.1rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); white-space: nowrap;">Loading data...</span>
       </div>
@@ -109,11 +117,16 @@
     </div>
   </section>
 
-  <!-- People Reached Section -->
+  <!-- People Reached Section dengan Efek Kasino & Slide Up -->
   <section class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
     <div class="content" style="max-width: 900px; margin: 0 auto;">
-      <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">168,701+ <br><span style="color: white; font-size: 2rem; display: block; font-weight: 700; letter-spacing: normal; margin-top: 10px;">PEOPLE REACHED</span></h2>
-      <p style="font-size: 1.25rem; line-height: 1.8; color: rgba(255,255,255,0.9); max-width: 800px; margin: 0 auto;">Through our online content and offline outreach, Jelantah Jenius has reached 168,701+ people, raising awareness about responsible used cooking oil management and its potential as a reusable resource.</p>
+      <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">
+        <span id="counterNumber">0</span>+ <br>
+        <span style="color: white; font-size: 2rem; display: block; font-weight: 700; letter-spacing: normal; margin-top: 10px;">PEOPLE REACHED</span>
+      </h2>
+      <p id="statsDesc" class="stats-desc" style="font-size: 1.25rem; line-height: 1.8; color: rgba(255,255,255,0.9); max-width: 800px; margin: 0 auto;">
+        Through our online content and offline outreach, Jelantah Jenius has reached 168,701+ people, raising awareness about responsible used cooking oil management and its potential as a reusable resource.
+      </p>
     </div>
   </section>
 
@@ -156,6 +169,36 @@
 
   <script src="script.js"></script>
 
+  <!-- Script untuk Animasi Kasino & Slide-up Deskripsi -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const counterElement = document.getElementById("counterNumber");
+      const descElement = document.getElementById("statsDesc");
+      
+      const targetNumber = 168701;
+      let currentNumber = 0;
+      
+      // Kecepatan animasi (semakin kecil interval, semakin cepat putarannya)
+      const duration = 2000; // total waktu 2 detik
+      const steps = 50; // jumlah lompatan angka
+      const increment = targetNumber / steps;
+      const intervalTime = duration / steps;
+
+      const timer = setInterval(() => {
+        currentNumber += increment;
+        if (currentNumber >= targetNumber) {
+          currentNumber = targetNumber;
+          clearInterval(timer);
+          
+          // Begitu angka tepat 168,701+, tampilkan deskripsi dari bawah
+          descElement.classList.add("show");
+        }
+        // Format angka dengan pemisah ribuan (contoh: 168,701)
+        counterElement.textContent = Math.floor(currentNumber).toLocaleString('en-US');
+      }, intervalTime);
+    });
+  </script>
+
   <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -177,15 +220,13 @@
     let activePeriod = null;
     let allContributors = [];
 
-    // Dengarkan pengaturan Homepage (Bulan apa yang di-set admin)
     onSnapshot(doc(db, "settings", "homepage"), (docSnap) => {
       if(docSnap.exists()) {
         activePeriod = docSnap.data().active_period;
       }
-      updateUI(); // Panggil render setiap ada perubahan setting
+      updateUI();
     });
 
-    // Dengarkan data Peringkat
     const q = collection(db, "peringkat");
     onSnapshot(q, (snapshot) => {
       allContributors = [];
@@ -202,7 +243,6 @@
         });
       });
       
-      // UPDATE PROGRESS BAR KESELURUHAN (ALL TIME)
       const totalLiters = totalMl / 1000;
       const targetLiters = 200;
       
@@ -227,7 +267,6 @@
       const top3Title = document.getElementById('top3Title');
       if (!top3Container) return;
 
-      // Filter kontributor sesuai bulan yang di set admin
       let filteredContributors = allContributors;
       if (activePeriod) {
         filteredContributors = allContributors.filter(c => c.periode === activePeriod);
@@ -235,9 +274,10 @@
         if (activePeriod !== 'old-data') {
           const [year, month] = activePeriod.split('-');
           const d = new Date(year, month - 1);
-          top3Title.textContent = `Top 3 Contributors (${d.toLocaleString('en-US', { month: 'long', year: 'numeric' })})`;
+          const monthName = d.toLocaleString('en-US', { month: 'long' });
+          top3Title.textContent = `Top 3 Contributors ${monthName}`;
         } else {
-          top3Title.textContent = `Top 3 Contributors (Previous Batches)`;
+          top3Title.textContent = `Top 3 Contributors Previous Batches`;
         }
       } else {
         top3Title.textContent = `Top 3 Contributors`;
