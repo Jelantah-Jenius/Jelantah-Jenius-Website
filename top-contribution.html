@@ -67,12 +67,12 @@
       background: rgba(74, 84, 27, 0.05);
       border-radius: 20px;
       padding: 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       display: none;
       border: 1px solid rgba(74, 84, 27, 0.1);
     }
     .admin-panel h3 { color: var(--primary); margin-bottom: 1.5rem; }
-    .admin-form { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .admin-form { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
     .admin-form input {
       flex: 1;
       min-width: 200px;
@@ -90,6 +90,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: var(--transition);
+      white-space: nowrap;
     }
     .btn-action:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(249, 163, 26, 0.3); }
     .btn-outline {
@@ -102,7 +103,15 @@
     .btn-danger { background: #dc3545; }
     .btn-danger:hover { background: #c82333; box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3); }
     
-    .admin-controls, .admin-controls-header { display: none; }
+    .period-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 800;
+      border-bottom: 2px solid var(--secondary);
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -129,44 +138,33 @@
 
   <section class="peringkat-section">
     <div class="content" style="max-width: 1200px; margin: 0 auto; width: 90%;">
+      
       <div class="leaderboard-container">
         <div class="header-flex">
           <h2>Top Contribution</h2>
           <div>
-            <!-- Tombol Login Dihapus, hanya Logout yang tersisa (tersembunyi) -->
             <button id="logoutBtn" class="btn-action btn-outline" style="display: none;">Admin Logout</button>
           </div>
         </div>
         
-        <p style="color: var(--text-muted); margin-bottom: 2rem;">Track the classes or participants with the highest Friday Jelantah collections.</p>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Track the classes or participants with the highest Friday Jelantah collections per month.</p>
 
+        <!-- Admin Panel (Ditambahkan Input Periode) -->
         <div id="adminPanel" class="admin-panel">
           <h3><i class="fas fa-edit"></i> Add / Edit Contribution</h3>
           <form id="addForm" class="admin-form">
             <input type="hidden" id="editId">
+            <input type="month" id="periodeInput" required title="Pilih Bulan dan Tahun">
             <input type="text" id="namaInput" placeholder="Participant / Class Name" required>
-            <input type="number" id="skorInput" placeholder="Amount (Liters)" step="0.1" required>
+            <input type="number" id="skorInput" placeholder="Amount (Liters / ml)" step="0.1" required>
             <button type="submit" class="btn-action" id="submitBtn">Save Data</button>
             <button type="button" class="btn-action btn-outline" id="cancelEditBtn" style="display: none;">Cancel</button>
           </form>
         </div>
 
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 10%;">Rank</th>
-                <th style="width: 50%;">Name / Class</th>
-                <th style="width: 20%;">Collected (Liters)</th>
-                <th style="width: 20%;" class="admin-controls-header">Action</th>
-              </tr>
-            </thead>
-            <tbody id="leaderboardBody">
-              <tr>
-                <td colspan="4" style="text-align: center;">Loading data...</td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Wadah Dinamis untuk Tabel-tabel Bulan -->
+        <div id="tablesContainer">
+          <p style="text-align: center;">Loading data...</p>
         </div>
 
       </div>
@@ -175,6 +173,7 @@
 
   <script src="script.js"></script>
 
+  <!-- Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -194,11 +193,12 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
-    const leaderboardBody = document.getElementById('leaderboardBody');
+    const tablesContainer = document.getElementById('tablesContainer');
     const adminPanel = document.getElementById('adminPanel');
     const logoutBtn = document.getElementById('logoutBtn');
     
     const addForm = document.getElementById('addForm');
+    const periodeInput = document.getElementById('periodeInput');
     const namaInput = document.getElementById('namaInput');
     const skorInput = document.getElementById('skorInput');
     const editId = document.getElementById('editId');
@@ -207,25 +207,29 @@
 
     let isAdmin = false;
 
+    // Set default month to current month
+    const today = new Date();
+    const currentMonth = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
+    periodeInput.value = currentMonth;
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         isAdmin = true;
         logoutBtn.style.display = 'inline-block';
         adminPanel.style.display = 'block';
-        document.querySelectorAll('.admin-controls').forEach(el => el.style.display = 'table-cell');
-        document.querySelectorAll('.admin-controls-header').forEach(el => el.style.display = 'table-cell');
       } else {
         isAdmin = false;
         logoutBtn.style.display = 'none';
         adminPanel.style.display = 'none';
-        document.querySelectorAll('.admin-controls').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('.admin-controls-header').forEach(el => el.style.display = 'none');
       }
+      // Re-render UI upon auth change
+      if (window.currentSnapshotData) renderTables(window.currentSnapshotData);
     });
 
     logoutBtn.addEventListener('click', () => {
       signOut(auth);
       addForm.reset();
+      periodeInput.value = currentMonth;
       editId.value = '';
       submitBtn.textContent = "Save Data";
       cancelEditBtn.style.display = "none";
@@ -233,35 +237,94 @@
 
     const q = query(collection(db, "peringkat"), orderBy("skor", "desc"));
     onSnapshot(q, (snapshot) => {
-      leaderboardBody.innerHTML = '';
+      window.currentSnapshotData = snapshot; // Simpan snapshot untuk re-render saat login/logout
+      renderTables(snapshot);
+    });
+
+    function renderTables(snapshot) {
+      tablesContainer.innerHTML = '';
       if(snapshot.empty) {
-        leaderboardBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No contribution data available yet.</td></tr>';
+        tablesContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No contribution data available yet.</p>';
         return;
       }
       
-      let rank = 1;
+      // Mengelompokkan data berdasarkan periode
+      const groupedData = {};
       snapshot.forEach((docSnap) => {
         const data = docSnap.data();
-        const row = document.createElement('tr');
-        
-        let rankStyling = `<span>${rank}</span>`;
-        if(rank === 1) rankStyling = `<span class="rank-1"><i class="fas fa-crown"></i> 1</span>`;
-        if(rank === 2) rankStyling = `<span class="rank-2">2</span>`;
-        if(rank === 3) rankStyling = `<span class="rank-3">3</span>`;
-
-        row.innerHTML = `
-          <td>${rankStyling}</td>
-          <td><strong>${data.nama}</strong></td>
-          <td>${data.skor} L</td>
-          <td class="admin-controls" style="${isAdmin ? 'display: table-cell;' : 'display: none;'}">
-            <button class="btn-action btn-small edit-btn" data-id="${docSnap.id}" data-nama="${data.nama}" data-skor="${data.skor}">Edit</button>
-            <button class="btn-action btn-small btn-danger delete-btn" data-id="${docSnap.id}">Delete</button>
-          </td>
-        `;
-        leaderboardBody.appendChild(row);
-        rank++;
+        const periodeKey = data.periode || 'old-data'; // Jika tidak ada periode, masukkan ke grup lama
+        if(!groupedData[periodeKey]) groupedData[periodeKey] = [];
+        groupedData[periodeKey].push({ id: docSnap.id, ...data });
       });
 
+      // Mengurutkan bulan (dari yang terbaru ke terlama)
+      const periods = Object.keys(groupedData).sort((a, b) => {
+        if (a === 'old-data') return 1;
+        if (b === 'old-data') return -1;
+        return b.localeCompare(a); 
+      });
+
+      // Merender setiap tabel
+      periods.forEach(period => {
+        let periodTitle = "General / Previous Batches";
+        if (period !== 'old-data') {
+          const [year, month] = period.split('-');
+          const date = new Date(year, month - 1);
+          periodTitle = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+        }
+
+        let rowsHtml = '';
+        let rank = 1;
+        groupedData[period].forEach(item => {
+          let rankStyling = `<span>${rank}</span>`;
+          if(rank === 1) rankStyling = `<span class="rank-1"><i class="fas fa-crown"></i> 1</span>`;
+          if(rank === 2) rankStyling = `<span class="rank-2">2</span>`;
+          if(rank === 3) rankStyling = `<span class="rank-3">3</span>`;
+
+          const adminCols = isAdmin ? `
+            <td class="admin-controls" style="display: table-cell;">
+              <button class="btn-action btn-small edit-btn" data-id="${item.id}" data-nama="${item.nama}" data-skor="${item.skor}" data-periode="${item.periode || ''}">Edit</button>
+              <button class="btn-action btn-small btn-danger delete-btn" data-id="${item.id}">Delete</button>
+            </td>
+          ` : '';
+
+          rowsHtml += `
+            <tr>
+              <td>${rankStyling}</td>
+              <td><strong>${item.nama}</strong></td>
+              <td>${item.skor} L</td>
+              ${adminCols}
+            </tr>
+          `;
+          rank++;
+        });
+
+        const adminHeader = isAdmin ? `<th style="width: 20%;">Action</th>` : '';
+
+        const tableBlock = `
+          <div style="margin-bottom: 4rem;">
+            <h3 class="period-title">${periodTitle}</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 50%;">Name / Class</th>
+                    <th style="width: 20%;">Collected (Liters)</th>
+                    ${adminHeader}
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rowsHtml}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+        tablesContainer.insertAdjacentHTML('beforeend', tableBlock);
+      });
+
+      // Bind Delete Buttons
       document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
           if(confirm('Are you sure you want to delete this entry?')) {
@@ -270,11 +333,15 @@
         });
       });
 
+      // Bind Edit Buttons
       document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           editId.value = e.target.dataset.id;
           namaInput.value = e.target.dataset.nama;
           skorInput.value = e.target.dataset.skor;
+          
+          // Jika edit data lama yang belum punya periode, pakaikan bulan saat ini
+          periodeInput.value = e.target.dataset.periode || currentMonth;
           
           submitBtn.textContent = "Update Data";
           cancelEditBtn.style.display = "inline-block";
@@ -285,23 +352,25 @@
           });
         });
       });
-    });
+    }
 
     addForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const periode = periodeInput.value;
       const nama = namaInput.value;
       const skor = parseFloat(skorInput.value);
       const id = editId.value;
 
       try {
         if (id) {
-          await updateDoc(doc(db, "peringkat", id), { nama, skor });
+          await updateDoc(doc(db, "peringkat", id), { nama, skor, periode });
           submitBtn.textContent = "Save Data";
           cancelEditBtn.style.display = "none";
         } else {
-          await addDoc(collection(db, "peringkat"), { nama, skor });
+          await addDoc(collection(db, "peringkat"), { nama, skor, periode });
         }
         addForm.reset();
+        periodeInput.value = currentMonth; // Reset kalender ke bulan ini
         editId.value = '';
       } catch (error) {
         alert("Failed to save: " + error.message);
@@ -310,6 +379,7 @@
 
     cancelEditBtn.addEventListener('click', () => {
       addForm.reset();
+      periodeInput.value = currentMonth;
       editId.value = '';
       submitBtn.textContent = "Save Data";
       cancelEditBtn.style.display = "none";
