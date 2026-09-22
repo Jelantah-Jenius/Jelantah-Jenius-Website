@@ -33,6 +33,7 @@
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <section class="home" id="home">
     <div class="home-content">
       <span class="text-one">Innovating Sustainability</span>
@@ -48,7 +49,34 @@
     </div>
   </section>
 
-  <section class="partners-section">
+  <!-- Total Oil Collected (Progress Bar) Section -->
+  <section class="progress-section" style="padding: 5rem 0; background: var(--white);">
+    <div class="content" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 0 2rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; font-weight: 800;">Total Oil Collected</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Minyak jelantah yang telah terkumpul sejauh ini (Target: 200 Liter)</p>
+      
+      <!-- Progress Bar Container -->
+      <div style="background: #e9ecef; border-radius: 30px; height: 45px; width: 100%; position: relative; overflow: hidden; box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);">
+        <div id="oilProgressBar" style="background: var(--secondary); height: 100%; width: 0%; transition: width 1.5s ease-in-out; border-radius: 30px;"></div>
+        <span id="oilProgressText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-weight: 800; font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); white-space: nowrap;">Memuat data...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Process Image Section -->
+  <section class="process-section" style="padding: 2rem 0 5rem 0; background: var(--white);">
+    <div class="section-label" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 3rem; font-weight: 800; color: var(--primary);">The Process</h2>
+      <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">Bagaimana kami mengelola dan mengubah minyak jelantah menjadi sumber daya yang bermanfaat.</p>
+    </div>
+    <div style="max-width: 1000px; margin: 0 auto; padding: 0 2rem; text-align: center;">
+      <!-- Gambar The Process disematkan di sini sesuai permintaan -->
+      <img src="attached_assets/The process.jpg" alt="The Process" style="width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
+    </div>
+  </section>
+
+  <!-- Strategic Partners Section -->
+  <section class="partners-section" style="background: var(--bg-light);">
     <div class="section-label">
       <h2>Strategic Partners</h2>
       <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">Collaborating with industry leaders to power a circular economy.</p>
@@ -72,6 +100,57 @@
     </div>
   </section>
 
+  <script src="script.js"></script>
+
+  <!-- Firebase Integration Khusus untuk Progress Bar -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAWpSh4iWGc8ZmvMBfbPDqbZ-HHkqOce3U",
+      authDomain: "jelantahjenius-id.firebaseapp.com",
+      projectId: "jelantahjenius-id",
+      storageBucket: "jelantahjenius-id.firebasestorage.app",
+      messagingSenderId: "893307998743",
+      appId: "1:893307998743:web:20025ac8f89eb6a6b70252",
+      measurementId: "G-3CFN0TDGHZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Membaca koleksi "peringkat" secara realtime
+    const q = collection(db, "peringkat");
+    onSnapshot(q, (snapshot) => {
+      let totalMl = 0;
+      
+      // Menjumlahkan semua skor (asumsi input dari form sekarang dalam Mililiter)
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        totalMl += (data.skor || 0);
+      });
+      
+      // Mengonversi Mililiter ke Liter
+      const totalLiters = totalMl / 1000;
+      const targetLiters = 200;
+      
+      // Menghitung persentase bar
+      let percentage = (totalLiters / targetLiters) * 100;
+      if (percentage > 100) percentage = 100; // Maksimal progress bar adalah 100%
+
+      const progressBar = document.getElementById('oilProgressBar');
+      const progressText = document.getElementById('oilProgressText');
+      
+      if (progressBar && progressText) {
+        // Update lebar bar dan teks angka
+        progressBar.style.width = percentage + '%';
+        progressText.textContent = totalLiters.toFixed(2) + ' L / ' + targetLiters + ' L';
+      }
+    });
+  </script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
