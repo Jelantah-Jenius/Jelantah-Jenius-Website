@@ -3,13 +3,190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Programs - Jelantah Jenius</title>
+  <title>Our Programs - Jelantah Jenius</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
   <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/programs" />
+  <style>
+    /* --- CSS KHUSUS UNTUK 3D CAROUSEL --- */
+    body {
+      background: var(--bg-light);
+      overflow-x: hidden;
+    }
+
+    .programs-hero {
+      padding: 10rem 2rem 3rem 2rem;
+      text-align: center;
+    }
+    
+    .programs-hero h1 {
+      font-size: 3rem;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .programs-hero p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Container Utama Carousel 3D */
+    .carousel-container {
+      perspective: 1200px; /* Kedalaman 3D */
+      width: 100%;
+      height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+      margin-bottom: 5rem;
+      position: relative;
+    }
+
+    /* Silinder Pemutar */
+    .carousel {
+      width: 300px;
+      height: 400px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1); /* Transisi halus saat berputar */
+    }
+
+    /* Kartu/Panel di dalam Carousel */
+    .carousel-item {
+      position: absolute;
+      width: 300px;
+      height: 400px;
+      left: 0;
+      top: 0;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      /* Memposisikan 6 kartu dalam lingkaran (360/6 = 60 derajat per kartu) */
+      /* Jarak dari pusat silinder (TranslateZ) diatur di JS */
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .carousel-content {
+      padding: 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+
+    .carousel-content h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .carousel-content p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .carousel-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--secondary);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    
+    .carousel-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Tombol Navigasi Kiri & Kanan */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--white);
+      color: var(--primary);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      z-index: 10;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .prev-btn { left: 10%; }
+    .next-btn { right: 10%; }
+
+    /* Tombol Top Contribution Khusus di Bawah */
+    .leaderboard-link-wrapper {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .btn-leaderboard {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(74, 84, 27, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-leaderboard:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(74, 84, 27, 0.4);
+    }
+    
+    /* Responsif untuk HP */
+    @media (max-width: 768px) {
+      .prev-btn { left: 5%; width: 40px; height: 40px; font-size: 1.2rem;}
+      .next-btn { right: 5%; width: 40px; height: 40px; font-size: 1.2rem;}
+      .carousel {
+        width: 260px; /* Lebih kecil di HP */
+      }
+      .carousel-item {
+        width: 260px;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav id="navbar">
@@ -33,153 +210,145 @@
     </div>
   </nav>
 
-  <div id="videoBackdrop" class="video-backdrop" onclick="closeActiveVideo();"></div>
+  <!-- Hero Section -->
+  <section class="programs-hero">
+    <h1>Our Initiatives</h1>
+    <p>Discover how Jelantah Jenius is turning waste into sustainable opportunities through our diverse range of educational, environmental, and social programs.</p>
+  </section>
 
-  <section class="programs">
-    <div class="content-box">
-      <div class="image-wrapper-vertical">
-        <div class="image-container">
-          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Programs">
+  <!-- 3D Carousel Section -->
+  <section>
+    <div class="carousel-container">
+      <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+      
+      <!-- Silinder Putar -->
+      <div class="carousel" id="carousel">
+        
+        <!-- Kartu 1 -->
+        <div class="carousel-item">
+          <!-- Ganti src dengan gambar program Anda -->
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 1">
+          <div class="carousel-content">
+            <h3>Jumat Jelantah</h3>
+            <p>Our flagship weekly collection drive in collaboration with local schools to gather used cooking oil before it harms the environment.</p>
+            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
         </div>
-        <div class="image-container">
-          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Programs">
+
+        <!-- Kartu 2 -->
+        <div class="carousel-item">
+          <!-- Ganti src dengan gambar program Anda -->
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 2">
+          <div class="carousel-content">
+            <h3>Biodiesel Conversion</h3>
+            <p>Partnering with certified facilities to transform the collected oil into clean, renewable energy sources like biodiesel.</p>
+            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
         </div>
+
+        <!-- Kartu 3 -->
+        <div class="carousel-item">
+          <!-- Ganti src dengan gambar program Anda -->
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 3">
+          <div class="carousel-content">
+            <h3>Eco-Soap Workshops</h3>
+            <p>Empowering communities by teaching them how to upcycle filtered cooking oil into safe, usable household soap.</p>
+            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Kartu 4 -->
+        <div class="carousel-item">
+          <!-- Ganti src dengan gambar program Anda -->
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 4">
+          <div class="carousel-content">
+            <h3>School Education</h3>
+            <p>Interactive seminars for students about the dangers of improper waste disposal and the importance of the circular economy.</p>
+            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Kartu 5 -->
+        <div class="carousel-item">
+          <!-- Ganti src dengan gambar program Anda -->
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 5">
+          <div class="carousel-content">
+            <h3>Charity Drives</h3>
+            <p>Profits from the processed oil are redirected back to the community through donations and educational scholarships.</p>
+            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Kartu 6 -->
+        <div class="carousel-item">
+          <!-- Ganti src dengan gambar program Anda -->
+          <img src="attached_assets/stock_images/sustainable_renewabl_993aadc3.jpg" alt="Program 6">
+          <div class="carousel-content">
+            <h3>Green Campaign</h3>
+            <p>A digital awareness campaign reaching over 168,000+ people online, spreading the message of sustainability.</p>
+            <a href="#" class="carousel-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
       </div>
-      <div class="text-container">
-        <h3>Jumat Jelantah</h3>
-        <p>Jumat Jelantah (JJ) is introduced as a weekly Used Cooking Oil (UCO) collection program at Sekolah Bogor Raya. By providing an accessible collection point every Friday, the program encourages students, teachers, and staff to dispose of used cooking oil responsibly while supporting environmental sustainability, the circular economy, and community participation.</p>
-        <div class="topic" style="font-size: 1.4rem;">The objectives of Jumat Jelantah (JJ) are to: </div>
-        <p>1. Raise awareness about the environmental and health impacts of improper UCO disposal.<br>
-        2. Provide an accessible and sustainable UCO collection system for the school community.<br>
-        3. Encourage responsible waste management and environmental stewardship.<br>
-        4. Support the recycling of UCO into renewable energy</p>
-        <div class="topic" style="font-size: 1.4rem;">Activities: </div>
-        <p>All the cooking oil will be used for our programs here at Jelantah Jenius, such as: Candle making from used cooking oil; education and outreach regarding the recycling of used cooking oil; and donation programs with funds collected from used cooking oil</p>
-        <div style="text-align: center; margin-top: 3rem;">
-          <a href="top-contribution" target="_blank" class="btn-primary" style="display: inline-block;">
-            <i class="fas fa-trophy" style="margin-right: 8px; color: #FFD700;"></i>Top Contribution
-          </a>
-        </div>
-      </div>
+
+      <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
     </div>
   </section>
 
-  <div class="section-divider">
-    <i class="fa-solid fa-leaf"></i>
-  </div>
-
-  <section class="programs">
-    <div class="content-box">
-      <div class="text-container">
-        <h3>Jelantah Xpand</h3>
-        <p>Jelantah Xpand is an expansion initiative designed to broaden the organization's reach by participating in educational forums, exhibitions, and interactive events. Through this program, Jelantah Jenius engages with students, experts, and the broader community to exchange knowledge and raise awareness about sustainable waste management.</p>
-      </div>
-      <div style="width: 50%; height: auto; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-        <video
-          id="jelantahxpand"
-          controls
-          autoplay
-          muted
-          loop
-          playsinline
-          width="100%"
-          style="border-radius: 8px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: block; background: #000;">
-          <source src="attached_assets/Jelantah Xpand.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-          <a href="javascript:void(0)" 
-             id="muteToggleBtn2"
-             onclick="toggleMute('jelantahxpand', this)" 
-             style="color: var(--primary); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-            <i class="fa-solid fa-volume-xmark"></i>
-            <span>Unmute video</span>
-          </a>
-
-          <a href="javascript:void(0)"
-             onclick="toggleVideoZoom(document.getElementById('jelantahxpand'), 'muteToggleBtn2')"
-             style="color: #666; text-decoration: none; font-size: 0.875rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
-            <span>Zoom video</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider">
-    <i class="fa-solid fa-leaf"></i>
-  </div>
-
-  <section class="programs">
-    <div class="content-box">
-      <div class="image-wrapper-vertical">
-        <div class="image-container" style="width: 70%; height: auto; margin: 0 auto;">
-          <img src="attached_assets/Jelantah Xchange.jpeg">
-        </div>
-      </div>
-      <div class="text-container">
-        <h3>Jelantah Xchange</h3>
-        <p>Jelantah Xchange is an outreach program centered on social impact and collaborative engagement. Through monthly partnerships with local organizations, businesses, and youth groups, Jelantah Xchange brings people together to support underserved communities through joint activities, educational sharing, and direct donations.</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider">
-    <i class="fa-solid fa-leaf"></i>
-  </div>
-
-  <section class="programs">
-    <div class="content-box">
-      <div class="text-container">
-        <h3>Jelantah Berbagi</h3>
-        <p>Jelantah Berbagi is a community-focused initiative by Jelantah Jenius designed to distribute social aid and foster meaningful connections with local communities. Through direct engagement and collaborative outreach, the program provides essential support and resources to those in need while raising awareness about environmental sustainability.</p>
-      </div>
-      <div class="image-wrapper-vertical">
-        <div class="image-container">
-          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider">
-    <i class="fa-solid fa-leaf"></i>
-  </div>
-
-  <section class="programs">
-    <div class="content-box">
-      <div class="image-wrapper-vertical">
-        <div class="image-container">
-          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg">
-        </div>
-      </div>
-      <div class="text-container">
-        <h3>Jelantah News</h3>
-        <p>Jelantah News is an educational media initiative dedicated to raising public awareness about environmental sustainability, waste management, and social impact. Through engaging digital content, news updates, and informative posts, the program keeps the community informed on local ecological issues and highlights key milestones in sustainable action.</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider">
-    <i class="fa-solid fa-leaf"></i>
-  </div>
-
-  <section class="programs">
-    <div class="content-box">
-      <div class="text-container">
-        <h3>Oil Runs</h3>
-        <p>Oil Runs is a hands-on collection and logistics program focused on gathering used cooking oil directly from households, local businesses, and community partners. By establishing scheduled pickup routes and accessible drop-off points, the initiative ensures that waste oil is safely retrieved and diverted away from local waterways and drainage systems.</p>
-      </div>
-      <div class="image-wrapper-vertical">
-        <div class="image-container">
-          <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg">
-        </div>
-      </div>
-    </div>
+  <!-- Tombol Khusus ke Leaderboard -->
+  <section class="leaderboard-link-wrapper">
+    <a href="top-contribution" class="btn-leaderboard">
+      <i class="fas fa-trophy"></i> View Friday Jelantah Leaderboard
+    </a>
   </section>
 
   <script src="script.js"></script>
+  
+  <!-- Script untuk Logika Putaran 3D Carousel -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const carousel = document.getElementById("carousel");
+      const items = document.querySelectorAll(".carousel-item");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      
+      const itemCount = items.length; // 6
+      const theta = 360 / itemCount; // 60 derajat per kartu
+      
+      // Menghitung radius silinder (TranslateZ) agar kartu tidak bertumpuk
+      // Rumus: Lebar Kartu / (2 * Tangen (sudut / 2))
+      // Di sini kita gunakan nilai tetap yang aman sekitar 300px
+      const radius = 300; 
+      
+      let currAngle = 0;
+
+      // Setup posisi awal masing-masing kartu dalam ruang 3D
+      items.forEach((item, index) => {
+        const itemAngle = theta * index;
+        item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
+      });
+
+      // Fungsi untuk memutar komidi putar
+      function rotateCarousel() {
+        carousel.style.transform = `translateZ(-${radius}px) rotateY(${currAngle}deg)`;
+      }
+
+      // Panggil rotasi awal
+      rotateCarousel();
+
+      // Klik tombol Selanjutnya
+      nextBtn.addEventListener("click", () => {
+        currAngle -= theta;
+        rotateCarousel();
+      });
+
+      // Klik tombol Sebelumnya
+      prevBtn.addEventListener("click", () => {
+        currAngle += theta;
+        rotateCarousel();
+      });
+    });
+  </script>
 </body>
 </html>
