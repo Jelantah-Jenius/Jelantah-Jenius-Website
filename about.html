@@ -10,6 +10,20 @@
   <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/about" />
+  <style>
+    body {
+      /* Gradasi 3 warna: Hijau -> Kuning Lembut -> Putih */
+      background: linear-gradient(
+        to top, 
+        #4a541b 0%,     /* Hijau khas Jelantah Jenius di paling bawah */
+        #f7d36a 50%,    /* Kuning lembut di tengah */
+        #ffffff 100%    /* Putih bersih di atas */
+      );
+      background-attachment: fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+  </style>
 </head>
 <body>
   <nav id="navbar">
@@ -22,12 +36,12 @@
       </div>
       <ul class="menu">
         <div class="cancel-btn"><i class="fas fa-times"></i></div>
-        <a href="/">Home</a></li>
-        <a href="/about"class="active">About Us</a></li>
-        <a href="/contents">Contents</a></li>
-        <a href="/programs">Programs</a></li>
-        <a href="/batches">Batches</a></li>
-        <a href="/contact">Contact Us</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about" class="active">About Us</a></li>
+        <li><a href="/contents">Contents</a></li>
+        <li><a href="/programs">Programs</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/contact">Contact Us</a></li>
       </ul>
       <div class="menu-btn"><i class="fas fa-bars"></i></div>
     </div>
