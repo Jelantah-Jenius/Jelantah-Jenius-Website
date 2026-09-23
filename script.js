@@ -114,3 +114,20 @@ function closeActiveVideo() {
     toggleVideoZoom(zoomed, btnId);
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target); // Runs animation once per scroll
+      }
+    });
+  }, {
+    threshold: 0.15 // Triggers when 15% of the element is in view
+  });
+
+  document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+});
