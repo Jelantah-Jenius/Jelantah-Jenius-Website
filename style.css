@@ -806,18 +806,18 @@ video.center-overlay {
 .details-content {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease-out;
+  transition: grid-template-rows 0.35s ease;
 }
 
 /* Inner content that animates opacity & position */
 .details-inner {
   overflow: hidden;
   opacity: 0;
-  transform: translateY(-12px);
+  transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.35s ease;
 }
 
-/* Expand when JavaScript adds .is-open class */
+/* Expanded state */
 details.is-open > .details-content {
   grid-template-rows: 1fr;
 }
@@ -833,5 +833,5 @@ details.is-open > summary .toggle-arrow-sm {
 }
 
 summary .toggle-arrow-sm {
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease;
 }
