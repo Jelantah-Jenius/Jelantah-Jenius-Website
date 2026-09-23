@@ -114,14 +114,14 @@
       transform: translateY(0);
     }
 
-    /* --- OVERLAY HOVER (GELAPKAN GAMBAR & MUNCUL DESKRIPSI) --- */
+    /* --- OVERLAY HOVER (HANYA TOMBOL) --- */
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.7); /* Dibuat sedikit lebih transparan agar media lebih terlihat */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -133,34 +133,23 @@
       pointer-events: none; 
     }
 
-    .overlay p {
-      color: #ffffff;
-      font-size: 0.95rem; 
-      line-height: 1.6;
-      margin-bottom: 2rem;
-      transform: translateY(20px);
-      transition: all 0.4s ease;
-      display: -webkit-box;
-      -webkit-line-clamp: 7; 
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
     .btn-learn {
       background: var(--primary);
       color: #ffffff;
-      padding: 1rem 2rem;
+      padding: 1rem 2.5rem;
       border-radius: 30px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       transform: translateY(20px);
       transition: all 0.4s ease 0.1s;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
     
     .btn-learn:hover {
       background: var(--accent);
-      transform: scale(1.05);
+      transform: scale(1.05) !important; /* !important ditambahkan agar efek hover tombol tetap jalan saat kontainer di hover */
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     }
 
     /* Aksi Hover */
@@ -174,7 +163,6 @@
       transform: scale(1.1); 
     }
 
-    .carousel-item.active:hover .overlay p,
     .carousel-item.active:hover .overlay .btn-learn {
       transform: translateY(0);
     }
@@ -255,12 +243,12 @@
       </div>
       <ul class="menu">
         <div class="cancel-btn"><i class="fas fa-times"></i></div>
-        <a href="/">Home</a></li>
-        <a href="/about">About Us</a></li>
-        <a href="/contents">Contents</a></li>
-        <a href="/programs"class="active">Programs</a></li>
-        <a href="/batches">Batches</a></li>
-        <a href="/contact">Contact Us</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/articles">Articles</a></li>
+        <li><a href="/programs" class="active">Programs</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/contact">Contact Us</a></li>
       </ul>
       <div class="menu-btn"><i class="fas fa-bars"></i></div>
     </div>
@@ -287,7 +275,6 @@
             <h3>Jelantah Xpand</h3>
           </div>
           <div class="overlay">
-            <p>Jelantah Xpand is an expansion initiative designed to broaden the organization's reach by participating in educational forums, exhibitions, and interactive events. We engage with students, experts, and the broader community to exchange knowledge.</p>
             <a href="jelantah-xpand.html" class="btn-learn">Learn More</a>
           </div>
         </div>
@@ -299,7 +286,6 @@
             <h3>Jumat Jelantah</h3>
           </div>
           <div class="overlay">
-            <p>Jumat Jelantah (JJ) is introduced as a weekly Used Cooking Oil (UCO) collection program at Sekolah Bogor Raya. By providing an accessible collection point every Friday, the program encourages students, teachers, and staff to dispose of used cooking oil responsibly.</p>
             <a href="jumat-jelantah.html" class="btn-learn">Learn More</a>
           </div>
         </div>
@@ -311,7 +297,6 @@
             <h3>Jelantah Xchange</h3>
           </div>
           <div class="overlay">
-            <p>Jelantah Xchange is an outreach program centered on social impact and collaborative engagement. Through monthly partnerships, it brings people together to support underserved communities through joint activities and direct donations.</p>
             <a href="jelantah-xchange.html" class="btn-learn">Learn More</a>
           </div>
         </div>
@@ -323,7 +308,6 @@
             <h3>Jelantah Berbagi</h3>
           </div>
           <div class="overlay">
-            <p>Jelantah Berbagi is a community-focused initiative designed to distribute social aid and foster meaningful connections with local communities, providing essential support and resources to those in need.</p>
             <a href="jelantah-berbagi.html" class="btn-learn">Learn More</a>
           </div>
         </div>
@@ -335,7 +319,6 @@
             <h3>Jelantah News</h3>
           </div>
           <div class="overlay">
-            <p>Jelantah News is an educational media initiative dedicated to raising public awareness about environmental sustainability. Through engaging digital content, it keeps the community informed on local ecological issues.</p>
             <a href="jelantah-news.html" class="btn-learn">Learn More</a>
           </div>
         </div>
@@ -347,7 +330,6 @@
             <h3>Oil Runs</h3>
           </div>
           <div class="overlay">
-            <p>Oil Runs is a hands-on collection and logistics program focused on gathering used cooking oil directly from households and local businesses by establishing scheduled pickup routes and accessible drop-off points.</p>
             <a href="oil-runs.html" class="btn-learn">Learn More</a>
           </div>
         </div>
