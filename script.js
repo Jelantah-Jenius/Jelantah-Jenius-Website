@@ -131,3 +131,18 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('details').forEach((detail) => {
+    detail.addEventListener('toggle', () => {
+      if (detail.open) {
+        // Small delay lets the browser render the expanded state before animating
+        requestAnimationFrame(() => {
+          detail.classList.add('is-open');
+        });
+      } else {
+        detail.classList.remove('is-open');
+      }
+    });
+  });
+});
