@@ -134,14 +134,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('details').forEach((detail) => {
-    detail.addEventListener('toggle', () => {
-      if (detail.open) {
-        // Small delay lets the browser render the expanded state before animating
+    const summary = detail.querySelector('summary');
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault(); // Stop native instant toggle
+
+      if (!detail.open) {
+        // OPENING
+        detail.open = true;
         requestAnimationFrame(() => {
           detail.classList.add('is-open');
         });
       } else {
+        // CLOSING
         detail.classList.remove('is-open');
+
+        // Wait for CSS animation (350ms) before closing <details>
+        setTimeout(() => {
+          detail.open = false;
+        }, 350);
       }
     });
   });
