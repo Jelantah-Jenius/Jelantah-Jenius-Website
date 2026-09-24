@@ -2,66 +2,213 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Videos - Jelantah Jenius</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jelantah Berbagi - Jelantah Jenius</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
   <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
+  <link rel="canonical" href="https://jelantahjenius.com/jelantah-berbagi" />
   <style>
-    * {
-      box-sizing: border-box;
+    /* --- CSS UNTUK MENU DROPDOWN --- */
+    .menu li.dropdown {
+      position: relative;
+    }
+    
+    .menu li.dropdown .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+      border-radius: 10px;
+      z-index: 100;
+      padding: 0.5rem 0;
+      list-style: none;
+      overflow: hidden;
+    }
+    
+    .menu li.dropdown:hover .dropdown-content,
+    .menu li.dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li {
       margin: 0;
-      padding: 0;
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li a {
+      color: var(--primary, #4a541b);
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .menu li.dropdown .dropdown-content li a:hover {
+      background-color: #f7d36a;
+      color: #000;
+      transform: none; 
     }
 
-    body {
-      background: linear-gradient(
-        to top, 
-        #4a541b 0%,     
-        #f7d36a 50%,    
-        #ffffff 100%    
-      );
-      background-attachment: fixed;
-      background-size: cover;
-      overflow-x: hidden;
-      min-height: 100vh;
+    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
+    @media (max-width: 768px) {
+      .menu li.dropdown .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 1.5rem;
+        display: none;
+      }
+      .menu li.dropdown:hover .dropdown-content,
+      .menu li.dropdown:focus-within .dropdown-content {
+        display: block;
+      }
+      .menu li.dropdown .dropdown-content li a {
+        padding: 8px 20px;
+        color: #ffffff;
+      }
+      .menu li.dropdown .dropdown-content li a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #f7d36a;
+      }
+    }
+
+    .berbagi-hero {
+      padding: 10rem 2rem 3rem 2rem;
+      text-align: center;
+    }
+    .berbagi-hero h1 {
+      font-size: 3rem;
+      color: var(--primary, #4a541b);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .berbagi-hero p {
+      color: var(--text-muted, #666);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .event-section {
+      padding: 4rem 0;
+    }
+    .event-badge {
+      display: inline-block;
+      background: rgba(74, 84, 27, 0.1);
+      color: var(--primary, #4a541b);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .back-link-wrapper {
+      max-width: 1200px;
+      margin: 2rem auto 0 auto;
+      padding: 0 2rem;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary, #4a541b);
+      text-decoration: none;
+      font-weight: 700;
+      transition: var(--transition, 0.3s);
+    }
+    .btn-back:hover {
+      color: var(--secondary, #f7d36a);
+      transform: translateX(-5px);
+    }
+
+    /* --- CSS UNTUK IMAGE SLIDER --- */
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px; /* Sesuaikan dengan style box Anda */
+      width: 100%;
+      aspect-ratio: 4/3; /* Membuat gambar proporsional */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background-color: #e5e7eb;
+    }
+    
+    .slider-track {
       display: flex;
-      flex-direction: column;
-      font-family: Arial, sans-serif;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
     }
-
-    /* --- PAGE CONTAINER & YELLOW BOX --- */
-    .main-container {
-      flex: 1;
+    
+    .slider-track img {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.8);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10rem 1rem 4rem 1rem; /* Adjusted padding to clear fixed navbar */
+      font-size: 1.2rem;
+      color: var(--primary, #4a541b);
+      transition: all 0.3s ease;
+      z-index: 10;
     }
-
-    .huge-yellow-box {
-      max-width: 900px;
-      width: 100%;
-      padding: 3rem 2rem;
-      background-color: #fffde7;
-      border: 2px solid #f0e68c;
-      border-radius: 25px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .huge-yellow-box h3 {
+    
+    .slider-btn:hover {
+      background-color: #f7d36a;
       color: #4a541b;
-      font-size: 2.2rem;
-      margin-bottom: 2.5rem;
-      font-weight: 800;
     }
+    
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+    
+    .slider-dots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .dot.active {
+      background-color: #ffffff;
+      transform: scale(1.3);
+    }
+    /* --------------------------------- */
   </style>
 </head>
 <body>
+
+  <!-- Navigation Bar -->
   <nav id="navbar">
     <div class="navbar">
       <div class="logo">
@@ -75,15 +222,16 @@
         <li><a href="/">Home</a></li>
         <li><a href="/about">About Us</a></li>
         
+        <!-- Dropdown Menu Contents -->
         <li class="dropdown">
-          <a href="javascript:void(0)" class="dropbtn active">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+          <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
           <ul class="dropdown-content">
             <li><a href="/articles">Articles</a></li>
-            <li><a href="/videos" class="active">Videos</a></li>
+            <li><a href="/videos">Videos</a></li>
           </ul>
         </li>
         
-        <li><a href="/programs">Programs</a></li>
+        <li><a href="/programs" class="active">Programs</a></li>
         <li><a href="/batches">Batches</a></li>
         <li><a href="/contact">Contact Us</a></li>
       </ul>
@@ -91,12 +239,107 @@
     </div>
   </nav>
 
-  <main class="main-container">
-    <section class="huge-yellow-box">
-      <h3>Video Gallery</h3>
-      <p style="color: #4b5563; font-size: 1.1rem;">Video content is coming soon! Stay tuned.</p>
-    </section>
-  </main>
+  <!-- Tombol Kembali ke Programs -->
+  <div class="back-link-wrapper" style="padding-top: 8rem;">
+    <a href="/programs" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Back to Programs
+    </a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="berbagi-hero" style="padding-top: 2rem;">
+    <h1>Jelantah Berbagi</h1>
+    <p>Sharing knowledge and giving back to the community by teaching the value of sustainability and repurposing waste.</p>
+  </section>
+
+  <!-- Event 1: July — Educational Outreach -->
+  <section class="event-section" style="padding-bottom: 8rem;">
+    <div class="content-box">
+      
+      <!-- IMAGE SLIDER CONTAINER -->
+      <div class="image-container slider-container">
+        <!-- Track Gambar -->
+        <div class="slider-track" id="sliderTrack">
+          <img src="attached_assets/programs_slide/berbagi/IMG_5052.jpg" alt="Slide 1">
+          <img src="attached_assets/programs_slide/berbagi/IMG_5036.jpg" alt="Slide 2">
+          <img src="attached_assets/programs_slide/berbagi/IMG_5021.jpg" alt="Slide 3">
+          <img src="attached_assets/programs_slide/berbagi/IMG_4993.jpg" alt="Slide 4">
+          <img src="attached_assets/programs_slide/berbagi/20260718_105204(0).jpg" alt="Slide 5">
+        </div>
+        
+        <!-- Tombol Navigasi Kiri & Kanan -->
+        <button class="slider-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        
+        <!-- Indikator Titik (Dots) -->
+        <div class="slider-dots" id="sliderDots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+          <span class="dot" data-index="4"></span>
+        </div>
+      </div>
+      <!-- END OF IMAGE SLIDER -->
+
+      <div class="text-container">
+        <span class="event-badge">July — Educational Outreach</span>
+        <h3>Interactive Learning & Candle Making</h3>
+        <p>Visited Panti Asuhan Mizan Amanah Tanah Baru as part of Jelantah Berbagi to introduce children to the potential of UCO through an interactive educational activity. We demonstrated how used cooking oil can be transformed into candles and allowed participants to decorate their own candles.</p>
+        <p>By combining education with hands-on activities, we showed that waste can be repurposed into useful products while encouraging greater awareness of sustainable practices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script Khusus untuk Slider -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const track = document.getElementById('sliderTrack');
+      const slides = track.querySelectorAll('img');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const dots = document.querySelectorAll('.dot');
+      
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+
+      // Fungsi untuk menggeser slider
+      function updateSlider() {
+        // Geser X
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Update titik aktif
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentIndex].classList.add('active');
+      }
+
+      // Klik tombol Kanan
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+        updateSlider();
+      });
+
+      // Klik tombol Kiri
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+        updateSlider();
+      });
+
+      // Klik Indikator Titik (Dots)
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          currentIndex = parseInt(e.target.getAttribute('data-index'));
+          updateSlider();
+        });
+      });
+
+      // Opsional: Auto-slide setiap 4 detik (hapus/comment jika tidak ingin otomatis gerak)
+      setInterval(() => {
+        currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+        updateSlider();
+      }, 4000);
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
