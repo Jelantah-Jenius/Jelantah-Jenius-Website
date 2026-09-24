@@ -9,6 +9,76 @@
   <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
   <link rel="canonical" href="https://jelantahjenius.com/top-contribution" />
   <style>
+    /* --- CSS UNTUK MENU DROPDOWN --- */
+    .menu li.dropdown {
+      position: relative;
+    }
+    
+    .menu li.dropdown .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+      border-radius: 10px;
+      z-index: 100;
+      padding: 0.5rem 0;
+      list-style: none;
+      overflow: hidden;
+    }
+    
+    .menu li.dropdown:hover .dropdown-content,
+    .menu li.dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li {
+      margin: 0;
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li a {
+      color: var(--primary, #4a541b);
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .menu li.dropdown .dropdown-content li a:hover {
+      background-color: #f7d36a;
+      color: #000;
+      transform: none; 
+    }
+
+    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
+    @media (max-width: 768px) {
+      .menu li.dropdown .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 1.5rem;
+        display: none;
+      }
+      .menu li.dropdown:hover .dropdown-content,
+      .menu li.dropdown:focus-within .dropdown-content {
+        display: block;
+      }
+      .menu li.dropdown .dropdown-content li a {
+        padding: 8px 20px;
+        color: #ffffff;
+      }
+      .menu li.dropdown .dropdown-content li a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #f7d36a;
+      }
+    }
+    /* --------------------------------- */
+
     .peringkat-section { padding-top: 10rem; padding-bottom: 5rem; min-height: 100vh; }
     .leaderboard-container { background: var(--white); border-radius: 30px; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.03); width: 100%; }
     .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
@@ -74,12 +144,21 @@
       </div>
       <ul class="menu">
         <div class="cancel-btn"><i class="fas fa-times"></i></div>
-        <a href="/">Home</a></li>
-        <a href="/about">About Us</a></li>
-        <a href="/contents">Contents</a></li>
-        <a href="/programs"class="active">Programs</a></li>
-        <a href="/batches">Batches</a></li>
-        <a href="/contact">Contact Us</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        
+        <!-- Dropdown Menu Contents -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+          <ul class="dropdown-content">
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/videos">Videos</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="/programs" class="active">Programs</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/contact">Contact Us</a></li>
       </ul>
       <div class="menu-btn"><i class="fas fa-bars"></i></div>
     </div>
@@ -181,7 +260,7 @@
 
     let isAdmin = false;
     let currentActiveSettings = null;
-    let currentPublicFilter = 'all'; // Menyimpan filter publik yang sedang aktif
+    let currentPublicFilter = 'all';
 
     const today = new Date();
     const currentMonth = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
@@ -209,7 +288,6 @@
       cancelEditBtn.style.display = "none";
     });
 
-    // Listen to settings for active homepage period
     onSnapshot(doc(db, "settings", "homepage"), (docSnap) => {
       if(docSnap.exists()) {
         currentActiveSettings = docSnap.data().active_period;
@@ -219,7 +297,6 @@
       }
     });
 
-    // Save Homepage Setting
     saveSettingsBtn.addEventListener('click', async () => {
       try {
         await setDoc(doc(db, "settings", "homepage"), { active_period: activePeriodSelect.value });
@@ -230,7 +307,6 @@
       }
     });
 
-    // Listener untuk perubahan Filter Publik
     publicPeriodSelect.addEventListener('change', (e) => {
       currentPublicFilter = e.target.value;
       if (window.currentSnapshotData) {
@@ -268,9 +344,7 @@
         return b.localeCompare(a); 
       });
 
-      // Update the dropdown for Admin Settings
       activePeriodSelect.innerHTML = '';
-      // Update the dropdown for Public Filter
       publicPeriodSelect.innerHTML = '<option value="all">Show All Periods</option>';
 
       periods.forEach(period => {
@@ -281,13 +355,11 @@
           optionText = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
         }
 
-        // Option untuk Admin
         const optionAdmin = document.createElement('option');
         optionAdmin.value = period;
         optionAdmin.textContent = optionText;
         activePeriodSelect.appendChild(optionAdmin);
 
-        // Option untuk Publik
         const optionPublic = document.createElement('option');
         optionPublic.value = period;
         optionPublic.textContent = optionText;
@@ -301,13 +373,12 @@
         activePeriodSelect.value = currentActiveSettings;
       }
 
-      // Filter array periods berdasarkan pilihan publik
       let periodsToRender = periods;
       if (currentPublicFilter !== 'all') {
         if (periods.includes(currentPublicFilter)) {
           periodsToRender = [currentPublicFilter];
         } else {
-          currentPublicFilter = 'all'; // Jika bulan yang difilter dihapus, kembalikan ke All
+          currentPublicFilter = 'all';
         }
       }
 
@@ -334,14 +405,12 @@
             </td>
           ` : '';
 
-          // Format angka skor menjadi ada komanya (contoh: 1,500 mL)
           const formattedScore = item.skor.toLocaleString('en-US');
 
           rowsHtml += `
             <tr>
               <td>${rankStyling}</td>
               <td><strong>${item.nama}</strong></td>
-              <!-- Diubah menjadi mL -->
               <td>${formattedScore} mL</td>
               ${adminCols}
             </tr>
@@ -361,7 +430,6 @@
                   <tr>
                     <th style="width: 10%;">Rank</th>
                     <th style="width: 50%;">Name / Class</th>
-                    <!-- Judul Kolom Diubah menjadi mL -->
                     <th style="width: 20%;">Collected (mL)</th>
                     ${adminHeader}
                   </tr>
