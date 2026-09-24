@@ -41,11 +41,29 @@ if (cancelBtn) {
   };
 }
 
-// Close mobile menu on link click (ignoring dropdown triggers)
+// Toggle mobile dropdown menu when clicking Contents
+document.querySelectorAll('.menu li.dropdown .dropbtn').forEach(dropBtn => {
+  dropBtn.addEventListener('click', function(e) {
+    if (window.innerWidth <= 992) {
+      e.preventDefault();
+      e.stopPropagation(); // Prevents the click from reaching the navLinks close listener
+
+      const dropdown = this.parentElement;
+      dropdown.classList.toggle('active');
+      
+      const content = dropdown.querySelector('.dropdown-content');
+      if (content) {
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+  });
+});
+
+// Close mobile menu on normal link clicks
 let navLinks = document.querySelectorAll(".menu li a");
 navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    // If the link clicked is the dropdown toggle, do not close the menu
+  link.addEventListener("click", (e) => {
+    // Completely skip closing the menu if this is the dropdown button or inside a dropdown content link
     if (link.classList.contains("dropbtn")) {
       return;
     }
@@ -160,22 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 350);
       }
     });
-  });
-});
-
-// Toggle mobile dropdown menu when clicking Contents
-document.querySelectorAll('.menu li.dropdown .dropbtn').forEach(dropBtn => {
-  dropBtn.addEventListener('click', function(e) {
-    if (window.innerWidth <= 768) {
-      e.preventDefault();
-      const dropdown = this.parentElement;
-      dropdown.classList.toggle('active');
-      
-      const content = dropdown.querySelector('.dropdown-content');
-      if (content) {
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-      }
-    }
   });
 });
 
