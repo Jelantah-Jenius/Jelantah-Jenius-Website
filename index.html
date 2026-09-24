@@ -2,52 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jelantah Jenius - Dari Jelantah Jadi Berkah</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jelantah Jenius</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
   <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
-  <link rel="canonical" href="https://jelantahjenius.com/" />
-  
   <style>
-    @keyframes flowOil {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    
-    .liquid-oil-bar {
+
+    body {
       background: linear-gradient(
-        90deg, 
-        var(--secondary) 0%, 
-        #ffe066 25%, 
-        var(--secondary) 50%, 
-        #ffe066 75%, 
-        var(--secondary) 100%
+        to top, 
+        #4a541b 0%,     
+        #f7d36a 50%,    
+        #ffffff 100%    
       );
-      background-size: 200% auto;
-      animation: flowOil 4s linear infinite;
-      border-radius: 30px;
-      height: 100%;
-      width: 0%;
-      transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: inset 0 -4px 8px rgba(0,0,0,0.15), inset 0 4px 8px rgba(255,255,255,0.4);
+      background-attachment: fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
     }
 
-    /* CSS Animasi Deskripsi Muncul dari Bawah */
-    .stats-desc {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1s ease, transform 1s ease;
+    /* --- NAVIGATION BAR --- */
+    #navbar {
+      width: 100%;
+      position: relative;
+      z-index: 1000;
+      background: transparent;
+      box-shadow: none;
     }
 
-    .stats-desc.show {
-      opacity: 1;
-      transform: translateY(0);
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    /* --- CSS UNTUK MENU DROPDOWN --- */
+    .logo a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #4a541b;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .logo img {
+      height: 45px;
+      width: auto;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .menu li a {
+      text-decoration: none;
+      color: #4a541b;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .menu li a:hover,
+    .menu li a.active {
+      color: #b8860b;
+    }
+
+    .menu-btn, .cancel-btn {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #4a541b;
+    }
+
     .menu li.dropdown {
       position: relative;
     }
@@ -61,10 +104,9 @@
       min-width: 160px;
       box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
       border-radius: 10px;
-      z-index: 100;
+      z-index: 1011;
       padding: 0.5rem 0;
       list-style: none;
-      overflow: hidden;
     }
     
     .menu li.dropdown:hover .dropdown-content,
@@ -78,44 +120,103 @@
     }
     
     .menu li.dropdown .dropdown-content li a {
-      color: var(--primary, #4a541b);
-      padding: 12px 20px;
-      text-decoration: none;
+      color: #4a541b;
+      padding: 10px 16px;
       display: block;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      transition: all 0.3s ease;
     }
     
     .menu li.dropdown .dropdown-content li a:hover {
       background-color: #f7d36a;
       color: #000;
-      transform: none; 
     }
 
-    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
+    /* --- HERO & VIDEO CONTAINER --- */
+    .hero-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem 4rem 1rem;
+    }
+
+    .video-wrapper {
+      max-width: 1000px;
+      width: 100%;
+      background-color: #000000;
+      border: 2px solid #f0e68c;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #bg-video {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain; /* Prevents cropping and fits the entire video */
+      display: block;
+      background-color: #000000;
+    }
+
+    /* --- RESPONSIVE STYLES --- */
     @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .menu {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        max-width: 300px;
+        top: 0;
+        right: -100%;
+        background: #4a541b;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 4rem 2rem 2rem 2rem;
+        transition: right 0.3s ease;
+        z-index: 1005;
+      }
+
+      .menu.active {
+        right: 0;
+      }
+
+      .menu li a {
+        color: #ffffff;
+        font-size: 1.1rem;
+      }
+
+      .cancel-btn {
+        display: block;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: #ffffff;
+      }
+
       .menu li.dropdown .dropdown-content {
         position: static;
         box-shadow: none;
         background-color: transparent;
-        padding-left: 1.5rem;
+        padding-left: 1rem;
         display: none;
       }
+
       .menu li.dropdown:hover .dropdown-content,
       .menu li.dropdown:focus-within .dropdown-content {
         display: block;
       }
+
       .menu li.dropdown .dropdown-content li a {
-        padding: 8px 20px;
-        color: #ffffff;
-      }
-      .menu li.dropdown .dropdown-content li a:hover {
-        background-color: rgba(255,255,255,0.1);
         color: #f7d36a;
       }
     }
-    /* --------------------------------- */
   </style>
 </head>
 <body>
@@ -132,7 +233,6 @@
         <li><a href="/" class="active">Home</a></li>
         <li><a href="/about">About Us</a></li>
         
-        <!-- Dropdown Menu Contents -->
         <li class="dropdown">
           <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
           <ul class="dropdown-content">
@@ -149,229 +249,15 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="home" id="home">
-    <div class="home-content">
-      <span class="text-one">Innovating Sustainability</span>
-      <h1 class="text-two">Dari Jelantah<br>Jadi Berkah</h1>
-      <p class="text-three">Transforming every drop of used cooking oil into a gift for our planet and community.</p>
-      <div class="cta-group">
-        <a href="/programs" class="btn-primary">Our Impact</a>
-        <a href="/about" style="color: var(--primary); text-decoration: none; font-weight: 700; align-self: center;">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-    
-    <!-- Video Otomatis di Kanan Atas -->
-    <div style="position: absolute; right: 12%; top: 54%; transform: translateY(-50%); width: 400px; height: 500px; border-radius: 40px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.2); z-index: 1;" class="hero-image-desktop">
-      <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-        <source src="attached_assets/HomeVideo.mov">
+  <main class="hero-container">
+    <div class="video-wrapper">
+      <video autoplay loop muted playsinline id="bg-video">
+        <source src="attached_assets/Jelantah%20Jenius%20Recap%20Vid%20(1).mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
-  </section>
-
-  <!-- Total Oil Collected & Top 3 Section -->
-  <section class="progress-section" style="padding: 5rem 0; background: var(--white);">
-    <div class="content" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 0 2rem;">
-      <h2 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; font-weight: 800;">Total Oil Collected</h2>
-      <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Used cooking oil collected so far (Target: 200 Liters)</p>
-      
-      <!-- Progress Bar Container -->
-      <div style="background: #e9ecef; border-radius: 30px; height: 45px; width: 100%; position: relative; overflow: hidden; box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);">
-        <div id="oilProgressBar" class="liquid-oil-bar"></div>
-        <span id="oilProgressText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-weight: 800; font-size: 1.1rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); white-space: nowrap;">Loading data...</span>
-      </div>
-      
-      <!-- Percentage Display -->
-      <div id="oilPercentageText" style="margin-top: 1rem; font-size: 1.8rem; font-weight: 800; color: var(--primary);">0%</div>
-      
-      <!-- Top 3 Contributors Section -->
-      <div style="margin-top: 4rem;">
-        <h3 id="top3Title" style="font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 800;">Top 3 Contributors</h3>
-        <div id="top3Container" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-          <p style="color: var(--text-muted);">Loading top contributors...</p>
-        </div>
-        <a href="top-contribution.html" style="display: inline-block; margin-top: 2rem; color: var(--secondary); text-decoration: none; font-weight: 700;">View Full Leaderboard <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- People Reached Section dengan Scroll Trigger (Intersection Observer) -->
-  <section id="statsSection" class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
-    <div class="content" style="max-width: 900px; margin: 0 auto;">
-      <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">
-        <span id="counterNumber">0</span>+ <br>
-        <span style="color: white; font-size: 2rem; display: block; font-weight: 700; letter-spacing: normal; margin-top: 10px;">PEOPLE REACHED</span>
-      </h2>
-      <p id="statsDesc" class="stats-desc" style="font-size: 1.25rem; line-height: 1.8; color: rgba(255,255,255,0.9); max-width: 800px; margin: 0 auto;">
-        Through our online content and offline outreach, Jelantah Jenius has reached 168,701+ people, raising awareness about responsible used cooking oil management and its potential as a reusable resource.
-      </p>
-    </div>
-  </section>
-
-  <!-- The Process Image Section -->
-  <section class="process-section" style="padding: 5rem 0; background: var(--white);">
-    <div class="section-label" style="text-align: center; margin-bottom: 3rem;">
-      <h2 style="font-size: 3rem; font-weight: 800; color: var(--primary);">The Process</h2>
-      <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto;">How we manage and transform used cooking oil into valuable resources.</p>
-    </div>
-    <div style="max-width: 1000px; margin: 0 auto; padding: 0 2rem; text-align: center;">
-      <!-- Gambar The Process -->
-      <img src="attached_assets/The process.png" alt="The Process" style="width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
-    </div>
-  </section>
+  </main>
 
   <script src="script.js"></script>
-
-  <!-- Script dengan Intersection Observer (Mulai Pas Disentuh/Dilihat Visitor) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const statsSection = document.getElementById("statsSection");
-      const counterElement = document.getElementById("counterNumber");
-      const descElement = document.getElementById("statsDesc");
-      
-      let hasAnimated = false; // Memastikan animasi hanya berjalan sekali saat pertama kali dilihat
-
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !hasAnimated) {
-            hasAnimated = true;
-            
-            const targetNumber = 168701;
-            let currentNumber = 0;
-            const duration = 2000; // 2 detik
-            const steps = 50; 
-            const increment = targetNumber / steps;
-            const intervalTime = duration / steps;
-
-            const timer = setInterval(() => {
-              currentNumber += increment;
-              if (currentNumber >= targetNumber) {
-                currentNumber = targetNumber;
-                clearInterval(timer);
-                // Begitu angka selesai, deskripsi meluncur naik dari bawah
-                descElement.classList.add("show");
-              }
-              counterElement.textContent = Math.floor(currentNumber).toLocaleString('en-US');
-            }, intervalTime);
-          }
-        });
-      }, { threshold: 0.3 }); // Animasi mulai ketika 30% bagian banner sudah terlihat di layar
-
-      observer.observe(statsSection);
-    });
-  </script>
-
-  <!-- Firebase Integration -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAWpSh4iWGc8ZmvMBfbPDqbZ-HHkqOce3U",
-      authDomain: "jelantahjenius-id.firebaseapp.com",
-      projectId: "jelantahjenius-id",
-      storageBucket: "jelantahjenius-id.firebasestorage.app",
-      messagingSenderId: "893307998743",
-      appId: "1:893307998743:web:20025ac8f89eb6a6b70252",
-      measurementId: "G-3CFN0TDGHZ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    let activePeriod = null;
-    let allContributors = [];
-
-    onSnapshot(doc(db, "settings", "homepage"), (docSnap) => {
-      if(docSnap.exists()) {
-        activePeriod = docSnap.data().active_period;
-      }
-      updateUI();
-    });
-
-    const q = collection(db, "peringkat");
-    onSnapshot(q, (snapshot) => {
-      allContributors = [];
-      let totalMl = 0;
-      
-      snapshot.forEach((docSnap) => {
-        const data = docSnap.data();
-        const skor = data.skor || 0;
-        totalMl += skor;
-        allContributors.push({ 
-          nama: data.nama, 
-          skor: skor, 
-          periode: data.periode || 'old-data' 
-        });
-      });
-      
-      const totalLiters = totalMl / 1000;
-      const targetLiters = 200;
-      
-      let rawPercentage = (totalLiters / targetLiters) * 100;
-      let barPercentage = rawPercentage > 100 ? 100 : rawPercentage;
-
-      const progressBar = document.getElementById('oilProgressBar');
-      const progressText = document.getElementById('oilProgressText');
-      const percentageText = document.getElementById('oilPercentageText');
-      
-      if (progressBar && progressText && percentageText) {
-        progressBar.style.width = barPercentage + '%';
-        progressText.textContent = totalLiters.toFixed(2) + ' L / ' + targetLiters + ' L';
-        percentageText.textContent = rawPercentage.toFixed(1) + '%';
-      }
-
-      updateUI(); 
-    });
-
-    function updateUI() {
-      const top3Container = document.getElementById('top3Container');
-      const top3Title = document.getElementById('top3Title');
-      if (!top3Container) return;
-
-      let filteredContributors = allContributors;
-      if (activePeriod) {
-        filteredContributors = allContributors.filter(c => c.periode === activePeriod);
-        
-        if (activePeriod !== 'old-data') {
-          const [year, month] = activePeriod.split('-');
-          const d = new Date(year, month - 1);
-          const monthName = d.toLocaleString('en-US', { month: 'long' });
-          top3Title.textContent = `Top 3 Contributors ${monthName}`;
-        } else {
-          top3Title.textContent = `Top 3 Contributors Previous Batches`;
-        }
-      } else {
-        top3Title.textContent = `Top 3 Contributors`;
-      }
-
-      filteredContributors.sort((a, b) => b.skor - a.skor);
-      const top3 = filteredContributors.slice(0, 3);
-      
-      top3Container.innerHTML = '';
-      
-      if (top3.length === 0) {
-        top3Container.innerHTML = '<p style="color: var(--text-muted);">No contributions in this period yet.</p>';
-      } else {
-        top3.forEach((contributor, index) => {
-          const liters = (contributor.skor / 1000).toFixed(2);
-          let rankIcon = '';
-          if (index === 0) rankIcon = '<i class="fas fa-crown" style="color: #FFD700; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
-          else if (index === 1) rankIcon = '<i class="fas fa-medal" style="color: #C0C0C0; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
-          else if (index === 2) rankIcon = '<i class="fas fa-medal" style="color: #CD7F32; font-size: 2.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>';
-
-          const cardHtml = `
-            <div style="background: var(--bg-light); padding: 1.5rem 1rem; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); flex: 1; min-width: 180px; max-width: 250px; border: 1px solid rgba(0,0,0,0.02);">
-              <div style="margin-bottom: 1rem;">${rankIcon}</div>
-              <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${contributor.nama}">${contributor.nama}</h4>
-              <p style="font-size: 1.2rem; font-weight: 800; color: var(--secondary); margin: 0;">${liters} L</p>
-            </div>
-          `;
-          top3Container.innerHTML += cardHtml;
-        });
-      }
-    }
-  </script>
 </body>
 </html>
