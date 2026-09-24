@@ -847,7 +847,7 @@ summary .toggle-arrow-sm {
 @media (max-width: 1024px) {
   .home {
     height: auto !important;
-    min-height: 100vh;
+    min-height: 100vh !important;
     flex-direction: column !important;
     justify-content: center !important;
     padding-top: 8rem !important;
@@ -855,26 +855,32 @@ summary .toggle-arrow-sm {
   }
 
   .home-content {
-    text-align: center;
+    text-align: center !important;
+    width: 100% !important;
   }
 
   .cta-group {
-    justify-content: center;
+    justify-content: center !important;
   }
 
-  .hero-image-desktop {
+  /* Force container size reduction */
+  .hero-image-desktop,
+  .home .image-container {
     position: relative !important;
     right: auto !important;
     top: auto !important;
     transform: none !important;
-    width: 90% !important;
-    max-width: 400px !important; /* Scaled down for tablet displays */
-    margin: 2.5rem auto 0 auto !important;
+    width: 80% !important;
+    max-width: 320px !important; /* Forces a smaller video width */
+    margin: 2rem auto 0 auto !important;
+    display: block !important;
   }
 
+  /* Force the actual video element to shrink inside the container */
   .hero-image-desktop video,
-  .hero-image-desktop img {
+  .home .image-container video {
     width: 100% !important;
+    max-width: 320px !important;
     height: auto !important;
     object-fit: contain !important;
   }
