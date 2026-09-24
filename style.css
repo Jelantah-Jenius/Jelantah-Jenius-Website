@@ -853,3 +853,8 @@ summary .toggle-arrow-sm {
     padding-top: 8rem !important;
   }
 }
+
+.blend-text {
+  color: #ffffff !important;
+  mix-blend-mode: difference;
+}
