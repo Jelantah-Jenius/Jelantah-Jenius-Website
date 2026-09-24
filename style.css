@@ -21,7 +21,14 @@
 }
 
 body {
-  background-color: var(--bg-light);
+  background: linear-gradient(
+    to top, 
+    #4a541b 0%,     /* Hijau khas Jelantah Jenius */
+    #f7d36a 50%,    /* Kuning lembut */
+    #ffffff 100%    /* Putih bersih */
+  );
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--text-main);
   overflow-x: hidden;
 }
@@ -111,6 +118,52 @@ nav.sticky {
   background: var(--primary);
   color: white;
   box-shadow: 0 8px 20px rgba(74, 84, 27, 0.2);
+}
+
+/* CSS UNTUK MENU DROPDOWN DESKTOP */
+.menu li.dropdown {
+  position: relative;
+}
+
+.menu li.dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  z-index: 100;
+  padding: 0.5rem 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.menu li.dropdown:hover .dropdown-content,
+.menu li.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+.menu li.dropdown .dropdown-content li {
+  margin: 0;
+  display: block;
+}
+
+.menu li.dropdown .dropdown-content li a {
+  color: var(--primary);
+  padding: 12px 20px;
+  text-decoration: none;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.menu li.dropdown .dropdown-content li a:hover {
+  background-color: #f7d36a;
+  color: #000;
+  transform: none; 
 }
 
 /* Hero Section with Parallax Feel */
@@ -309,6 +362,7 @@ nav.sticky {
   max-width: 1900px;
   margin: 2rem auto 0 auto;
 }
+
 /* Cards for Team/Members */
 .team-grid {
   display: grid;
@@ -412,128 +466,6 @@ nav.sticky {
   animation: fadeInUp 1s forwards;
 }
 
-/* Responsive Mobile & Landscape Overhaul */
-@media screen and (max-width: 992px) {
-  nav {
-    padding: 1rem 0;
-  }
-  
-  .navbar {
-    width: 90%;
-    justify-content: space-between;
-  }
-
-  .logo a {
-    font-size: 1.1rem;
-    gap: 8px;
-  }
-
-  .logo img {
-    height: 30px;
-  }
-
-  .menu-btn {
-    display: block !important;
-    color: var(--primary);
-    font-size: 1.8rem;
-    z-index: 1001;
-    cursor: pointer;
-    margin-left: auto;
-  }
-
-  .cancel-btn {
-    display: flex;
-    color: var(--primary);
-    font-size: 2rem;
-    cursor: pointer;
-    margin-bottom: 2rem;
-    align-self: flex-end;
-  }
-
-  /* Slide-out mobile drawer */
-  .navbar .menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 320px;
-    height: 100vh;
-    background: var(--white);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 2rem;
-    transition: 0.4s ease;
-    z-index: 1000;
-    box-shadow: -15px 0 40px rgba(0,0,0,0.15);
-    overflow-y: auto;
-  }
-
-  .navbar.active .menu {
-    right: 0;
-  }
-
-  /* Clean mobile link styling */
-  .menu li {
-    width: 100%;
-  }
-
-  .menu a {
-    display: block;
-    font-size: 1.1rem;
-    padding: 0.8rem 1rem;
-    width: 100%;
-    text-align: left;
-    border-radius: 8px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: none !important;
-  }
-
-  /* Fix thick active Home button on mobile */
-  .menu a.active {
-    background: rgba(74, 84, 27, 0.1);
-    color: var(--primary);
-    box-shadow: none !important;
-  }
-
-  /* Responsive layout adjustments for main content */
-  .about, .education, .programs, .contact {
-    padding: 5rem 0;
-  }
-
-  .content-box {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .text-container h3 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .text-container p {
-    font-size: 1rem;
-  }
-
-  .image-container {
-    height: 250px;
-    border-radius: 20px;
-  }
-
-  .contact-wrapper {
-    grid-template-columns: 1fr;
-    padding: 2rem;
-    border-radius: 25px;
-    gap: 2rem;
-  }
-}
-
-@media (max-width: 992px) {
-  .hero-image-desktop {
-    display: none;
-  }
-}
-
 /* Container spacing */
 .directors-grid {
   display: grid;
@@ -561,12 +493,12 @@ nav.sticky {
   padding: 2rem;
   text-align: center;
   cursor: pointer;
-  list-style: none; /* Hides default HTML dropdown arrow */
+  list-style: none;
   position: relative;
 }
 
 .director-card::-webkit-details-marker {
-  display: none; /* Hides default WebKit arrow */
+  display: none;
 }
 
 .combined-director-card {
@@ -656,7 +588,7 @@ details[open] .toggle-icon {
 .manager-profile {
   flex: 1;
   text-align: center;
-  padding: 0 0.5rem; /* Prevents text from touching the ampersand */
+  padding: 0 0.5rem;
 }
 
 .manager-profile h4 {
@@ -676,7 +608,7 @@ details[open] .toggle-icon {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary, #333);
-  margin-top: 2.5rem; /* Aligns ampersand horizontally with center of avatars */
+  margin-top: 2.5rem;
 }
 
 /* Members section inside the dropdown */
@@ -708,7 +640,7 @@ details[open] > summary .toggle-arrow-sm {
 }
 
 .shared-members-panel {
-  grid-column: 1 / -1; /* Spans full width across both manager columns */
+  grid-column: 1 / -1;
   background: rgba(0, 0, 0, 0.02);
   border-radius: 16px;
   padding: 1.5rem;
@@ -789,7 +721,7 @@ video.center-overlay {
   display: inline-block;
 }
 
-/* Initial hidden state (invisible & shifted down) */
+/* Initial hidden state */
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(40px);
@@ -797,26 +729,22 @@ video.center-overlay {
   will-change: opacity, transform;
 }
 
-/* Active state triggered on scroll */
 .reveal-on-scroll.active {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Delay each card slightly */
 .team-card:nth-child(1) { transition-delay: 0.1s; }
 .team-card:nth-child(2) { transition-delay: 0.2s; }
 .team-card:nth-child(3) { transition-delay: 0.3s; }
 .team-card:nth-child(4) { transition-delay: 0.4s; }
 
-/* Container inside <details> that interpolates height */
 .details-content {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.35s ease;
 }
 
-/* Inner content that animates opacity & position */
 .details-inner {
   overflow: hidden;
   opacity: 0;
@@ -824,7 +752,6 @@ video.center-overlay {
   transition: opacity 0.3s ease, transform 0.35s ease;
 }
 
-/* Expanded state */
 details.is-open > .details-content {
   grid-template-rows: 1fr;
 }
@@ -834,56 +761,12 @@ details.is-open > .details-content > .details-inner {
   transform: translateY(0);
 }
 
-/* Chevron Rotation */
 details.is-open > summary .toggle-arrow-sm {
   transform: rotate(180deg);
 }
 
 summary .toggle-arrow-sm {
   transition: transform 0.35s ease;
-}
-
-/* Fix Home Page Hero Video overlapping on Tablet / Mobile */
-@media (max-width: 1024px) {
-  .home {
-    height: auto !important;
-    min-height: 100vh !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    padding-top: 8rem !important;
-    padding-bottom: 4rem !important;
-  }
-
-  .home-content {
-    text-align: center !important;
-    width: 100% !important;
-  }
-
-  .cta-group {
-    justify-content: center !important;
-  }
-
-  /* Force container size reduction */
-  .hero-image-desktop,
-  .home .image-container {
-    position: relative !important;
-    right: auto !important;
-    top: auto !important;
-    transform: none !important;
-    width: 80% !important;
-    max-width: 320px !important; /* Forces a smaller video width */
-    margin: 2rem auto 0 auto !important;
-    display: block !important;
-  }
-
-  /* Force the actual video element to shrink inside the container */
-  .hero-image-desktop video,
-  .home .image-container video {
-    width: 100% !important;
-    max-width: 320px !important;
-    height: auto !important;
-    object-fit: contain !important;
-  }
 }
 
 .scroll-text {
@@ -894,96 +777,6 @@ summary .toggle-arrow-sm {
 .scroll-text.in-dark-zone {
   color: #FFFFFF !important;
 }
-
-body {
-      /* Gradasi 3 warna: Hijau -> Kuning Lembut -> Putih */
-      background: linear-gradient(
-        to top, 
-        #4a541b 0%,     /* Hijau khas Jelantah Jenius di paling bawah */
-        #f7d36a 50%,    /* Kuning lembut di tengah */
-        #ffffff 100%    /* Putih bersih di atas */
-      );
-      background-attachment: fixed;
-      background-size: cover;
-      overflow-x: hidden;
-    }
-
-    /* --- CSS UNTUK MENU DROPDOWN --- */
-    .menu li.dropdown {
-      position: relative;
-    }
-    
-    .menu li.dropdown .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #ffffff;
-      min-width: 160px;
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
-      border-radius: 10px;
-      z-index: 100;
-      padding: 0.5rem 0;
-      list-style: none;
-      overflow: hidden;
-    }
-    
-    .menu li.dropdown:hover .dropdown-content,
-    .menu li.dropdown:focus-within .dropdown-content {
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li {
-      margin: 0;
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li a {
-      color: var(--primary, #4a541b);
-      padding: 12px 20px;
-      text-decoration: none;
-      display: block;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .menu li.dropdown .dropdown-content li a:hover {
-      background-color: #f7d36a;
-      color: #000;
-      transform: none; 
-    }
-/* Penyesuaian Dropdown untuk versi Mobile (HP) */
-    @media (max-width: 992px) {
-      .menu li.dropdown .dropdown-content {
-        position: static;
-        box-shadow: none;
-        background-color: transparent;
-        padding-left: 1.5rem;
-        display: none;
-      }
-      
-      /* Show dropdown when active class is toggled by JS */
-      .menu li.dropdown.active .dropdown-content {
-        display: block;
-      }
-
-      .menu li.dropdown .dropdown-content li a {
-        padding: 8px 20px;
-        color: var(--text-main) !important; /* Set to standard black text */
-      }
-      .menu li.dropdown .dropdown-content li a:hover {
-        background-color: rgba(249, 163, 26, 0.1);
-        color: var(--secondary) !important;
-      }
-    }or: var(--secondary) !important;
-      }
-      
-      .menu li.dropdown .dropdown-content li a:hover {
-        background-color: rgba(74, 84, 27, 0.1);
-        color: var(--primary);
-      }
-    }
 
 /* Removes default HTML <details> arrow across all browsers */
 details summary::-webkit-details-marker {
@@ -997,6 +790,188 @@ details summary::marker {
 
 summary {
   list-style: none !important;
+}
+
+/* --- RESPONSIVE TABLET & MOBILE MEDIA QUERIES --- */
+
+@media screen and (max-width: 1024px) {
+  /* Hero Section Restructure to prevent Video Clashing */
+  .home {
+    height: auto !important;
+    min-height: 100vh !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding-top: 9rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .home-content {
+    text-align: center !important;
+    width: 90% !important;
+    margin: 0 auto !important;
+  }
+
+  .text-three {
+    margin: 0 auto 2rem auto !important;
+  }
+
+  .cta-group {
+    justify-content: center !important;
+  }
+
+  /* Force Hero Video to un-position and scale down beneath buttons */
+  .hero-image-desktop,
+  .home .image-container,
+  .home video {
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 320px !important; /* Locks maximum video size on tablet */
+    height: auto !important;
+    margin: 2.5rem auto 0 auto !important;
+    display: block !important;
+    object-fit: contain !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  nav {
+    padding: 1rem 0;
+  }
+  
+  .navbar {
+    width: 90%;
+    justify-content: space-between;
+  }
+
+  .logo a {
+    font-size: 1.1rem;
+    gap: 8px;
+  }
+
+  .logo img {
+    height: 30px;
+  }
+
+  .menu-btn {
+    display: block !important;
+    color: var(--primary);
+    font-size: 1.8rem;
+    z-index: 1001;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .cancel-btn {
+    display: flex;
+    color: var(--primary);
+    font-size: 2rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    align-self: flex-end;
+  }
+
+  /* Slide-out mobile drawer */
+  .navbar .menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--white);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 2rem;
+    transition: 0.4s ease;
+    z-index: 1000;
+    box-shadow: -15px 0 40px rgba(0,0,0,0.15);
+    overflow-y: auto;
+  }
+
+  .navbar.active .menu {
+    right: 0;
+  }
+
+  /* Clean mobile link styling */
+  .menu li {
+    width: 100%;
+  }
+
+  .menu a {
+    display: block;
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+    width: 100%;
+    text-align: left;
+    border-radius: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: none !important;
+  }
+
+  .menu a.active {
+    background: rgba(74, 84, 27, 0.1);
+    color: var(--primary);
+    box-shadow: none !important;
+  }
+
+  /* Mobile Dropdown Menu Fixes */
+  .menu li.dropdown .dropdown-content {
+    position: static;
+    box-shadow: none;
+    background-color: transparent;
+    padding-left: 1.5rem;
+    display: none;
+  }
+  
+  .menu li.dropdown.active .dropdown-content {
+    display: block;
+  }
+
+  .menu li.dropdown .dropdown-content li a {
+    padding: 8px 20px;
+    color: var(--text-main) !important;
+  }
+  
+  .menu li.dropdown .dropdown-content li a:hover {
+    background-color: rgba(249, 163, 26, 0.1);
+    color: var(--secondary) !important;
+  }
+
+  /* Responsive layout adjustments for main content */
+  .about, .education, .programs, .contact {
+    padding: 5rem 0;
+  }
+
+  .content-box {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .text-container h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .text-container p {
+    font-size: 1rem;
+  }
+
+  .image-container {
+    height: 250px;
+    border-radius: 20px;
+  }
+
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    border-radius: 25px;
+    gap: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1032,7 +1007,7 @@ summary {
   }
 }
 
-/* Force the details container to fill its grid space */
+/* Details card layout adjustments */
 details.combined-manager-card {
   background: #ffffff;
   border-radius: 24px;
@@ -1043,7 +1018,6 @@ details.combined-manager-card {
   grid-column: 1 / -1;
 }
 
-/* Force summary element to behave like a block and take 100% width */
 details.combined-manager-card summary {
   display: block !important;
   width: 100% !important;
@@ -1051,32 +1025,27 @@ details.combined-manager-card summary {
   cursor: pointer;
 }
 
-/* Force flexbox to stretch across the full width */
 details.combined-manager-card .summary-content {
   display: flex !important;
   flex-direction: row;
-  justify-content: space-between; /* Pushes profiles apart evenly */
+  justify-content: space-between;
   align-items: center;
   width: 100% !important;
   box-sizing: border-box;
 }
 
-/* Let both profiles grow equally */
 details.combined-manager-card .manager-profile {
   flex: 1 1 0%;
   text-align: center;
 }
 
-/* Keep the divider centered between them */
 details.combined-manager-card .manager-divider {
   padding: 0 1rem;
   font-weight: bold;
-  color: #2e7d32; /* Adjust color as needed */
+  color: #2e7d32;
 }
 
-/* Remove default summary marker arrows */
 details.combined-manager-card summary::-webkit-details-marker,
 details.combined-manager-card summary::marker {
   display: none !important;
 }
-
