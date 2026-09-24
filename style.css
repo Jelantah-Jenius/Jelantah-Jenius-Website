@@ -999,3 +999,35 @@ summary {
     margin: 0 2px !important;
   }
 }
+
+/* Card container background styling */
+details.combined-manager-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Flex layout for profile arrangement inside summary */
+details.combined-manager-card summary .summary-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Individual profile layout inside the card */
+details.combined-manager-card .manager-profile {
+  flex: 1;
+  text-align: center;
+}
+
+/* Strip native list arrows across webkit browsers */
+details.combined-manager-card summary::-webkit-details-marker,
+details.combined-manager-card summary::marker {
+  display: none !important;
+}
