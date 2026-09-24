@@ -792,8 +792,6 @@ summary {
   list-style: none !important;
 }
 
-/* --- RESPONSIVE TABLET & MOBILE MEDIA QUERIES --- */
-
 @media screen and (max-width: 1024px) {
   /* Hero Section Restructure to prevent Video Clashing */
   .home {
@@ -819,19 +817,22 @@ summary {
     justify-content: center !important;
   }
 
-  /* Force Hero Video to un-position and scale down beneath buttons */
+  /* Force Hero Video & Containers to scale down */
   .hero-image-desktop,
   .home .image-container,
+  .home .image-container video,
   .home video {
     position: relative !important;
-    right: auto !important;
     top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
     left: auto !important;
     transform: none !important;
     width: 100% !important;
-    max-width: 320px !important; /* Locks maximum video size on tablet */
+    max-width: 320px !important; /* Adjust width here */
     height: auto !important;
-    margin: 2.5rem auto 0 auto !important;
+    max-height: 250px !important; /* Adjust height limit here */
+    margin: 2rem auto 0 auto !important;
     display: block !important;
     object-fit: contain !important;
   }
