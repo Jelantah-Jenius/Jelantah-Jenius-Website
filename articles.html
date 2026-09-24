@@ -12,22 +12,20 @@
   <link rel="canonical" href="https://jelantahjenius.com/articles" />
   <style>
     body {
-      /* Gradasi 3 warna: Hijau -> Kuning Lembut -> Putih */
       background: linear-gradient(
         to top, 
-        #4a541b 0%,     /* Hijau khas Jelantah Jenius di paling bawah */
-        #f7d36a 50%,    /* Kuning lembut di tengah */
-        #ffffff 100%    /* Putih bersih di atas */
+        #4a541b 0%,     
+        #f7d36a 50%,    
+        #ffffff 100%    
       );
       background-attachment: fixed;
       background-size: cover;
       overflow-x: hidden;
     }
     
-    /* Tambahan padding agar konten tidak tertutup navbar */
     .education {
       padding-top: 10rem;
-      padding-bottom: 5rem;
+      padding-bottom: 2rem;
     }
 
     /* --- CSS UNTUK MENU DROPDOWN --- */
@@ -76,7 +74,49 @@
       transform: none; 
     }
 
-    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
+    /* --- CSS UNTUK LIGHT YELLOW BOX BARU --- */
+    .huge-yellow-box {
+      max-width: 1200px;
+      margin: 2rem auto 5rem auto;
+      padding: 3rem 2rem;
+      background-color: #fffde7; /* Light yellow background */
+      border: 2px solid #f0e68c;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      width: 90%;
+    }
+
+    .huge-yellow-box h3 {
+      text-align: center;
+      color: #4a541b;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      font-weight: 800;
+    }
+
+    .article-images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .article-images-grid img {
+      width: 100%;
+      max-width: 350px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .article-images-grid img:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
     @media (max-width: 768px) {
       .menu li.dropdown .dropdown-content {
         position: static;
@@ -98,7 +138,6 @@
         color: #f7d36a;
       }
     }
-    /* --------------------------------- */
   </style>
 </head>
 <body>
@@ -115,7 +154,6 @@
         <li><a href="/">Home</a></li>
         <li><a href="/about">About Us</a></li>
         
-        <!-- Dropdown Menu Contents (Active di sini karena ini bagian dari Contents) -->
         <li class="dropdown">
           <a href="javascript:void(0)" class="dropbtn active">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
           <ul class="dropdown-content">
@@ -145,6 +183,16 @@
         <div class="topic" style="font-size: 1.4rem;">Health: Beyond the Plate</div>
         <p>Reusing cooking oil multiple times creates harmful compounds. We explore the science behind why fresh is always better for your health.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Huge Light Yellow Box Section -->
+  <section class="huge-yellow-box">
+    <h3>Article Gallery</h3>
+    <div class="article-images-grid">
+      <img src="attached_assets/article1.jpeg" alt="Article 1">
+      <img src="attached_assets/article2.jpeg" alt="Article 2">
+      <img src="attached_assets/article3.jpeg" alt="Article 3">
     </div>
   </section>
 
