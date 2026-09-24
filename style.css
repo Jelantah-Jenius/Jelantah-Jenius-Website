@@ -845,19 +845,38 @@ summary .toggle-arrow-sm {
 
 /* Fix Home Page Hero Video overlapping on Tablet / Mobile */
 @media (max-width: 1024px) {
+  .home {
+    height: auto !important;
+    min-height: 100vh;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding-top: 8rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .home-content {
+    text-align: center;
+  }
+
+  .cta-group {
+    justify-content: center;
+  }
+
   .hero-image-desktop {
     position: relative !important;
     right: auto !important;
     top: auto !important;
     transform: none !important;
-    width: 100% !important;
-    max-width: 500px !important;
-    margin: 2rem auto 0 auto !important;
+    width: 90% !important;
+    max-width: 400px !important; /* Scaled down for tablet displays */
+    margin: 2.5rem auto 0 auto !important;
   }
-  
-  .home {
-    flex-direction: column !important;
-    padding-top: 8rem !important;
+
+  .hero-image-desktop video,
+  .hero-image-desktop img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
   }
 }
 
