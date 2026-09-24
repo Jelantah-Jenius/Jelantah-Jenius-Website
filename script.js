@@ -41,10 +41,15 @@ if (cancelBtn) {
   };
 }
 
-// Close mobile menu on link click
+// Close mobile menu on link click (ignoring dropdown triggers)
 let navLinks = document.querySelectorAll(".menu li a");
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
+    // If the link clicked is the dropdown toggle, do not close the menu
+    if (link.classList.contains("dropbtn")) {
+      return;
+    }
+
     if (navBar) navBar.classList.remove("active");
     if (menuBtn) {
       menuBtn.style.opacity = "1";
@@ -175,21 +180,21 @@ document.querySelectorAll('.menu li.dropdown .dropbtn').forEach(dropBtn => {
 });
 
 function checkScrollColor() {
-    const textElements = document.querySelectorAll('.scroll-text');
-    const triggerPoint = window.innerHeight * 0.55; // 55% down the viewport (where gradient gets dark)
+  const textElements = document.querySelectorAll('.scroll-text');
+  const triggerPoint = window.innerHeight * 0.55; // 55% down the viewport (where gradient gets dark)
 
-    textElements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      
-      // If the top of the text element passes into the darker bottom half of the viewport
-      if (rect.top > triggerPoint) {
-        el.classList.add('in-dark-zone');
-      } else {
-        el.classList.remove('in-dark-zone');
-      }
-    });
-  }
+  textElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    
+    // If the top of the text element passes into the darker bottom half of the viewport
+    if (rect.top > triggerPoint) {
+      el.classList.add('in-dark-zone');
+    } else {
+      el.classList.remove('in-dark-zone');
+    }
+  });
+}
 
-  // Run on scroll and initial page load
-  window.addEventListener('scroll', checkScrollColor);
-  window.addEventListener('load', checkScrollColor);
+// Run on scroll and initial page load
+window.addEventListener('scroll', checkScrollColor);
+window.addEventListener('load', checkScrollColor);
