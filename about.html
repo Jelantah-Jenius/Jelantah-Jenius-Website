@@ -10,90 +10,6 @@
   <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/about" />
-  <style>
-    body {
-      /* Gradasi 3 warna: Hijau -> Kuning Lembut -> Putih */
-      background: linear-gradient(
-        to top, 
-        #4a541b 0%,     /* Hijau khas Jelantah Jenius di paling bawah */
-        #f7d36a 50%,    /* Kuning lembut di tengah */
-        #ffffff 100%    /* Putih bersih di atas */
-      );
-      background-attachment: fixed;
-      background-size: cover;
-      overflow-x: hidden;
-    }
-
-    /* --- CSS UNTUK MENU DROPDOWN --- */
-    .menu li.dropdown {
-      position: relative;
-    }
-    
-    .menu li.dropdown .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #ffffff;
-      min-width: 160px;
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
-      border-radius: 10px;
-      z-index: 100;
-      padding: 0.5rem 0;
-      list-style: none;
-      overflow: hidden;
-    }
-    
-    .menu li.dropdown:hover .dropdown-content,
-    .menu li.dropdown:focus-within .dropdown-content {
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li {
-      margin: 0;
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li a {
-      color: var(--primary, #4a541b);
-      padding: 12px 20px;
-      text-decoration: none;
-      display: block;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .menu li.dropdown .dropdown-content li a:hover {
-      background-color: #f7d36a;
-      color: #000;
-      transform: none; 
-    }
-
-    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
-    @media (max-width: 768px) {
-      .menu li.dropdown .dropdown-content {
-        position: static;
-        box-shadow: none;
-        background-color: transparent;
-        padding-left: 1.5rem;
-        display: none;
-      }
-      .menu li.dropdown:hover .dropdown-content,
-      .menu li.dropdown:focus-within .dropdown-content {
-        display: block;
-      }
-      .menu li.dropdown .dropdown-content li a {
-        padding: 8px 20px;
-        color: #ffffff;
-      }
-      .menu li.dropdown .dropdown-content li a:hover {
-        background-color: rgba(255,255,255,0.1);
-        color: #f7d36a;
-      }
-    }
-    /* --------------------------------- */
-  </style>
 </head>
 <body>
   <nav id="navbar">
@@ -133,17 +49,17 @@
         <img src="attached_assets/JelantahVisionMission.jpeg" alt="Our Vision">
       </div>
       <div class="text-container">
-        <h3 class="blend-text">Vision & Mission</h3>
-        <div class="topic blend-text" style="font-size: 1.4rem;">Our Vision</div>
-        <p class="blend-text">To build a society where cooking oil is used safely, responsibly, and sustainably, preventing environmental damage and transforming waste into renewable resources.</p>
-        <div class="topic blend-text" style="font-size: 1.4rem;">Our Mission</div>
+        <h3 class="scroll-text">Vision & Mission</h3>
+        <div class="topic scroll-text" style="font-size: 1.4rem;">Our Vision</div>
+        <p class="scroll-text">To build a society where cooking oil is used safely, responsibly, and sustainably, preventing environmental damage and transforming waste into renewable resources.</p>
+        <div class="topic scroll-text" style="font-size: 1.4rem;">Our Mission</div>
         <p>Raising public awareness, providing collection systems, and partnering with industries to transform oil into clean energy while supporting community waste-to-income initiatives.</p>
       </div>
     </div>
 
     <div class="content" style="margin-top: 8rem;">
       <div class="section-label reveal-on-scroll">
-        <h2 class="blend-text">Our Amazing Team</h2>
+        <h2 class="scroll-text">Our Amazing Team</h2>
       </div>
       <div class="directors-grid reveal-on-scroll">
         <details class="department-dropdown" style="grid-column: 1 / -1; width: 100%;">
