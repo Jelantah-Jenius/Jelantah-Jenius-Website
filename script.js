@@ -157,3 +157,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Toggle mobile dropdown menu when clicking Contents
+document.querySelectorAll('.menu li.dropdown .dropbtn').forEach(dropBtn => {
+  dropBtn.addEventListener('click', function(e) {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      const dropdown = this.parentElement;
+      dropdown.classList.toggle('active');
+      
+      const content = dropdown.querySelector('.dropdown-content');
+      if (content) {
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+  });
+});
