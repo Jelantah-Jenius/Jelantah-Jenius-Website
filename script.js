@@ -1,4 +1,4 @@
-// Select the <nav> element and elements
+// Select elements
 let nav = document.querySelector("nav");
 let body = document.querySelector("body");
 let navBar = document.querySelector(".navbar");
@@ -16,64 +16,65 @@ window.onscroll = function () {
   }
 };
 
-// Handle mobile menu if elements exist
+// Handle mobile menu opening
 if (menuBtn) {
-  menuBtn.onclick = function () {
+  menuBtn.onclick = function (e) {
+    e.stopPropagation();
     if (navBar) navBar.classList.add("active");
     menuBtn.style.opacity = "0";
     menuBtn.style.pointerEvents = "none";
     
-    // Only lock background scroll on mobile viewports
     if (window.innerWidth <= 992) {
       body.style.overflow = "hidden";
     }
   };
 }
 
+// Handle mobile menu closing
 if (cancelBtn) {
-  cancelBtn.onclick = function () {
-    if (navBar) navBar.classList.remove("active");
-    if (menuBtn) {
-      menuBtn.style.opacity = "1";
-      menuBtn.style.pointerEvents = "auto";
-    }
-    body.style.overflow = "auto";
+  cancelBtn.onclick = function (e) {
+    e.stopPropagation();
+    closeSidePanel();
   };
+}
+
+function closeSidePanel() {
+  if (navBar) navBar.classList.remove("active");
+  if (menuBtn) {
+    menuBtn.style.opacity = "1";
+    menuBtn.style.pointerEvents = "auto";
+  }
+  body.style.overflow = "auto";
 }
 
 // Toggle mobile dropdown menu when clicking Contents
 document.querySelectorAll('.menu li.dropdown .dropbtn').forEach(dropBtn => {
   dropBtn.addEventListener('click', function(e) {
-    if (window.innerWidth <= 992) {
-      e.preventDefault();
-      e.stopPropagation(); // Prevents the click from reaching the navLinks close listener
+    e.preventDefault();
+    e.stopPropagation(); // Stop click from propagating up to other elements
 
-      const dropdown = this.parentElement;
-      dropdown.classList.toggle('active');
-      
-      const content = dropdown.querySelector('.dropdown-content');
-      if (content) {
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-      }
+    const dropdown = this.parentElement;
+    dropdown.classList.toggle('active');
+    
+    const content = dropdown.querySelector('.dropdown-content');
+    if (content) {
+      const isDisplayed = content.style.display === 'block';
+      content.style.display = isDisplayed ? 'none' : 'block';
     }
   });
 });
 
-// Close mobile menu on normal link clicks
+// Close mobile menu ONLY when clicking standard page links (not dropdowns)
 let navLinks = document.querySelectorAll(".menu li a");
 navLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
-    // Completely skip closing the menu if this is the dropdown button or inside a dropdown content link
-    if (link.classList.contains("dropbtn")) {
+    // Ignore dropdown buttons and links inside dropdown content
+    if (link.classList.contains("dropbtn") || link.closest('.dropdown-content')) {
+      e.stopPropagation();
       return;
     }
 
-    if (navBar) navBar.classList.remove("active");
-    if (menuBtn) {
-      menuBtn.style.opacity = "1";
-      menuBtn.style.pointerEvents = "auto";
-    }
-    body.style.overflow = "auto";
+    closeSidePanel();
   });
 });
 
@@ -83,12 +84,10 @@ function toggleSharedMembers(managerName) {
   const container = document.getElementById('shared-members-container');
   const title = document.getElementById('active-manager-title');
 
-  // If clicking the same manager that's already open, close it
   if (currentActiveManager === managerName) {
     container.style.display = 'none';
     currentActiveManager = null;
   } else {
-    // Open panel and update heading title
     title.textContent = `Team Members under ${managerName}`;
     container.style.display = 'block';
     currentActiveManager = managerName;
@@ -143,11 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
-        observer.unobserve(entry.target); // Runs animation once per scroll
+        observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.15 // Triggers when 15% of the element is in view
+    threshold: 0.15
   });
 
   document.querySelectorAll('.reveal-on-scroll').forEach(el => {
@@ -160,19 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const summary = detail.querySelector('summary');
 
     summary.addEventListener('click', (e) => {
-      e.preventDefault(); // Stop native instant toggle
+      e.preventDefault();
 
       if (!detail.open) {
-        // OPENING
         detail.open = true;
         requestAnimationFrame(() => {
           detail.classList.add('is-open');
         });
       } else {
-        // CLOSING
         detail.classList.remove('is-open');
-
-        // Wait for CSS animation (350ms) before closing <details>
         setTimeout(() => {
           detail.open = false;
         }, 350);
@@ -183,12 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function checkScrollColor() {
   const textElements = document.querySelectorAll('.scroll-text');
-  const triggerPoint = window.innerHeight * 0.55; // 55% down the viewport (where gradient gets dark)
+  const triggerPoint = window.innerHeight * 0.55;
 
   textElements.forEach(el => {
     const rect = el.getBoundingClientRect();
-    
-    // If the top of the text element passes into the darker bottom half of the viewport
     if (rect.top > triggerPoint) {
       el.classList.add('in-dark-zone');
     } else {
@@ -197,6 +190,5 @@ function checkScrollColor() {
   });
 }
 
-// Run on scroll and initial page load
 window.addEventListener('scroll', checkScrollColor);
 window.addEventListener('load', checkScrollColor);
