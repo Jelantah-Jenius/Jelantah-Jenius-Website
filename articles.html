@@ -44,7 +44,7 @@
     .navbar {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1rem 2rem; /* Adjusted padding to match the home page header height */
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -170,18 +170,70 @@
       align-items: center;
     }
 
-    .article-images-grid img {
+    /* --- IMAGE HOVER ANIMATION STYLES --- */
+    .image-card {
+      position: relative;
       width: 100%;
       max-width: 800px;
-      height: auto;
       border-radius: 15px;
+      overflow: hidden;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
-    .article-images-grid img:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 15px;
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    /* Dark overlay effect */
+    .image-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: 15px;
+      pointer-events: none;
+    }
+
+    /* Overlay "Click To Read" text */
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 2;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+
+    /* Hover states */
+    .image-card:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.7);
+    }
+
+    .image-card:hover::after {
+      opacity: 1;
+    }
+
+    .image-card:hover .overlay-text {
+      opacity: 1;
+      transform: translate(-50%, -50%);
     }
 
     /* --- RESPONSIVE STYLES --- */
@@ -247,6 +299,10 @@
         font-size: 1.75rem;
         margin-bottom: 1.5rem;
       }
+
+      .overlay-text {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -284,9 +340,18 @@
     <section class="huge-yellow-box">
       <h3>Article Gallery</h3>
       <div class="article-images-grid">
-        <img src="attached_assets/article1.jpeg" alt="Article 1">
-        <img src="attached_assets/article2.jpeg" alt="Article 2">
-        <img src="attached_assets/article3.jpeg" alt="Article 3">
+        <div class="image-card">
+          <img src="attached_assets/article1.jpeg" alt="Article 1">
+          <span class="overlay-text">Click To Read</span>
+        </div>
+        <div class="image-card">
+          <img src="attached_assets/article2.jpeg" alt="Article 2">
+          <span class="overlay-text">Click To Read</span>
+        </div>
+        <div class="image-card">
+          <img src="attached_assets/article3.jpeg" alt="Article 3">
+          <span class="overlay-text">Click To Read</span>
+        </div>
       </div>
     </section>
   </main>
