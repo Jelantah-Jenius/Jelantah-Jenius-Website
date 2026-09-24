@@ -835,3 +835,21 @@ details.is-open > summary .toggle-arrow-sm {
 summary .toggle-arrow-sm {
   transition: transform 0.35s ease;
 }
+
+/* Fix Home Page Hero Video overlapping on Tablet / Mobile */
+@media (max-width: 1024px) {
+  .hero-image-desktop {
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 500px !important;
+    margin: 2rem auto 0 auto !important;
+  }
+  
+  .home {
+    flex-direction: column !important;
+    padding-top: 8rem !important;
+  }
+}
