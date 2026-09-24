@@ -173,3 +173,23 @@ document.querySelectorAll('.menu li.dropdown .dropbtn').forEach(dropBtn => {
     }
   });
 });
+
+function checkScrollColor() {
+    const textElements = document.querySelectorAll('.scroll-text');
+    const triggerPoint = window.innerHeight * 0.55; // 55% down the viewport (where gradient gets dark)
+
+    textElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      
+      // If the top of the text element passes into the darker bottom half of the viewport
+      if (rect.top > triggerPoint) {
+        el.classList.add('in-dark-zone');
+      } else {
+        el.classList.remove('in-dark-zone');
+      }
+    });
+  }
+
+  // Run on scroll and initial page load
+  window.addEventListener('scroll', checkScrollColor);
+  window.addEventListener('load', checkScrollColor);
