@@ -1,1 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Videos - Jelantah Jenius</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
+  <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    body {
+      background: linear-gradient(
+        to top, 
+        #4a541b 0%,     
+        #f7d36a 50%,    
+        #ffffff 100%    
+      );
+      background-attachment: fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+    }
+
+    /* --- NAVIGATION BAR --- */
+    #navbar {
+      width: 100%;
+      position: relative;
+      z-index: 1000;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #4a541b;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .logo img {
+      height: 45px;
+      width: auto;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .menu li a {
+      text-decoration: none;
+      color: #4a541b;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .menu li a:hover,
+    .menu li a.active {
+      color: #b8860b;
+    }
+
+    .menu-btn, .cancel-btn {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #4a541b;
+    }
+
+    .menu li.dropdown {
+      position: relative;
+    }
+    
+    .menu li.dropdown .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+      border-radius: 10px;
+      z-index: 1011;
+      padding: 0.5rem 0;
+      list-style: none;
+    }
+    
+    .menu li.dropdown:hover .dropdown-content,
+    .menu li.dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li {
+      margin: 0;
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li a {
+      color: #4a541b;
+      padding: 10px 16px;
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    
+    .menu li.dropdown .dropdown-content li a:hover {
+      background-color: #f7d36a;
+      color: #000;
+    }
+
+    /* --- PAGE CONTAINER & COMING SOON CARD --- */
+    .main-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem 4rem 1rem;
+    }
+
+    .coming-soon-box {
+      max-width: 600px;
+      width: 100%;
+      padding: 4rem 2rem;
+      background-color: #fffde7;
+      border: 2px solid #f0e68c;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .coming-soon-box i {
+      font-size: 4rem;
+      color: #4a541b;
+      margin-bottom: 1.5rem;
+    }
+
+    .coming-soon-box h1 {
+      color: #4a541b;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .coming-soon-box p {
+      color: #555555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* --- RESPONSIVE STYLES --- */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .menu {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        max-width: 300px;
+        top: 0;
+        right: -100%;
+        background: #4a541b;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 4rem 2rem 2rem 2rem;
+        transition: right 0.3s ease;
+        z-index: 1005;
+      }
+
+      .menu.active {
+        right: 0;
+      }
+
+      .menu li a {
+        color: #ffffff;
+        font-size: 1.1rem;
+      }
+
+      .cancel-btn {
+        display: block;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: #ffffff;
+      }
+
+      .coming-soon-box {
+        padding: 3rem 1.5rem;
+      }
+
+      .coming-soon-box h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="navbar">
+      <div class="logo">
+        <a href="/">
+          <img src="attached_assets/JJ New Logo w Shadow.png" alt="Logo">
+          Jelantah Jenius
+        </a>
+      </div>
+      <ul class="menu">
+        <div class="cancel-btn"><i class="fas fa-times"></i></div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn active">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+          <ul class="dropdown-content">
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/videos">Videos</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="/programs">Programs</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="menu-btn"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <main class="main-container">
+    <section class="coming-soon-box">
+      <i class="fas fa-video"></i>
+      <h1>Coming Soon!</h1>
+      <p>We are currently working on exciting video content. Stay tuned for updates!</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
