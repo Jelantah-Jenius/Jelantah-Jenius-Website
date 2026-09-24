@@ -854,7 +854,93 @@ summary .toggle-arrow-sm {
   }
 }
 
-.blend-text {
-  color: #ffffff !important;
-  mix-blend-mode: difference;
+.scroll-text {
+  color: #1E2D24;
+  transition: color 0.4s ease;
 }
+
+.scroll-text.in-dark-zone {
+  color: #FFFFFF !important;
+}
+
+body {
+      /* Gradasi 3 warna: Hijau -> Kuning Lembut -> Putih */
+      background: linear-gradient(
+        to top, 
+        #4a541b 0%,     /* Hijau khas Jelantah Jenius di paling bawah */
+        #f7d36a 50%,    /* Kuning lembut di tengah */
+        #ffffff 100%    /* Putih bersih di atas */
+      );
+      background-attachment: fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    /* --- CSS UNTUK MENU DROPDOWN --- */
+    .menu li.dropdown {
+      position: relative;
+    }
+    
+    .menu li.dropdown .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+      border-radius: 10px;
+      z-index: 100;
+      padding: 0.5rem 0;
+      list-style: none;
+      overflow: hidden;
+    }
+    
+    .menu li.dropdown:hover .dropdown-content,
+    .menu li.dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li {
+      margin: 0;
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li a {
+      color: var(--primary, #4a541b);
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .menu li.dropdown .dropdown-content li a:hover {
+      background-color: #f7d36a;
+      color: #000;
+      transform: none; 
+    }
+
+    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
+    @media (max-width: 768px) {
+      .menu li.dropdown .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 1.5rem;
+        display: none;
+      }
+      .menu li.dropdown:hover .dropdown-content,
+      .menu li.dropdown:focus-within .dropdown-content {
+        display: block;
+      }
+      .menu li.dropdown .dropdown-content li a {
+        padding: 8px 20px;
+        color: #ffffff;
+      }
+      .menu li.dropdown .dropdown-content li a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #f7d36a;
+      }
+    }
