@@ -329,13 +329,15 @@ nav.sticky {
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
-  background: var(--bg-light);
+  width: 100px;           
+  height: 100px;
+  max-width: 100%;        
   border-radius: 50%;
-  margin: 0 auto 1.5rem;
   background-size: cover;
+  background: var(--bg-light);
   background-position: center;
+  margin: 0 auto 1rem auto; 
+  overflow: hidden;     
 }
 
 /* Contact Form Overhaul */
@@ -621,10 +623,16 @@ details[open] .toggle-icon {
 }
 
 .manager-card {
-  padding: 1.5rem;
+  padding: 1.5rem 1rem;     
+  box-sizing: border-box;  
   text-align: center;
-  cursor: pointer;
-  list-style: none;
+  overflow: hidden;        
+}
+
+.manager-card h4,
+.manager-card p {
+  word-wrap: break-word;   
+  overflow-wrap: break-word;
 }
 
 .manager-card::-webkit-details-marker {
@@ -944,3 +952,16 @@ body {
         color: #f7d36a;
       }
     }
+
+@media (max-width: 600px) {
+  .directors-grid {
+    grid-template-columns: 1fr !important; 
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .combined-manager-card .manager-profile {
+    flex-direction: column; 
+    gap: 1.5rem;
+  }
+}
