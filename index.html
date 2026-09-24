@@ -46,6 +46,76 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* --- CSS UNTUK MENU DROPDOWN --- */
+    .menu li.dropdown {
+      position: relative;
+    }
+    
+    .menu li.dropdown .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+      border-radius: 10px;
+      z-index: 100;
+      padding: 0.5rem 0;
+      list-style: none;
+      overflow: hidden;
+    }
+    
+    .menu li.dropdown:hover .dropdown-content,
+    .menu li.dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li {
+      margin: 0;
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li a {
+      color: var(--primary, #4a541b);
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .menu li.dropdown .dropdown-content li a:hover {
+      background-color: #f7d36a;
+      color: #000;
+      transform: none; 
+    }
+
+    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
+    @media (max-width: 768px) {
+      .menu li.dropdown .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 1.5rem;
+        display: none;
+      }
+      .menu li.dropdown:hover .dropdown-content,
+      .menu li.dropdown:focus-within .dropdown-content {
+        display: block;
+      }
+      .menu li.dropdown .dropdown-content li a {
+        padding: 8px 20px;
+        color: #ffffff;
+      }
+      .menu li.dropdown .dropdown-content li a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #f7d36a;
+      }
+    }
+    /* --------------------------------- */
   </style>
 </head>
 <body>
@@ -59,12 +129,21 @@
       </div>
       <ul class="menu">
         <div class="cancel-btn"><i class="fas fa-times"></i></div>
-        <a href="/" class="active">Home</a></li>
-        <a href="/about">About Us</a></li>
-        <a href="contents">Contents</a>
-        <a href="/programs">Programs</a></li>
-        <a href="/batches">Batches</a></li>
-        <a href="/contact">Contact Us</a></li>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        
+        <!-- Dropdown Menu Contents -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+          <ul class="dropdown-content">
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/videos">Videos</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="/programs">Programs</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/contact">Contact Us</a></li>
       </ul>
       <div class="menu-btn"><i class="fas fa-bars"></i></div>
     </div>
@@ -141,8 +220,6 @@
       <img src="attached_assets/The process.png" alt="The Process" style="width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
     </div>
   </section>
-
-
 
   <script src="script.js"></script>
 
