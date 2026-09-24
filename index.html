@@ -115,7 +115,55 @@
         color: #f7d36a;
       }
     }
-    /* --------------------------------- */
+    
+    /* --- CSS EFEK BACKGROUND MINYAK INTERAKTIF --- */
+    .process-section {
+      position: relative;
+      overflow: hidden; /* Mencegah efek jejak keluar dari batas */
+      background: linear-gradient(135deg, #f7d36a 0%, #e6b800 50%, #d4a017 100%);
+      background-size: 200% 200%;
+      animation: gentleOilFlow 8s ease infinite;
+    }
+
+    @keyframes gentleOilFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .process-section .content-wrapper {
+      position: relative;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.85); /* Box semi-transparan */
+      border-radius: 30px;
+      padding: 4rem 2rem;
+      margin: 0 auto;
+      max-width: 1000px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Ini desain tetesan jejak minyaknya */
+    .oil-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(247, 211, 106, 0.5) 40%, rgba(212, 160, 23, 0) 80%);
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none; /* Kursor tembus ke elemen di bawahnya */
+      animation: rippleEffect 0.8s ease-out forwards;
+      z-index: 9999; /* Muncul di atas semua elemen agar terlihat jelas */
+    }
+
+    @keyframes rippleEffect {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -132,7 +180,6 @@
         <li><a href="/" class="active">Home</a></li>
         <li><a href="/about">About Us</a></li>
         
-        <!-- Dropdown Menu Contents -->
         <li class="dropdown">
           <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
           <ul class="dropdown-content">
@@ -196,7 +243,7 @@
     </div>
   </section>
 
-  <!-- People Reached Section dengan Scroll Trigger (Intersection Observer) -->
+  <!-- People Reached Section dengan Scroll Trigger -->
   <section id="statsSection" class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
     <div class="content" style="max-width: 900px; margin: 0 auto;">
       <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">
@@ -209,17 +256,14 @@
     </div>
   </section>
 
-  <!-- The Process Image Section -->
-<!-- The Process Image Section -->
+  <!-- The Process Image Section (Sekarang Interaktif) -->
   <section class="process-section" id="processSection" style="padding: 5rem 1rem;">
-    <!-- Konten dibungkus div baru agar tidak tertutup background animasi -->
     <div class="content-wrapper">
       <div class="section-label" style="text-align: center; margin-bottom: 3rem;">
         <h2 style="font-size: 3rem; font-weight: 800; color: var(--primary);">The Process</h2>
         <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto; font-size: 1.1rem; font-weight: 500;">How we manage and transform used cooking oil into valuable resources.</p>
       </div>
       <div style="text-align: center;">
-        <!-- Gambar The Process -->
         <img src="attached_assets/The process.png" alt="The Process" style="width: 100%; max-width: 800px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); display: inline-block;">
       </div>
     </div>
@@ -227,14 +271,62 @@
 
   <script src="script.js"></script>
 
-  <!-- Script dengan Intersection Observer (Mulai Pas Disentuh/Dilihat Visitor) -->
+  <!-- Script Interaktif Background Minyak -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const processSection = document.getElementById('processSection');
+      if (!processSection) return; // Mencegah error jika elemen tidak ditemukan
+      
+      let throttleTimer;
+      const throttleDelay = 40; // Kecepatan render gelombang
+
+      processSection.addEventListener('mousemove', (e) => {
+        if (throttleTimer) return;
+        throttleTimer = setTimeout(() => {
+          createRipple(e);
+          throttleTimer = null;
+        }, throttleDelay);
+      });
+
+      function createRipple(e) {
+        // Dapatkan posisi section relatif terhadap layar
+        const rect = processSection.getBoundingClientRect();
+        
+        // Kalkulasi letak kursor yang akurat
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Buat elemen visual jejak minyak
+        const ripple = document.createElement('span');
+        ripple.classList.add('oil-ripple');
+        
+        // Ukuran gelombang bervariasi (40px - 100px)
+        const size = Math.random() * 60 + 40;
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        processSection.appendChild(ripple);
+
+        // Hapus dari HTML setelah animasi memudar selesai
+        setTimeout(() => {
+          ripple.remove();
+        }, 800);
+      }
+    });
+  </script>
+
+  <!-- Script Intersection Observer (People Reached) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const statsSection = document.getElementById("statsSection");
       const counterElement = document.getElementById("counterNumber");
       const descElement = document.getElementById("statsDesc");
+      if(!statsSection || !counterElement || !descElement) return;
       
-      let hasAnimated = false; // Memastikan animasi hanya berjalan sekali saat pertama kali dilihat
+      let hasAnimated = false;
 
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -243,7 +335,7 @@
             
             const targetNumber = 168701;
             let currentNumber = 0;
-            const duration = 2000; // 2 detik
+            const duration = 2000;
             const steps = 50; 
             const increment = targetNumber / steps;
             const intervalTime = duration / steps;
@@ -253,14 +345,13 @@
               if (currentNumber >= targetNumber) {
                 currentNumber = targetNumber;
                 clearInterval(timer);
-                // Begitu angka selesai, deskripsi meluncur naik dari bawah
                 descElement.classList.add("show");
               }
               counterElement.textContent = Math.floor(currentNumber).toLocaleString('en-US');
             }, intervalTime);
           }
         });
-      }, { threshold: 0.3 }); // Animasi mulai ketika 30% bagian banner sudah terlihat di layar
+      }, { threshold: 0.3 });
 
       observer.observe(statsSection);
     });
