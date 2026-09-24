@@ -945,8 +945,13 @@ body {
 
       .menu li.dropdown .dropdown-content li a {
         padding: 8px 20px;
-        color: var(--primary);
+        color: var(--text-main) !important; /* Forces dark readable text */
       }
+      .menu li.dropdown .dropdown-content li a:hover {
+        background-color: rgba(74, 84, 27, 0.1);
+        color: var(--secondary) !important;
+      }
+      
       .menu li.dropdown .dropdown-content li a:hover {
         background-color: rgba(74, 84, 27, 0.1);
         color: var(--primary);
