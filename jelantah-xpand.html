@@ -183,10 +183,10 @@
     <p>Expanding our environmental mission through regional exhibitions, international summits, and strategic youth collaborations.</p>
   </section>
 
-  <!-- Event 1: May — The Cornerstone (Dengan Slidepost Gallery) -->
+  <!-- Event 1: May — The Cornerstone -->
   <section class="event-section">
     <div class="content-box">
-      <!-- Container Gambar & Video (Slidepost) -->
+      <!-- Container Gambar & Video (Slidepost The Cornerstone) -->
       <div class="image-container" style="padding: 0;"> 
         <div class="slidepost-container">
           <div class="slidepost-track" id="cornerstoneTrack">
@@ -200,8 +200,13 @@
             <div class="slidepost-slide">
               <img src="attached_assets/stock_images/sustainable_renewabl_865bdb12.jpg" alt="The Cornerstone Team">
             </div>
+
+            <!-- Slide 3: Gambar Tambahan -->
+            <div class="slidepost-slide">
+              <img src="attached_assets/Jelantah Xchange.jpeg" alt="The Cornerstone Activities">
+            </div>
             
-            <!-- Slide 3: Video -->
+            <!-- Slide 4: Video -->
             <div class="slidepost-slide">
               <video controls muted playsinline>
                 <source src="attached_assets/Placeholder%20Video%20for%20Jelantah%20Jenius.mp4" type="video/mp4" />
@@ -224,6 +229,7 @@
             <span class="dot active" onclick="setSlide(0, 'cornerstoneTrack')"></span>
             <span class="dot" onclick="setSlide(1, 'cornerstoneTrack')"></span>
             <span class="dot" onclick="setSlide(2, 'cornerstoneTrack')"></span>
+            <span class="dot" onclick="setSlide(3, 'cornerstoneTrack')"></span>
           </div>
         </div>
       </div>
@@ -251,8 +257,56 @@
         <p>Participated in the International Green Youth Leaders Summit, connecting Jelantah Jenius with a wider network of young environmental leaders and sustainability advocates from 12+ countries.</p>
         <p>We shared our experience in promoting UCO collection and circular economy practices while learning from other youth-led initiatives. The summit allowed us to expand our reach, exchange ideas, and inspire greater youth participation in responsible waste management and environmental action.</p>
       </div>
-      <div class="image-container">
-        <img src="attached_assets/stock_images/sustainable_renewabl_865bdb12.jpg" alt="International Green Youth Leaders Summit">
+
+      <!-- Container Gambar (Slidepost IGYLS) -->
+      <div class="image-container" style="padding: 0;"> 
+        <div class="slidepost-container">
+          <div class="slidepost-track" id="igylsTrack">
+            
+            <!-- Slide 1: Gambar -->
+            <div class="slidepost-slide">
+              <img src="attached_assets/stock_images/sustainable_renewabl_865bdb12.jpg" alt="Summit Slide 1">
+            </div>
+            
+            <!-- Slide 2: Gambar -->
+            <div class="slidepost-slide">
+              <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Summit Slide 2">
+            </div>
+
+            <!-- Slide 3: Gambar -->
+            <div class="slidepost-slide">
+              <img src="attached_assets/Jelantah Xchange.jpeg" alt="Summit Slide 3">
+            </div>
+
+            <!-- Slide 4: Gambar -->
+            <div class="slidepost-slide">
+              <img src="attached_assets/JelantahBerbagi.jpg" alt="Summit Slide 4">
+            </div>
+
+            <!-- Slide 5: Gambar -->
+            <div class="slidepost-slide">
+              <img src="attached_assets/JumatJelantah.jpg" alt="Summit Slide 5">
+            </div>
+
+          </div>
+
+          <!-- Tombol Navigasi Kiri / Kanan -->
+          <button class="slidepost-btn slidepost-prev" onclick="moveSlide(-1, 'igylsTrack')">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="slidepost-btn slidepost-next" onclick="moveSlide(1, 'igylsTrack')">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <!-- Indikator Dots -->
+          <div class="slidepost-indicators" id="igylsIndicators">
+            <span class="dot active" onclick="setSlide(0, 'igylsTrack')"></span>
+            <span class="dot" onclick="setSlide(1, 'igylsTrack')"></span>
+            <span class="dot" onclick="setSlide(2, 'igylsTrack')"></span>
+            <span class="dot" onclick="setSlide(3, 'igylsTrack')"></span>
+            <span class="dot" onclick="setSlide(4, 'igylsTrack')"></span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
