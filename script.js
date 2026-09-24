@@ -193,3 +193,52 @@ function checkScrollColor() {
   // Run on scroll and initial page load
   window.addEventListener('scroll', checkScrollColor);
   window.addEventListener('load', checkScrollColor);
+
+
+<!-- Script Interaktif Background Minyak -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const processSection = document.getElementById('processSection');
+      
+      // Throttle fungsi agar tidak membuat browser berat karena memproses terlalu banyak event
+      let throttleTimer;
+      const throttleDelay = 50; // Jarak waktu (ms) antar kemunculan gelombang
+
+      processSection.addEventListener('mousemove', (e) => {
+        if (throttleTimer) return;
+
+        throttleTimer = setTimeout(() => {
+          createRipple(e);
+          throttleTimer = null;
+        }, throttleDelay);
+      });
+
+      function createRipple(e) {
+        // Dapatkan posisi relatif kursor terhadap section
+        const rect = processSection.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Buat elemen span untuk jejak
+        const ripple = document.createElement('span');
+        ripple.classList.add('oil-ripple');
+        
+        // Ukuran gelombang bervariasi secara acak (antara 50px - 100px)
+        const size = Math.random() * 50 + 50;
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        
+        // Posisi
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        // Masukkan ke dalam section
+        processSection.appendChild(ripple);
+
+        // Hapus elemen dari memori setelah animasi selesai (1 detik)
+        setTimeout(() => {
+          ripple.remove();
+        }, 1000);
+      }
+    });
+  </script>
