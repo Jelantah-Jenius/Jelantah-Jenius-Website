@@ -329,15 +329,15 @@ nav.sticky {
 }
 
 .avatar {
-  width: 100px;           
-  height: 100px;
-  max-width: 100%;        
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  background-size: cover;
-  background: var(--bg-light);
+  background-repeat: no-repeat;
   background-position: center;
-  margin: 0 auto 1rem auto; 
-  overflow: hidden;     
+  background-size: contain; 
+  background-color: #f0f0f0; 
+  margin: 0 auto 0.75rem auto;
+  flex-shrink: 0;
 }
 
 /* Contact Form Overhaul */
@@ -953,15 +953,49 @@ body {
       }
     }
 
-@media (max-width: 600px) {
+/* Removes default HTML <details> arrow across all browsers */
+details summary::-webkit-details-marker {
+  display: none !important;
+}
+
+details summary::marker {
+  display: none !important;
+  content: "";
+}
+
+summary {
+  list-style: none !important;
+}
+
+@media (max-width: 768px) {
   .directors-grid {
-    grid-template-columns: 1fr !important; 
-    gap: 1.5rem;
-    padding: 0 1rem;
+    gap: 0.5rem !important;
+    padding: 0 0.25rem !important;
   }
 
-  .combined-manager-card .manager-profile {
-    flex-direction: column; 
-    gap: 1.5rem;
+  .manager-card, 
+  .combined-manager-card {
+    padding: 0.75rem 0.4rem !important;
+  }
+
+  .avatar {
+    width: 65px !important;
+    height: 65px !important;
+  }
+
+  .manager-profile h4,
+  .manager-card h4 {
+    font-size: 0.8rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .manager-profile p,
+  .manager-card p {
+    font-size: 0.7rem !important;
+  }
+
+  .manager-divider {
+    font-size: 0.75rem !important;
+    margin: 0 2px !important;
   }
 }
