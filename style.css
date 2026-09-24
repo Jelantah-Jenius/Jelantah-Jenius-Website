@@ -1000,33 +1000,49 @@ summary {
   }
 }
 
-/* Card container background styling */
+/* Force the details container to fill its grid space */
 details.combined-manager-card {
   background: #ffffff;
   border-radius: 24px;
-  padding: 1.5rem;
+  padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
-  width: 100%;
+  width: 100% !important;
+  grid-column: 1 / -1;
 }
 
-/* Flex layout for profile arrangement inside summary */
-details.combined-manager-card summary .summary-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
+/* Force summary element to behave like a block and take 100% width */
+details.combined-manager-card summary {
+  display: block !important;
+  width: 100% !important;
+  list-style: none;
   cursor: pointer;
 }
 
-/* Individual profile layout inside the card */
+/* Force flexbox to stretch across the full width */
+details.combined-manager-card .summary-content {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between; /* Pushes profiles apart evenly */
+  align-items: center;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Let both profiles grow equally */
 details.combined-manager-card .manager-profile {
-  flex: 1;
+  flex: 1 1 0%;
   text-align: center;
 }
 
-/* Strip native list arrows across webkit browsers */
+/* Keep the divider centered between them */
+details.combined-manager-card .manager-divider {
+  padding: 0 1rem;
+  font-weight: bold;
+  color: #2e7d32; /* Adjust color as needed */
+}
+
+/* Remove default summary marker arrows */
 details.combined-manager-card summary::-webkit-details-marker,
 details.combined-manager-card summary::marker {
   display: none !important;
