@@ -60,16 +60,15 @@
       transform: translateX(-5px);
     }
 
-    /* --- GAYA UNTUK SLIDEPOST GALLERY --- */
+    /* --- PERBAIKAN GAYA UNTUK SLIDEPOST GALLERY --- */
     .slidepost-container {
       position: relative;
       width: 100%;
-      height: 100%;
-      min-height: 350px; /* Minimal tinggi agar tampil rapi */
+      aspect-ratio: 4 / 3; /* Mengunci rasio kotak agar ukurannya seragam dan konsisten */
       overflow: hidden;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      background: #000;
+      background: #000; /* Latar belakang hitam untuk mengisi area kosong */
     }
     
     .slidepost-track {
@@ -91,7 +90,7 @@
     .slidepost-slide video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* Memastikan gambar UTUH (tidak di-crop/terpotong) */
     }
 
     /* Tombol Navigasi Kiri & Kanan */
@@ -124,17 +123,20 @@
     /* Indikator Titik-titik (Dots) */
     .slidepost-indicators {
       position: absolute;
-      bottom: 20px;
+      bottom: 15px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       gap: 10px;
       z-index: 10;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 15px;
+      border-radius: 20px;
     }
     .slidepost-indicators .dot {
-      width: 12px;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.4);
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -142,7 +144,7 @@
     }
     .slidepost-indicators .dot.active {
       background: rgba(255, 255, 255, 1);
-      transform: scale(1.2);
+      transform: scale(1.3);
     }
   </style>
 </head>
