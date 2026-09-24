@@ -11,6 +11,78 @@
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/jelantah-xpand" />
   <style>
+    /* --- CSS UNTUK MENU DROPDOWN --- */
+    /* Sebaiknya pindahkan CSS ini ke dalam file style.css Anda agar berlaku di semua halaman */
+    .menu li.dropdown {
+      position: relative;
+    }
+    
+    .menu li.dropdown .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+      border-radius: 10px;
+      z-index: 100;
+      padding: 0.5rem 0;
+      list-style: none;
+      overflow: hidden;
+    }
+    
+    /* Tampilkan dropdown saat menu di-hover atau di-klik (focus) */
+    .menu li.dropdown:hover .dropdown-content,
+    .menu li.dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li {
+      margin: 0;
+      display: block;
+    }
+    
+    .menu li.dropdown .dropdown-content li a {
+      color: var(--primary, #4a541b);
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .menu li.dropdown .dropdown-content li a:hover {
+      background-color: #f7d36a;
+      color: #000;
+      transform: none; /* Mematikan efek transform bawaan menu utama agar tidak bergeser */
+    }
+
+    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
+    @media (max-width: 768px) {
+      .menu li.dropdown .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 1.5rem;
+        display: none;
+      }
+      .menu li.dropdown:hover .dropdown-content,
+      .menu li.dropdown:focus-within .dropdown-content {
+        display: block;
+      }
+      .menu li.dropdown .dropdown-content li a {
+        padding: 8px 20px;
+        color: #ffffff;
+      }
+      .menu li.dropdown .dropdown-content li a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #f7d36a;
+      }
+    }
+    /* --------------------------------- */
+
     .xpand-hero {
       padding: 10rem 2rem 3rem 2rem;
       text-align: center;
@@ -60,15 +132,15 @@
       transform: translateX(-5px);
     }
 
-    /* --- PERBAIKAN GAYA UNTUK SLIDEPOST GALLERY --- */
+    /* --- GAYA UNTUK SLIDEPOST GALLERY --- */
     .slidepost-container {
       position: relative;
       width: 100%;
-      aspect-ratio: 4 / 3; /* Mengunci rasio kotak agar ukurannya seragam dan konsisten */
+      aspect-ratio: 4 / 3; /* Mengunci rasio agar kotak tidak berubah ukuran */
       overflow: hidden;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      background: #000; /* Latar belakang hitam untuk mengisi area kosong */
+      background: #000; 
     }
     
     .slidepost-track {
@@ -93,7 +165,6 @@
       object-fit: contain; /* Memastikan gambar UTUH (tidak di-crop/terpotong) */
     }
 
-    /* Tombol Navigasi Kiri & Kanan */
     .slidepost-btn {
       position: absolute;
       top: 50%;
@@ -120,7 +191,6 @@
     .slidepost-prev { left: 15px; }
     .slidepost-next { right: 15px; }
 
-    /* Indikator Titik-titik (Dots) */
     .slidepost-indicators {
       position: absolute;
       bottom: 15px;
@@ -150,7 +220,7 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar dengan Dropdown -->
   <nav id="navbar">
     <div class="navbar">
       <div class="logo">
@@ -163,7 +233,16 @@
         <div class="cancel-btn"><i class="fas fa-times"></i></div>
         <li><a href="/">Home</a></li>
         <li><a href="/about">About Us</a></li>
-        <li><a href="/articles">Articles</a></li>
+        
+        <!-- Dropdown Menu Contents -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+          <ul class="dropdown-content">
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/videos">Videos</a></li>
+          </ul>
+        </li>
+        
         <li><a href="/programs" class="active">Programs</a></li>
         <li><a href="/batches">Batches</a></li>
         <li><a href="/contact">Contact Us</a></li>
@@ -188,29 +267,25 @@
   <!-- Event 1: May — The Cornerstone -->
   <section class="event-section">
     <div class="content-box">
-      <!-- Container Gambar & Video (Slidepost The Cornerstone) -->
+      <!-- Container Gambar (Slidepost The Cornerstone) -->
       <div class="image-container" style="padding: 0;"> 
         <div class="slidepost-container">
           <div class="slidepost-track" id="cornerstoneTrack">
             
-            <!-- Slide 1: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/programs_slide/cornerstone/Copy%20of%20DSC03182%20(1).JPG" alt="The Cornerstone Exhibition">
             </div>
             
-            <!-- Slide 2: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/programs_slide/cornerstone/Copy%20of%20DSC02731.JPG" alt="The Cornerstone Team">
             </div>
 
-            <!-- Slide 3: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/programs_slide/cornerstone/20260509_130250%20(1).jpg" alt="The Cornerstone Activities">
             </div>
 
           </div>
 
-          <!-- Tombol Navigasi Kiri / Kanan -->
           <button class="slidepost-btn slidepost-prev" onclick="moveSlide(-1, 'cornerstoneTrack')">
             <i class="fas fa-chevron-left"></i>
           </button>
@@ -218,7 +293,6 @@
             <i class="fas fa-chevron-right"></i>
           </button>
 
-          <!-- Indikator Dots -->
           <div class="slidepost-indicators" id="cornerstoneIndicators">
             <span class="dot active" onclick="setSlide(0, 'cornerstoneTrack')"></span>
             <span class="dot" onclick="setSlide(1, 'cornerstoneTrack')"></span>
@@ -256,34 +330,28 @@
         <div class="slidepost-container">
           <div class="slidepost-track" id="igylsTrack">
             
-            <!-- Slide 1: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/stock_images/sustainable_renewabl_865bdb12.jpg" alt="Summit Slide 1">
             </div>
             
-            <!-- Slide 2: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/stock_images/sustainable_renewabl_cd51e253.jpg" alt="Summit Slide 2">
             </div>
 
-            <!-- Slide 3: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/Jelantah Xchange.jpeg" alt="Summit Slide 3">
             </div>
 
-            <!-- Slide 4: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/JelantahBerbagi.jpg" alt="Summit Slide 4">
             </div>
 
-            <!-- Slide 5: Gambar -->
             <div class="slidepost-slide">
               <img src="attached_assets/JumatJelantah.jpg" alt="Summit Slide 5">
             </div>
 
           </div>
 
-          <!-- Tombol Navigasi Kiri / Kanan -->
           <button class="slidepost-btn slidepost-prev" onclick="moveSlide(-1, 'igylsTrack')">
             <i class="fas fa-chevron-left"></i>
           </button>
@@ -291,7 +359,6 @@
             <i class="fas fa-chevron-right"></i>
           </button>
 
-          <!-- Indikator Dots -->
           <div class="slidepost-indicators" id="igylsIndicators">
             <span class="dot active" onclick="setSlide(0, 'igylsTrack')"></span>
             <span class="dot" onclick="setSlide(1, 'igylsTrack')"></span>
@@ -306,7 +373,6 @@
 
   <script src="script.js"></script>
   
-  <!-- SCRIPT KHUSUS UNTUK SLIDEPOST GALLERY -->
   <script>
     const slideState = {};
 
@@ -314,7 +380,7 @@
       const tracks = document.querySelectorAll('.slidepost-track');
       tracks.forEach(track => {
         const id = track.id;
-        slideState[id] = 0; // Mulai dari slide pertama (index 0)
+        slideState[id] = 0; 
         updateSlider(id);
       });
     }
@@ -326,7 +392,6 @@
       
       slideState[trackId] += direction;
       
-      // Jika melewati batas, kembali ke awal atau akhir
       if (slideState[trackId] < 0) {
         slideState[trackId] = maxIndex;
       } else if (slideState[trackId] > maxIndex) {
@@ -345,10 +410,8 @@
       const track = document.getElementById(trackId);
       const index = slideState[trackId];
       
-      // Geser track
       track.style.transform = `translateX(-${index * 100}%)`;
       
-      // Update titik-titik indikator
       const indicatorsId = trackId.replace('Track', 'Indicators');
       const indicatorsContainer = document.getElementById(indicatorsId);
       if (indicatorsContainer) {
@@ -362,19 +425,17 @@
         });
       }
       
-      // Auto-pause video jika digeser ke slide lain
       const slides = track.querySelectorAll('.slidepost-slide');
       slides.forEach((slide, i) => {
         const video = slide.querySelector('video');
         if (video) {
           if (i !== index) {
-            video.pause(); // Jeda video jika tidak terlihat
+            video.pause(); 
           }
         }
       });
     }
 
-    // Jalankan slider saat halaman selesai dimuat
     document.addEventListener('DOMContentLoaded', initSliders);
   </script>
 </body>
