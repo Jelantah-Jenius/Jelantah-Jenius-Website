@@ -129,6 +129,37 @@
       color: var(--secondary);
       transform: translateX(-5px);
     }
+
+    /* Style untuk Call to Action di bawah */
+    .oil-cta-section {
+      text-align: center;
+      padding: 2rem 2rem 8rem 2rem;
+    }
+    .oil-cta-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+    .btn-contact-us {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+    .btn-contact-us:hover {
+      background: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    }
   </style>
 </head>
 <body>
@@ -178,7 +209,7 @@
   </section>
 
   <!-- Overview Section -->
-  <section class="event-section" style="padding-bottom: 8rem;">
+  <section class="event-section" style="padding-bottom: 3rem;">
     <div class="content-box">
       <div class="image-container">
         <!-- Anda dapat mengganti gambar ini dengan dokumentasi yang sesuai jika sudah ada -->
@@ -191,6 +222,14 @@
         <p>By building partnerships and regularly collecting UCO, we aim to increase our collection volume while helping businesses manage their waste responsibly and supporting a more sustainable circular economy.</p>
       </div>
     </div>
+  </section>
+
+  <!-- Bagian Tambahan Call to Action (CTA) di Paling Bawah -->
+  <section class="oil-cta-section">
+    <p class="oil-cta-text">Got a business? Join us and get exciting incentives!</p>
+    <a href="/contact" class="btn-contact-us">
+      <i class="fas fa-envelope"></i> Contact Us
+    </a>
   </section>
 
   <script src="script.js"></script>
