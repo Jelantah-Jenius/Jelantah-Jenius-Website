@@ -192,3 +192,60 @@ function checkScrollColor() {
 
 window.addEventListener('scroll', checkScrollColor);
 window.addEventListener('load', checkScrollColor);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const carousel = document.getElementById("carousel");
+  const items = document.querySelectorAll(".carousel-item");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+      
+  const itemCount = items.length;
+  const theta = 360 / itemCount; 
+      
+  let radius;
+  let currAngle = 0;
+
+  function setRadius() {
+    if (window.innerWidth < 768) {
+      radius = 300;
+    } else {
+      radius = 500;
+    }
+        
+    items.forEach((item, index) => {
+      const itemAngle = theta * index;
+      item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
+    });
+    rotateCarousel();
+  }
+
+  function rotateCarousel() {
+    carousel.style.transform = `translateZ(-${radius}px) rotateY(${currAngle}deg)`;
+        
+    let activeIndex = Math.round(currAngle / -theta) % itemCount;
+    if (activeIndex < 0) {
+      activeIndex += itemCount;
+    }
+
+    items.forEach((item, index) => {
+      if (index === activeIndex) {
+        item.classList.add("active");
+      } else {
+        item.classList.remove("active");
+      }
+    });
+  }
+
+  setRadius();
+  window.addEventListener("resize", setRadius);
+
+  nextBtn.addEventListener("click", () => {
+    currAngle -= theta;
+    rotateCarousel();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    currAngle += theta;
+    rotateCarousel();
+  });
+});
