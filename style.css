@@ -70,6 +70,20 @@ nav.sticky {
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
+/* Outer Navbar Wrapper */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; 
+  background-color: transparent;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+/* Inner Navbar Container (Your Code) */
 .navbar {
   width: 90%;
   max-width: 1300px;
@@ -1117,7 +1131,8 @@ details.combined-manager-card summary::marker {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 3rem 1.5rem 5rem 1.5rem;
+  margin-top: 100px; 
+  padding: 2rem 1.5rem 5rem 1.5rem;
 }
 
 .article-box {
