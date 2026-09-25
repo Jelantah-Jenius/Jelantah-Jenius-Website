@@ -1379,3 +1379,15 @@ details.combined-manager-card summary::marker {
     font-size: 1.2rem;
   }
 }
+
+/* Content Page */
+.contact {
+  padding-top: 10rem !important; /* Pushes the entire green section down clear of the navbar */
+  padding-bottom: 4rem !important;
+}
+
+.contact .content {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  width: 90% !important;
+}
