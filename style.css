@@ -1110,3 +1110,104 @@ details.combined-manager-card summary::marker {
   margin-top: 1rem;
   display: none;
 }
+
+/* --- ARTICLE & EDUCATIONAL PAGE STYLES --- */
+.main-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1.5rem 5rem 1.5rem;
+}
+
+.article-box {
+  max-width: 850px;
+  width: 100%;
+  padding: 3rem 2.5rem;
+  background-color: var(--bg-light, #ffffff);
+  border: 2px solid rgba(74, 84, 27, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  margin: 0 auto;
+}
+
+/* Back Link Button */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary, #4a541b);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+  color: var(--secondary, #384013);
+  transform: translateX(-3px);
+}
+
+/* Article Typography & Callout Box */
+.article-title {
+  color: var(--primary, #4a541b);
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 2rem;
+}
+
+.did-you-know-card {
+  background-color: rgba(249, 163, 26, 0.15);
+  border-left: 6px solid var(--accent, #f9a31a);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  color: var(--primary, #4a541b);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  font-size: 1.05rem;
+}
+
+.article-content p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: var(--text-main, #333333);
+}
+
+.article-content h4 {
+  color: var(--primary, #4a541b);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 2.2rem 0 1rem 0;
+}
+
+.article-content ul {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.article-content li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 0.6rem;
+  color: var(--text-main, #333333);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+  .article-box {
+    padding: 2rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .article-title {
+    font-size: 1.65rem;
+  }
+}
