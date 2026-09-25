@@ -1391,3 +1391,238 @@ details.combined-manager-card summary::marker {
   margin: 0 auto !important;
   width: 90% !important;
 }
+
+/* ==========================================
+   PROGRAMS PAGE STYLES
+   ========================================== */
+
+/* Page Background */
+body.programs-page {
+  background: linear-gradient(
+    to top, 
+    #4a541b 0%,     /* Jelantah Jenius Primary Green */
+    #f7d36a 50%,    /* Soft Yellow */
+    #ffffff 100%    /* Clean White */
+  );
+  background-attachment: fixed;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.programs-hero {
+  padding: 10rem 2rem 3rem 2rem;
+  text-align: center;
+}
+
+.programs-hero h1 {
+  font-size: 3rem;
+  color: var(--primary);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.programs-hero p.programs-hero-subtitle {
+  color: #666;
+  mix-blend-mode: multiply;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* 3D Carousel Container */
+.carousel-container {
+  perspective: 1500px;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+  position: relative;
+}
+
+.carousel {
+  width: 350px;
+  height: 480px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Carousel Cards */
+.carousel-item {
+  position: absolute;
+  width: 350px;
+  height: 480px;
+  left: 0;
+  top: 0;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  background: #000;
+}
+
+.carousel-item img, 
+.carousel-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease;
+}
+
+/* Card Title Bar (Active Card Only) */
+.title-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+  padding: 4rem 1.5rem 2rem 1.5rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.title-bar h3 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+  margin: 0;
+}
+
+.carousel-item.active .title-bar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card Hover Overlay & Button */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: none; 
+}
+
+.btn-learn {
+  background: var(--primary);
+  color: #ffffff;
+  padding: 1rem 2.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.2rem;
+  transform: translateY(20px);
+  transition: all 0.4s ease 0.1s;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn-learn:hover {
+  background: var(--accent);
+  transform: scale(1.05) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* Carousel Hover Interactions */
+.carousel-item.active:hover .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.carousel-item.active:hover img,
+.carousel-item.active:hover video {
+  transform: scale(1.1); 
+}
+
+.carousel-item.active:hover .overlay .btn-learn {
+  transform: translateY(0);
+}
+
+.carousel-item.active:hover .title-bar {
+  opacity: 0;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--white);
+  color: var(--primary);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-btn:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn { left: 5%; }
+.next-btn { right: 5%; }
+
+/* Leaderboard Link */
+.leaderboard-link-wrapper {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+
+.btn-leaderboard {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  padding: 1.2rem 3rem;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-leaderboard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(74, 84, 27, 0.4);
+}
+
+.trophy-icon {
+  color: #FFD700;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .carousel-container { height: 500px; }
+  .carousel { width: 280px; height: 400px; }
+  .carousel-item { width: 280px; height: 400px; }
+  .prev-btn { left: 2%; width: 45px; height: 45px; font-size: 1.3rem; }
+  .next-btn { right: 2%; width: 45px; height: 45px; font-size: 1.3rem; }
+}
