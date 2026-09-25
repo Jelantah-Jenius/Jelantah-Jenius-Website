@@ -1226,3 +1226,38 @@ details.combined-manager-card summary::marker {
     font-size: 1.65rem;
   }
 }
+
+/* --- ARTICLE SECTION & SOURCE LINK STYLES --- */
+.article-section {
+  margin-bottom: 2rem;
+}
+
+.article-section h3 {
+  color: var(--primary, #4a541b);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.article-section p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+  color: var(--text-main, #333333);
+}
+
+.source-link {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--primary, #4a541b);
+  text-decoration: none;
+  font-style: italic;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+.source-link:hover {
+  text-decoration: underline;
+  color: var(--secondary, #384013);
+}
