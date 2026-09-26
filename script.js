@@ -249,3 +249,74 @@ document.addEventListener("DOMContentLoaded", () => {
     rotateCarousel();
   });
 });
+
+/* --- REUSABLE IMAGE SLIDER --- */
+function initImageSliders() {
+  const sliders = document.querySelectorAll('.slider-container');
+
+  sliders.forEach((container) => {
+    const track = container.querySelector('.slider-track');
+    if (!track) return;
+
+    const slides = track.querySelectorAll('img');
+    const nextBtn = container.querySelector('.next-btn');
+    const prevBtn = container.querySelector('.prev-btn');
+    const dots = container.querySelectorAll('.dot');
+
+    if (slides.length === 0) return;
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let slideInterval;
+
+    function updateSlider() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot) => dot.classList.remove('active'));
+      if (dots[currentIndex]) {
+        dots[currentIndex].classList.add('active');
+      }
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+      updateSlider();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+      updateSlider();
+    }
+
+    function startAutoSlide() {
+      slideInterval = setInterval(nextSlide, 4000);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(slideInterval);
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        const index = parseInt(e.target.getAttribute('data-index'), 10);
+        if (!isNaN(index)) {
+          currentIndex = index;
+          updateSlider();
+        }
+      });
+    });
+
+    // Pause auto-slide when hovering over the image slider
+    container.addEventListener('mouseenter', stopAutoSlide);
+    container.addEventListener('mouseleave', startAutoSlide);
+
+    startAutoSlide();
+  });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  initImageSliders();
+});
