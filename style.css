@@ -181,6 +181,29 @@ nav.sticky {
   transform: none; 
 }
 
+/* Penyesuaian Dropdown untuk versi Mobile (HP) */
+@media (max-width: 768px) {
+  .menu li.dropdown .dropdown-content {
+    position: static;
+    box-shadow: none;
+    background-color: transparent;
+    padding-left: 1.5rem;
+    display: none;
+  }
+  .menu li.dropdown:hover .dropdown-content,
+  .menu li.dropdown:focus-within .dropdown-content {
+    display: block;
+  }
+  .menu li.dropdown .dropdown-content li a {
+    padding: 8px 20px;
+    color: #ffffff;
+  }
+  .menu li.dropdown .dropdown-content li a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: #f7d36a;
+  }
+}
+
 /* Hero Section with Parallax Feel */
 .home {
   height: 100vh;
