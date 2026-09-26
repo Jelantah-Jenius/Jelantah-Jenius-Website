@@ -36,6 +36,8 @@ body {
 /* Glassmorphism Navigation */
 nav {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   padding: 1.5rem 0;
   z-index: 1000;
@@ -1466,13 +1468,15 @@ body.programs-page {
 .carousel-container {
   perspective: 1500px;
   width: 100%;
-  height: 600px;
+  max-width: 100vw;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
   margin-bottom: 6rem;
   position: relative;
+  box-sizing: border-box;
 }
 
 .carousel {
@@ -1851,4 +1855,12 @@ body.programs-page {
 .dot.active {
   background-color: #ffffff;
   transform: scale(1.3);
+}
+
+/* fix overflowing issues*/
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
 }
