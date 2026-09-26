@@ -906,9 +906,10 @@ summary {
     display: block !important;
     color: var(--primary);
     font-size: 1.8rem;
-    z-index: 1001;
+    z-index: 9999 !important; 
     cursor: pointer;
     margin-left: auto;
+    position: relative;
   }
 
   .cancel-btn {
