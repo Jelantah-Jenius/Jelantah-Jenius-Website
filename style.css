@@ -184,23 +184,30 @@ nav.sticky {
 /* Penyesuaian Dropdown untuk versi Mobile (HP) */
 @media (max-width: 768px) {
   .menu li.dropdown .dropdown-content {
-    position: static;
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
     box-shadow: none;
     background-color: transparent;
-    padding-left: 1.5rem;
+    padding-left: 1.25rem; 
+    margin-top: 0;
     display: none;
   }
+
   .menu li.dropdown:hover .dropdown-content,
   .menu li.dropdown:focus-within .dropdown-content {
     display: block;
   }
+
   .menu li.dropdown .dropdown-content li a {
-    padding: 8px 20px;
-    color: #ffffff;
+    padding: 8px 16px;
+    color: var(--primary, #4a541b) !important; 
+    font-size: 0.95rem;
   }
+
   .menu li.dropdown .dropdown-content li a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: #f7d36a;
+    background-color: rgba(74, 84, 27, 0.08);
+    color: var(--primary, #4a541b) !important;
   }
 }
 
