@@ -13,7 +13,7 @@
 </head>
 <body>
 
-  <!-- Navigation Bar dengan Dropdown -->
+  <!-- Navigation Bar -->
   <nav id="navbar">
     <div class="navbar">
       <div class="logo">
@@ -27,7 +27,6 @@
         <li><a href="/">Home</a></li>
         <li><a href="/about">About Us</a></li>
         
-        <!-- Dropdown Menu Contents -->
         <li class="dropdown">
           <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
           <ul class="dropdown-content">
@@ -44,7 +43,7 @@
     </div>
   </nav>
 
-  <!-- Tombol Kembali ke Programs -->
+  <!-- Back Link -->
   <div class="back-link-wrapper" style="padding-top: 8rem;">
     <a href="/programs" class="btn-back">
       <i class="fas fa-arrow-left"></i> Back to Programs
@@ -60,40 +59,25 @@
   <!-- Event 1: May — The Cornerstone -->
   <section class="event-section">
     <div class="content-box">
-      <!-- Container Gambar (Slidepost The Cornerstone) -->
-      <div class="image-container" style="padding: 0;"> 
-        <div class="slidepost-container">
-          <div class="slidepost-track" id="cornerstoneTrack">
-            
-            <!-- Gambar kedua sebelumnya ditukar menjadi posisi pertama -->
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/cornerstone/Copy%20of%20DSC02731.JPG" alt="The Cornerstone Team">
-            </div>
-            
-            <!-- Gambar pertama sebelumnya ditukar menjadi posisi kedua -->
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/cornerstone/20260509_130250%20(1).jpg" alt="The Cornerstone Activities">
-            </div>
+      <!-- Slidepost Gallery for The Cornerstone -->
+      <div class="image-container slider-container">
+        <div class="slider-track">
+          <img src="attached_assets/programs_slide/cornerstone/Copy%20of%20DSC02731.JPG" alt="The Cornerstone Team">
+          <img src="attached_assets/programs_slide/cornerstone/20260509_130250%20(1).jpg" alt="The Cornerstone Activities">
+          <img src="attached_assets/programs_slide/cornerstone/Copy%20of%20DSC03182%20(1).JPG" alt="The Cornerstone Exhibition">
+        </div>
 
-            <!-- Gambar ketiga tetap di posisi ketiga -->
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/cornerstone/Copy%20of%20DSC03182%20(1).JPG" alt="The Cornerstone Exhibition">
-            </div>
+        <button class="slider-btn prev-btn" aria-label="Previous slide">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-btn next-btn" aria-label="Next slide">
+          <i class="fas fa-chevron-right"></i>
+        </button>
 
-          </div>
-
-          <button class="slidepost-btn slidepost-prev" onclick="moveSlide(-1, 'cornerstoneTrack')">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-          <button class="slidepost-btn slidepost-next" onclick="moveSlide(1, 'cornerstoneTrack')">
-            <i class="fas fa-chevron-right"></i>
-          </button>
-
-          <div class="slidepost-indicators" id="cornerstoneIndicators">
-            <span class="dot active" onclick="setSlide(0, 'cornerstoneTrack')"></span>
-            <span class="dot" onclick="setSlide(1, 'cornerstoneTrack')"></span>
-            <span class="dot" onclick="setSlide(2, 'cornerstoneTrack')"></span>
-          </div>
+        <div class="slider-dots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
         </div>
       </div>
 
@@ -121,53 +105,34 @@
         <p>We shared our experience in promoting UCO collection and circular economy practices while learning from other youth-led initiatives. The summit allowed us to expand our reach, exchange ideas, and inspire greater youth participation in responsible waste management and environmental action.</p>
       </div>
 
-      <!-- Container Gambar (Slidepost IGYLS) -->
-      <div class="image-container" style="padding: 0;"> 
-        <div class="slidepost-container">
-          <div class="slidepost-track" id="igylsTrack">
-            
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/IGYLS/DSCF1708%20(1).jpg" alt="IGYLS Slide 1">
-            </div>
-            
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/IGYLS/DSCF2342.jpg" alt="IGYLS Slide 2">
-            </div>
+      <!-- Slidepost Gallery for IGYLS -->
+      <div class="image-container slider-container">
+        <div class="slider-track">
+          <img src="attached_assets/programs_slide/IGYLS/DSCF1708%20(1).jpg" alt="IGYLS Slide 1">
+          <img src="attached_assets/programs_slide/IGYLS/DSCF2342.jpg" alt="IGYLS Slide 2">
+          <img src="attached_assets/programs_slide/IGYLS/ULL00453.JPG" alt="IGYLS Slide 3">
+          <img src="attached_assets/programs_slide/IGYLS/ULL01327.JPG" alt="IGYLS Slide 4">
+          <img src="attached_assets/programs_slide/IGYLS/ULL01535.JPG" alt="IGYLS Slide 5">
+        </div>
 
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/IGYLS/ULL00453.JPG" alt="IGYLS Slide 3">
-            </div>
+        <button class="slider-btn prev-btn" aria-label="Previous slide">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-btn next-btn" aria-label="Next slide">
+          <i class="fas fa-chevron-right"></i>
+        </button>
 
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/IGYLS/ULL01327.JPG" alt="IGYLS Slide 4">
-            </div>
-
-            <div class="slidepost-slide">
-              <img src="attached_assets/programs_slide/IGYLS/ULL01535.JPG" alt="IGYLS Slide 5">
-            </div>
-
-          </div>
-
-          <button class="slidepost-btn slidepost-prev" onclick="moveSlide(-1, 'igylsTrack')">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-          <button class="slidepost-btn slidepost-next" onclick="moveSlide(1, 'igylsTrack')">
-            <i class="fas fa-chevron-right"></i>
-          </button>
-
-          <div class="slidepost-indicators" id="igylsIndicators">
-            <span class="dot active" onclick="setSlide(0, 'igylsTrack')"></span>
-            <span class="dot" onclick="setSlide(1, 'igylsTrack')"></span>
-            <span class="dot" onclick="setSlide(2, 'igylsTrack')"></span>
-            <span class="dot" onclick="setSlide(3, 'igylsTrack')"></span>
-            <span class="dot" onclick="setSlide(4, 'igylsTrack')"></span>
-          </div>
+        <div class="slider-dots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+          <span class="dot" data-index="4"></span>
         </div>
       </div>
     </div>
   </section>
 
   <script src="script.js"></script>
-  
 </body>
 </html>
