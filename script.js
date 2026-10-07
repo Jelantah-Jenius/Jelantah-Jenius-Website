@@ -343,3 +343,85 @@ function initImageSliders() {
 document.addEventListener('DOMContentLoaded', () => {
   initImageSliders();
 });
+
+/* --- HOMEPAGE PROCESS INTERACTIVE RIPPLE --- */
+function initOilRipple() {
+  const processSection = document.getElementById('processSection');
+  if (!processSection) return;
+
+  let throttleTimer;
+  const throttleDelay = 40;
+
+  processSection.addEventListener('mousemove', (e) => {
+    if (throttleTimer) return;
+    throttleTimer = setTimeout(() => {
+      createRipple(e);
+      throttleTimer = null;
+    }, throttleDelay);
+  });
+
+  function createRipple(e) {
+    const rect = processSection.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const ripple = document.createElement('span');
+    ripple.classList.add('oil-ripple');
+
+    const size = Math.random() * 60 + 40;
+    ripple.style.width = `${size}px`;
+    ripple.style.height = `${size}px`;
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+
+    processSection.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 800);
+  }
+}
+
+/* --- HOMEPAGE COUNTER ANIMATION --- */
+function initStatsCounter() {
+  const statsSection = document.getElementById("statsSection");
+  const counterElement = document.getElementById("counterNumber");
+  const descElement = document.getElementById("statsDesc");
+  if (!statsSection || !counterElement || !descElement) return;
+
+  let hasAnimated = false;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !hasAnimated) {
+        hasAnimated = true;
+
+        const targetNumber = 168701;
+        let currentNumber = 0;
+        const duration = 2000;
+        const steps = 50;
+        const increment = targetNumber / steps;
+        const intervalTime = duration / steps;
+
+        const timer = setInterval(() => {
+          currentNumber += increment;
+          if (currentNumber >= targetNumber) {
+            currentNumber = targetNumber;
+            clearInterval(timer);
+            descElement.classList.add("show");
+          }
+          counterElement.textContent = Math.floor(currentNumber).toLocaleString('en-US');
+        }, intervalTime);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(statsSection);
+}
+
+// Call inside DOMContentLoaded block
+document.addEventListener('DOMContentLoaded', () => {
+  initImageSliders();
+  initOilRipple();
+  initStatsCounter();
+});
