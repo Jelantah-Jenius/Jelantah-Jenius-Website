@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* --- REUSABLE IMAGE SLIDER --- */
+/* --- REUSABLE IMAGE & MEDIA SLIDER --- */
 function initImageSliders() {
   const sliders = document.querySelectorAll('.slider-container');
 
@@ -258,7 +258,8 @@ function initImageSliders() {
     const track = container.querySelector('.slider-track');
     if (!track) return;
 
-    const slides = track.querySelectorAll('img');
+    // Use track.children to support both images and videos/divs
+    const slides = track.children;
     const nextBtn = container.querySelector('.next-btn');
     const prevBtn = container.querySelector('.prev-btn');
     const dots = container.querySelectorAll('.dot');
@@ -271,10 +272,20 @@ function initImageSliders() {
 
     function updateSlider() {
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      
+      // Update dot active states
       dots.forEach((dot) => dot.classList.remove('active'));
       if (dots[currentIndex]) {
         dots[currentIndex].classList.add('active');
       }
+
+      // Pause videos on hidden slides
+      Array.from(slides).forEach((slide, index) => {
+        const video = slide.querySelector('video') || (slide.tagName === 'VIDEO' ? slide : null);
+        if (video && index !== currentIndex) {
+          video.pause();
+        }
+      });
     }
 
     function nextSlide() {
@@ -288,15 +299,27 @@ function initImageSliders() {
     }
 
     function startAutoSlide() {
+      stopAutoSlide();
       slideInterval = setInterval(nextSlide, 4000);
     }
 
     function stopAutoSlide() {
-      clearInterval(slideInterval);
+      if (slideInterval) clearInterval(slideInterval);
     }
 
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoSlide();
+      });
+    }
+    
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoSlide();
+      });
+    }
 
     dots.forEach((dot) => {
       dot.addEventListener('click', (e) => {
@@ -304,11 +327,11 @@ function initImageSliders() {
         if (!isNaN(index)) {
           currentIndex = index;
           updateSlider();
+          startAutoSlide();
         }
       });
     });
 
-    // Pause auto-slide when hovering over the image slider
     container.addEventListener('mouseenter', stopAutoSlide);
     container.addEventListener('mouseleave', startAutoSlide);
 
