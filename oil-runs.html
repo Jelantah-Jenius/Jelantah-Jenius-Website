@@ -10,157 +10,6 @@
   <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/oil-runs" />
-  <style>
-    /* --- CSS UNTUK MENU DROPDOWN --- */
-    .menu li.dropdown {
-      position: relative;
-    }
-    
-    .menu li.dropdown .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #ffffff;
-      min-width: 160px;
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
-      border-radius: 10px;
-      z-index: 100;
-      padding: 0.5rem 0;
-      list-style: none;
-      overflow: hidden;
-    }
-    
-    .menu li.dropdown:hover .dropdown-content,
-    .menu li.dropdown:focus-within .dropdown-content {
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li {
-      margin: 0;
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li a {
-      color: var(--primary, #4a541b);
-      padding: 12px 20px;
-      text-decoration: none;
-      display: block;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .menu li.dropdown .dropdown-content li a:hover {
-      background-color: #f7d36a;
-      color: #000;
-      transform: none; 
-    }
-
-    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
-    @media (max-width: 768px) {
-      .menu li.dropdown .dropdown-content {
-        position: static;
-        box-shadow: none;
-        background-color: transparent;
-        padding-left: 1.5rem;
-        display: none;
-      }
-      .menu li.dropdown:hover .dropdown-content,
-      .menu li.dropdown:focus-within .dropdown-content {
-        display: block;
-      }
-      .menu li.dropdown .dropdown-content li a {
-        padding: 8px 20px;
-        color: #ffffff;
-      }
-      .menu li.dropdown .dropdown-content li a:hover {
-        background-color: rgba(255,255,255,0.1);
-        color: #f7d36a;
-      }
-    }
-    /* --------------------------------- */
-
-    .oil-hero {
-      padding: 10rem 2rem 3rem 2rem;
-      text-align: center;
-    }
-    .oil-hero h1 {
-      font-size: 3rem;
-      color: var(--primary);
-      font-weight: 800;
-      margin-bottom: 1rem;
-    }
-    .oil-hero p {
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-    .event-section {
-      padding: 4rem 0;
-    }
-    .event-badge {
-      display: inline-block;
-      background: rgba(74, 84, 27, 0.1);
-      color: var(--primary);
-      padding: 0.5rem 1.2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-    }
-    .back-link-wrapper {
-      max-width: 1200px;
-      margin: 2rem auto 0 auto;
-      padding: 0 2rem;
-    }
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 700;
-      transition: var(--transition);
-    }
-    .btn-back:hover {
-      color: var(--secondary);
-      transform: translateX(-5px);
-    }
-
-    /* Style untuk Call to Action di bawah */
-    .oil-cta-section {
-      text-align: center;
-      padding: 2rem 2rem 8rem 2rem;
-    }
-    .oil-cta-text {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-    }
-    .btn-contact-us {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--primary);
-      color: #ffffff;
-      padding: 1rem 2.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 1.1rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
-    }
-    .btn-contact-us:hover {
-      background: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-    }
-  </style>
 </head>
 <body>
 
@@ -195,7 +44,7 @@
     </div>
   </nav>
 
-  <!-- Tombol Kembali ke Programs -->
+  <!-- Back Link to Programs -->
   <div class="back-link-wrapper" style="padding-top: 8rem;">
     <a href="/programs" class="btn-back">
       <i class="fas fa-arrow-left"></i> Back to Programs
@@ -211,9 +60,8 @@
   <!-- Overview Section -->
   <section class="event-section" style="padding-bottom: 3rem;">
     <div class="content-box">
-      <div class="image-container">
-        <!-- Anda dapat mengganti gambar ini dengan dokumentasi yang sesuai jika sudah ada -->
-        <img src="attached_assets/20260924_142736(0).jpg" alt="Oil Runs Initiative">
+      <div class="image-container" style="width: 380px; height: 480px; flex-shrink: 0; overflow: hidden; border-radius: 20px; margin: 0 auto;">
+        <img src="attached_assets/20260924_142736(0).jpg" alt="Oil Runs Initiative" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div class="text-container">
         <span class="event-badge">B2B Partnerships</span>
@@ -224,7 +72,7 @@
     </div>
   </section>
 
-  <!-- Bagian Tambahan Call to Action (CTA) di Paling Bawah -->
+  <!-- Call to Action (CTA) Section -->
   <section class="oil-cta-section">
     <p class="oil-cta-text">Got a business? Join us and get exciting incentives!</p>
     <a href="/contact" class="btn-contact-us">
