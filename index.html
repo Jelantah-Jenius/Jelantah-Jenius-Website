@@ -10,163 +10,9 @@
   <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
   <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
   <link rel="canonical" href="https://jelantahjenius.com/" />
-  
-  <style>
-    @keyframes flowOil {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
-    }
-    
-    .liquid-oil-bar {
-      background: linear-gradient(
-        90deg, 
-        var(--secondary) 0%, 
-        #ffe066 25%, 
-        var(--secondary) 50%, 
-        #ffe066 75%, 
-        var(--secondary) 100%
-      );
-      background-size: 200% auto;
-      animation: flowOil 4s linear infinite;
-      border-radius: 30px;
-      height: 100%;
-      width: 0%;
-      transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: inset 0 -4px 8px rgba(0,0,0,0.15), inset 0 4px 8px rgba(255,255,255,0.4);
-    }
-
-    /* CSS Animasi Deskripsi Muncul dari Bawah */
-    .stats-desc {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-
-    .stats-desc.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* --- CSS UNTUK MENU DROPDOWN --- */
-    .menu li.dropdown {
-      position: relative;
-    }
-    
-    .menu li.dropdown .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #ffffff;
-      min-width: 160px;
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
-      border-radius: 10px;
-      z-index: 100;
-      padding: 0.5rem 0;
-      list-style: none;
-      overflow: hidden;
-    }
-    
-    .menu li.dropdown:hover .dropdown-content,
-    .menu li.dropdown:focus-within .dropdown-content {
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li {
-      margin: 0;
-      display: block;
-    }
-    
-    .menu li.dropdown .dropdown-content li a {
-      color: var(--primary, #4a541b);
-      padding: 12px 20px;
-      text-decoration: none;
-      display: block;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .menu li.dropdown .dropdown-content li a:hover {
-      background-color: #f7d36a;
-      color: #000;
-      transform: none; 
-    }
-
-    /* Penyesuaian Dropdown untuk versi Mobile (HP) */
-    @media (max-width: 768px) {
-      .menu li.dropdown .dropdown-content {
-        position: static;
-        box-shadow: none;
-        background-color: transparent;
-        padding-left: 1.5rem;
-        display: none;
-      }
-      .menu li.dropdown:hover .dropdown-content,
-      .menu li.dropdown:focus-within .dropdown-content {
-        display: block;
-      }
-      .menu li.dropdown .dropdown-content li a {
-        padding: 8px 20px;
-        color: #ffffff;
-      }
-      .menu li.dropdown .dropdown-content li a:hover {
-        background-color: rgba(255,255,255,0.1);
-        color: #f7d36a;
-      }
-    }
-    
-    /* --- CSS EFEK BACKGROUND MINYAK INTERAKTIF --- */
-    .process-section {
-      position: relative;
-      overflow: hidden; /* Mencegah efek jejak keluar dari batas */
-      background: linear-gradient(135deg, #f7d36a 0%, #e6b800 50%, #d4a017 100%);
-      background-size: 200% 200%;
-      animation: gentleOilFlow 8s ease infinite;
-    }
-
-    @keyframes gentleOilFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .process-section .content-wrapper {
-      position: relative;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.85); /* Box semi-transparan */
-      border-radius: 30px;
-      padding: 4rem 2rem;
-      margin: 0 auto;
-      max-width: 1000px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    /* Ini desain tetesan jejak minyaknya */
-    .oil-ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(247, 211, 106, 0.5) 40%, rgba(212, 160, 23, 0) 80%);
-      transform: translate(-50%, -50%) scale(0);
-      pointer-events: none; /* Kursor tembus ke elemen di bawahnya */
-      animation: rippleEffect 0.8s ease-out forwards;
-      z-index: 9999; /* Muncul di atas semua elemen agar terlihat jelas */
-    }
-
-    @keyframes rippleEffect {
-      0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(3);
-        opacity: 0;
-      }
-    }
-  </style>
 </head>
 <body>
+  <!-- Navigation Bar -->
   <nav id="navbar">
     <div class="navbar">
       <div class="logo">
@@ -208,10 +54,10 @@
       </div>
     </div>
     
-    <!-- Video Otomatis di Kanan Atas -->
-    <div style="position: absolute; right: 8%; top: 54%; transform: translateY(-50%); width: 560px; height: auto; border-radius: 24px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.2); z-index: 1;" class="hero-image-desktop">
+    <!-- Hero Video Desktop -->
+    <div class="hero-image-desktop" style="position: absolute; right: 8%; top: 54%; transform: translateY(-50%); width: 560px; height: auto; border-radius: 24px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.2); z-index: 1;">
       <video autoplay muted loop playsinline style="width: 100%; height: auto; object-fit: contain; pointer-events: none; display: block;">
-        <source src="attached_assets/Jelantah Jenius Recap Vid (1).mp4">
+        <source src="attached_assets/Jelantah Jenius Recap Vid (1).mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
@@ -243,7 +89,7 @@
     </div>
   </section>
 
-  <!-- People Reached Section dengan Scroll Trigger -->
+  <!-- People Reached Section with Scroll Trigger -->
   <section id="statsSection" class="stats-banner" style="background: var(--primary); color: white; padding: 5rem 2rem; text-align: center;">
     <div class="content" style="max-width: 900px; margin: 0 auto;">
       <h2 style="font-size: 4rem; font-weight: 900; color: var(--secondary); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -2px;">
@@ -256,7 +102,7 @@
     </div>
   </section>
 
-  <!-- The Process Image Section (Sekarang Interaktif) -->
+  <!-- Process Section -->
   <section class="process-section" id="processSection" style="padding: 5rem 1rem;">
     <div class="content-wrapper">
       <div class="section-label" style="text-align: center; margin-bottom: 3rem;">
@@ -271,93 +117,7 @@
 
   <script src="script.js"></script>
 
-  <!-- Script Interaktif Background Minyak -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const processSection = document.getElementById('processSection');
-      if (!processSection) return; // Mencegah error jika elemen tidak ditemukan
-      
-      let throttleTimer;
-      const throttleDelay = 40; // Kecepatan render gelombang
-
-      processSection.addEventListener('mousemove', (e) => {
-        if (throttleTimer) return;
-        throttleTimer = setTimeout(() => {
-          createRipple(e);
-          throttleTimer = null;
-        }, throttleDelay);
-      });
-
-      function createRipple(e) {
-        // Dapatkan posisi section relatif terhadap layar
-        const rect = processSection.getBoundingClientRect();
-        
-        // Kalkulasi letak kursor yang akurat
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Buat elemen visual jejak minyak
-        const ripple = document.createElement('span');
-        ripple.classList.add('oil-ripple');
-        
-        // Ukuran gelombang bervariasi (40px - 100px)
-        const size = Math.random() * 60 + 40;
-        ripple.style.width = `${size}px`;
-        ripple.style.height = `${size}px`;
-        
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-
-        processSection.appendChild(ripple);
-
-        // Hapus dari HTML setelah animasi memudar selesai
-        setTimeout(() => {
-          ripple.remove();
-        }, 800);
-      }
-    });
-  </script>
-
-  <!-- Script Intersection Observer (People Reached) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const statsSection = document.getElementById("statsSection");
-      const counterElement = document.getElementById("counterNumber");
-      const descElement = document.getElementById("statsDesc");
-      if(!statsSection || !counterElement || !descElement) return;
-      
-      let hasAnimated = false;
-
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !hasAnimated) {
-            hasAnimated = true;
-            
-            const targetNumber = 168701;
-            let currentNumber = 0;
-            const duration = 2000;
-            const steps = 50; 
-            const increment = targetNumber / steps;
-            const intervalTime = duration / steps;
-
-            const timer = setInterval(() => {
-              currentNumber += increment;
-              if (currentNumber >= targetNumber) {
-                currentNumber = targetNumber;
-                clearInterval(timer);
-                descElement.classList.add("show");
-              }
-              counterElement.textContent = Math.floor(currentNumber).toLocaleString('en-US');
-            }, intervalTime);
-          }
-        });
-      }, { threshold: 0.3 });
-
-      observer.observe(statsSection);
-    });
-  </script>
-
-  <!-- Firebase Integration -->
+  <!-- Firebase Live Data Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
