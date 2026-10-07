@@ -1726,6 +1726,7 @@ body.programs-page {
 .berbagi-hero,
 .fundraising-hero,
 .xchange-hero,
+.xpand-hero,
 .program-hero {
   padding: 10rem 2rem 3rem 2rem;
   text-align: center;
@@ -1734,6 +1735,7 @@ body.programs-page {
 .berbagi-hero h1,
 .fundraising-hero h1,
 .xchange-hero h1,
+.xpand-hero h1,
 .program-hero h1 {
   font-size: 3rem;
   color: var(--primary);
@@ -1744,6 +1746,7 @@ body.programs-page {
 .berbagi-hero p,
 .fundraising-hero p,
 .xchange-hero p,
+.xpand-hero p,
 .program-hero p {
   color: var(--text-muted);
   max-width: 600px;
