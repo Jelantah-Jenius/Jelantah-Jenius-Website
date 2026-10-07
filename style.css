@@ -2002,6 +2002,69 @@ body.programs-page {
   }
 }
 
+/* --- VIDEOS & UTILITY PAGE STYLES --- */
+body.page-videos {
+  background: linear-gradient(
+    to top, 
+    #4a541b 0%,     
+    #f7d36a 50%,    
+    #ffffff 100%    
+  );
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 1rem 4rem 1rem;
+}
+
+.coming-soon-box {
+  max-width: 600px;
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: #fffde7;
+  border: 2px solid #f0e68c;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.coming-soon-box i {
+  font-size: 4rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+.coming-soon-box h1 {
+  color: var(--primary);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.coming-soon-box p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .coming-soon-box {
+    padding: 3rem 1.5rem;
+  }
+
+  .coming-soon-box h1 {
+    font-size: 2rem;
+  }
+}
+
 /* fix overflowing issues*/
 html, body {
   width: 100%;
