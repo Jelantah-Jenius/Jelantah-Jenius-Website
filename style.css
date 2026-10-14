@@ -486,7 +486,7 @@ nav.sticky {
 }
 
 .modern-form textarea {
-  resize: vertical;
+  resize: none;
 }
 
 .submit-btn {
