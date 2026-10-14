@@ -2212,30 +2212,35 @@ body.page-videos {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   padding-top: 1rem;
   border-top: 1px solid #f0f0f0;
 }
 
 .product-price {
-  font-size: 1.2rem;
+  font-size: 1.1rem; 
   font-weight: 800;
   color: var(--primary);
+  white-space: nowrap; 
 }
 
 /* WhatsApp Buy Button */
 .btn-buy-wa {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   background-color: #25d366;
   color: #ffffff;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 30px;
   text-decoration: none;
   font-weight: 700;
   font-size: 0.85rem;
+  white-space: nowrap; 
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(37, 211, 102, 0.25);
+  flex-shrink: 0; 
 }
 
 .btn-buy-wa:hover {
