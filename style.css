@@ -485,6 +485,10 @@ nav.sticky {
   outline: none;
 }
 
+.modern-form textarea {
+  resize: vertical;
+}
+
 .submit-btn {
   width: 100%;
   padding: 1.5rem;
