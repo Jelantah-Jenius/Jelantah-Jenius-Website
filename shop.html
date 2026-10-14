@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - Jelantah Jenius</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" href="attached_assets/JJ%20Logo.png" sizes="any">
+  <link rel="icon" href="attached_assets/JJ%20Logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="attached_assets/JJ%20Logo.png">
+  <link rel="canonical" href="https://jelantahjenius.com/shop" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <div class="navbar">
+      <div class="logo">
+        <a href="/">
+          <img src="attached_assets/JJ New Logo w Shadow.png" alt="Logo">
+          Jelantah Jenius
+        </a>
+      </div>
+      <ul class="menu">
+        <div class="cancel-btn"><i class="fas fa-times"></i></div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Contents <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+          <ul class="dropdown-content">
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/videos">Videos</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="/programs">Programs</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/shop" class="active">Shop</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="menu-btn"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="shop-hero">
+    <h1>Our Products</h1>
+    <p>Every candle purchased helps divert used cooking oil from water systems and transforms waste into warmth.</p>
+  </section>
+
+  <!-- Shop Catalog Container -->
+  <main class="shop-section">
+    <!-- Category Filter Tabs -->
+    <div class="shop-filters">
+      <button class="filter-btn active" data-filter="all">All Items</button>
+      <button class="filter-btn" data-filter="scented">Scented Candles</button>
+      <button class="filter-btn" data-filter="decorative">Decorative</button>
+      <button class="filter-btn" data-filter="bundle">Bundles & Sets</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid">
+
+      <!-- Product Card 1 -->
+      <article class="product-card" data-category="scented">
+        <div class="product-badge">Best Seller</div>
+        <div class="product-image">
+          <img src="attached_assets/JJ Logo.png" alt="Lavender Dreams Candle">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Scented Candle</span>
+          <h3 class="product-title">Lavender Calm Candle</h3>
+          <p class="product-description">Handpoured 100% upcycled UCO candle scented with soothing French lavender essential oils.</p>
+          <div class="product-footer">
+            <span class="product-price">Rp 35.000</span>
+            <a href="https://wa.me/6281234567890?text=Halo%20Jelantah%20Jenius!%20Saya%20tertarik%20untuk%20membeli%20Lavender%20Calm%20Candle." target="_blank" rel="noopener" class="btn-buy-wa">
+              <i class="fab fa-whatsapp"></i> Buy via WA
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product Card 2 -->
+      <article class="product-card" data-category="scented">
+        <div class="product-image">
+          <img src="attached_assets/JJ Logo.png" alt="Lemongrass Fresh Candle">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Scented Candle</span>
+          <h3 class="product-title">Lemongrass Zest Candle</h3>
+          <p class="product-description">Refreshing citrus profile crafted to eliminate room odors while repelling insects naturally.</p>
+          <div class="product-footer">
+            <span class="product-price">Rp 35.000</span>
+            <a href="https://wa.me/6281234567890?text=Halo%20Jelantah%20Jenius!%20Saya%20tertarik%20untuk%20membeli%20Lemongrass%20Zest%20Candle." target="_blank" rel="noopener" class="btn-buy-wa">
+              <i class="fab fa-whatsapp"></i> Buy via WA
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product Card 3 -->
+      <article class="product-card" data-category="decorative">
+        <div class="product-image">
+          <img src="attached_assets/JJ Logo.png" alt="Aesthetic Botanical Pillar Candle">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Decorative</span>
+          <h3 class="product-title">Botanical Pillar Candle</h3>
+          <p class="product-description">Embedded with real dried flowers and natural botanicals. Perfect for desk or dining decor.</p>
+          <div class="product-footer">
+            <span class="product-price">Rp 45.000</span>
+            <a href="https://wa.me/6281234567890?text=Halo%20Jelantah%20Jenius!%20Saya%20tertarik%20untuk%20membeli%20Botanical%20Pillar%20Candle." target="_blank" rel="noopener" class="btn-buy-wa">
+              <i class="fab fa-whatsapp"></i> Buy via WA
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product Card 4 -->
+      <article class="product-card" data-category="bundle">
+        <div class="product-badge">Eco Saver</div>
+        <div class="product-image">
+          <img src="attached_assets/JJ Logo.png" alt="Trio Starter Pack">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Bundle</span>
+          <h3 class="product-title">Trio Gift Set Pack</h3>
+          <p class="product-description">Includes 3 mini scented candles packaged in eco-friendly recycled cardboard packaging.</p>
+          <div class="product-footer">
+            <span class="product-price">Rp 95.000</span>
+            <a href="https://wa.me/6281234567890?text=Halo%20Jelantah%20Jenius!%20Saya%20tertarik%20untuk%20membeli%20Trio%20Gift%20Set%20Pack." target="_blank" rel="noopener" class="btn-buy-wa">
+              <i class="fab fa-whatsapp"></i> Buy via WA
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
