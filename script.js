@@ -425,3 +425,35 @@ document.addEventListener('DOMContentLoaded', () => {
   initOilRipple();
   initStatsCounter();
 });
+
+/* --- SHOP CATEGORY FILTER --- */
+function initShopFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const productCards = document.querySelectorAll('.product-card');
+
+  if (filterBtns.length === 0 || productCards.length === 0) return;
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      productCards.forEach((card) => {
+        const cardCategory = card.getAttribute('data-category');
+        if (filterValue === 'all' || cardCategory === filterValue) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+// Call inside DOMContentLoaded block
+document.addEventListener('DOMContentLoaded', () => {
+  initImageSliders();
+  initShopFilters();
+});
